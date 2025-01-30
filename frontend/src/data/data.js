@@ -10,7 +10,7 @@ export const plantas = [
         luz: "Luz indirecta brillante.",
         stock: 15,
         categorias: ["Tropical", "Interior"],
-        url: "../../public/images/monstera_deliciosa.jpg"
+        url: "/images/monstera_deliciosa.jpg"
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ export const plantas = [
         luz: "Luz brillante indirecta.",
         stock: 8,
         categorias: ["Interior", "Decorativa"],
-        url: "../../public/images/ficus_lyrata.jpg"
+        url: "/images/ficus_lyrata.jpg"
     },
     {
         id: 3,
@@ -36,7 +36,7 @@ export const plantas = [
         luz: "Luz indirecta baja a media.",
         stock: 20,
         categorias: ["Resistente", "Purificadora de aire"],
-        url: "../../public/images/sansevieria.jpg"
+        url: "/images/sansevieria.jpg"
     },
     {
         id: 4,
@@ -49,7 +49,7 @@ export const plantas = [
         luz: "Luz baja a media.",
         stock: 25,
         categorias: ["Colgante", "Interior"],
-        url: "../../public/images/pothos_dorado.jpg"
+        url: "/images/pothos_dorado.jpg"
     },
     {
         id: 5,
@@ -62,7 +62,7 @@ export const plantas = [
         luz: "Luz indirecta media.",
         stock: 10,
         categorias: ["Tropical", "Decorativa"],
-        url: "../../public/images/calathea_medallion.jpg"
+        url: "/images/calathea_medallion.jpg"
     },
     {
         id: 6,
@@ -75,7 +75,7 @@ export const plantas = [
         luz: "Luz indirecta media.",
         stock: 18,
         categorias: ["Purificadora de aire", "Colgante"],
-        url: "../../public/images/helecho_boston.jpg"
+        url: "/images/helecho_boston.jpg"
     },
     {
         id: 7,
@@ -88,7 +88,7 @@ export const plantas = [
         luz: "Luz directa.",
         stock: 30,
         categorias: ["Resistente", "Exterior"],
-        url: "../../public/images/cactus_echinopsis.jpg"
+        url: "/images/cactus_echinopsis.jpg"
     },
     {
         id: 8,
@@ -101,6 +101,6 @@ export const plantas = [
         luz: "Luz brillante indirecta.",
         stock: 12,
         categorias: ["Tropical", "Decorativa"],
-        url: "../../public/images/palma_areca.jpg"
+        url: "/images/palma_areca.jpg"
     }
 ];
