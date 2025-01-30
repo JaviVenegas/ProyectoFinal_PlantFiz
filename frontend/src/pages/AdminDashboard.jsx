@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export const AdminDashboard = () => {
   return (
-    <Container fluid>
+    <Container className="my-4 p-4">
       <Row>
         <Col md={3}>
           <Sidebar/>

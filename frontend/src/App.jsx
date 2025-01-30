@@ -1,18 +1,16 @@
 import './App.css'
-import { Footer } from './components/Footer'
-import { LoginForm } from './components/LoginForm'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { RouterManager } from './router/RouterManager'
 import { CustomNav } from './components/Nav'
-import { RegisterForm } from './components/RegisterForm'
-import { AdminDashboard } from './pages/AdminDashboard'
+// Aqui se declaran los import como el del carrito de compras
 
 function App() {
   return (
     <>
-      {/* <CustomNav /> */}
-      {/* <RegisterForm />
-      <LoginForm /> */}
-      <AdminDashboard />
-      {/* <Footer /> */}
+      <Router>
+        <CustomNav />
+        <RouterManager />
+      </Router>    
     </>
   )
 }
