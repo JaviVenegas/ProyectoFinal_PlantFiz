@@ -1,0 +1,9 @@
+.nav-link-custom {
+    color: #000; /* Color inicial */
+    text-decoration: none; /* Quita el subrayado */
+    transition: color 0.3s ease; /* Transición suave */
+  }
+  
+  .nav-link-custom:hover {
+    color: #007bff; /* Color al hacer hover */
+  }
