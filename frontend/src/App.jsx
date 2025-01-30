@@ -8,10 +8,7 @@ function App() {
   return (
     <>
       <CustomNav />
-      
-      {/* <RegisterForm /> */}
-      <LoginForm />
-
+      <RegisterForm />
       <Footer />
     </>
   )
