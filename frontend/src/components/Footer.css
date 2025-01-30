@@ -1,0 +1,28 @@
+/* Footer.css */
+.footer {
+    background-color: #ddd;
+    padding: 20px 0;
+    margin-top: 40px;
+  }
+  
+  .contact-info p {
+    margin-bottom: 5px; 
+  }
+  
+  .contact-info p:last-child {
+    margin-bottom: 0; 
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .copyright {
+    margin: 0;
+  }
