@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ export const LoginForm = () => {
           </Form>
           <p className="mt-3 text-center">
             ¿No tienes cuenta? <br></br>
-            <a href="#">Registrate</a>
+            <Link to="/register">Registrate</Link>
           </p>
         </Container>
       </Container>

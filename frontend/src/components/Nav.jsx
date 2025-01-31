@@ -8,15 +8,16 @@ export const CustomNav = () => {
       {/* Barra superior */}
       <Navbar expand="lg" className="border-bottom" style={{ background: "#ddd" }}>
         <Container>
-          <Nav className="">
-          <Nav.Link href="#" className="nav-link-custom">Home</Nav.Link>
-          <Nav.Link href="#" className="nav-link-custom">Catálogo</Nav.Link>
+          <Nav>
+          <Nav.Link href="/" className="nav-link-custom">Home</Nav.Link>
+          <Nav.Link href="/catalog" className="nav-link-custom">Catálogo</Nav.Link>
           </Nav>
           <div className="d-flex w-25">
             <Button 
               variant="outline-primary" 
               className="w-100 border-end" 
               style={{ borderRadius: '0' }}
+              href="/login"
             >
               Login
             </Button>
@@ -24,6 +25,7 @@ export const CustomNav = () => {
               variant="outline-secondary" 
               className="w-100" 
               style={{ borderRadius: '0' }}
+              href="/cart"
             >
               <div className="d-flex align-items-center justify-content-evenly">
               Cart
