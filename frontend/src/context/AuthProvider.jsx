@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
 	const handleSession = (session) => {
 		setSession(session);
-		// handleSetStorageSession(session);
+		handleSetStorageSession(session);
 	};
 
 	useEffect(() => {

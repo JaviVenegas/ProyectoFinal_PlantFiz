@@ -33,7 +33,7 @@ export const RouterManager = () => {
         <Route
           path="/admin/*"
           element={
-            <AuthGuard isAllow={session?.role === "admin"} redirectTo="/login">
+            <AuthGuard isAllow={session?.rol === "admin"} redirectTo="/login">
               <AdminLayout />
             </AuthGuard>
           }

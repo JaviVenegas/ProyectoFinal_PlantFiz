@@ -1,31 +1,38 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
+  const { handleSession } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
+    token: "token de prueba",
     rut: "",
     nombre: "",
     apellido: "",
     correo: "",
     contrasena: "",
-    rol: "user",
+    rol: "admin",
     telefono: "",
   });
 
-  const handleChange = (e) => {
+  const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    handleSession(formData);
+    navigate("/admin/");
   };
 
   return (
     <>
       <Container className="p-5 my-5">
         <Container className="d-flex flex-column align-items-center">
-        <h2 className="mb-4">Registro de Usuario</h2>
+          <h2 className="mb-4">Registro de Usuario</h2>
         </Container>
         <Container className="d-flex flex-column align-items-center mt-4">
           <Form
@@ -38,7 +45,7 @@ export const RegisterForm = () => {
                 type="text"
                 name="rut"
                 value={formData.rut}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -49,7 +56,7 @@ export const RegisterForm = () => {
                 type="text"
                 name="nombre"
                 value={formData.nombre}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -60,7 +67,7 @@ export const RegisterForm = () => {
                 type="text"
                 name="apellido"
                 value={formData.apellido}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -71,7 +78,7 @@ export const RegisterForm = () => {
                 type="email"
                 name="correo"
                 value={formData.correo}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -82,7 +89,7 @@ export const RegisterForm = () => {
                 type="password"
                 name="contrasena"
                 value={formData.contrasena}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -93,7 +100,7 @@ export const RegisterForm = () => {
                 type="text"
                 name="telefono"
                 value={formData.telefono}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>

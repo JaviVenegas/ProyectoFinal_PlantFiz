@@ -20,7 +20,7 @@ export const AdminLayout = () => {
           {/* Encabezado del dashboard */}
           <div className="admin-header mb-4">
             <h1>Panel de Administración</h1>
-            <p className="text-muted">Bienvenido, {session?.name}</p>
+            <p className="text-muted">Bienvenido, {session?.nombre}</p>
           </div>
 
           {/* Contenido dinámico de las rutas hijas */}
