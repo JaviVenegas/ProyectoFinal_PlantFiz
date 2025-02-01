@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Card, Form, Button, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const ProductCard = ({ product }) => {
+const ProductCard = ({ product }) => {
   const [stock, setStock] = useState(product.stock);
   const [isAvailable, setIsAvailable] = useState(product.available);
 
   return (
     <Container className="my-3 p-3">
+      <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around'> Carrito de compras</h1>
       <Card className="d-flex flex-row align-items-center">
         <Card.Img
           variant="left"
@@ -19,7 +20,7 @@ export const ProductCard = ({ product }) => {
         <Card.Body className="d-flex justify-content-around align-items-stretch">
           <Col md={3}>
             <Card.Title>{product.nombre_planta}</Card.Title>
-            <Card.Text>Stock actual: {product.stock} unidades</Card.Text>
+            <Card.Text>Stock actual: {stock} unidades</Card.Text>
           </Col>
 
           <Col md={3}>
@@ -52,3 +53,5 @@ export const ProductCard = ({ product }) => {
     </Container>
   );
 };
+
+export default ProductCard;

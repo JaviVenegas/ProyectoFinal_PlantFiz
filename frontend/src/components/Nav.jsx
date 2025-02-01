@@ -1,8 +1,11 @@
 import { Navbar, Nav, Container, Button, Form } from "react-bootstrap";
+import { useContext } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import './Nav.css';
+import { CartContext } from "../context/CartContext";
 
-export const CustomNav = () => {
+const CustomNav = () => {
+  const { total } = useContext(CartContext);
   return (
     <>
       {/* Barra superior */}
@@ -29,7 +32,7 @@ export const CustomNav = () => {
             >
               <div className="d-flex align-items-center justify-content-evenly">
               Cart
-              <FaShoppingCart />
+              <FaShoppingCart /> Cart: ${total.toLocaleString()}
               </div>
             </Button>
           </div>
@@ -72,3 +75,7 @@ export const CustomNav = () => {
     </>
   );
 };
+
+
+
+export default CustomNav

@@ -11,6 +11,15 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { NotFound } from "../pages/NotFound";
 // import { AdminProductsPage } from "../pages/AdminProductsPage";
 // import { AdminUsersPage } from "../pages/AdminUsersPage";
+import { NotFound } from "../pages/NotFound";
+import Nav from "../components/Nav";
+import Catalogo from "../pages/Catalogo";
+import Cart from "../pages/Cart";
+import DetalleProducto from "../pages/DetalleProducto";
+import Footer  from "../components/Footer";
+import { CartProvider } from "../context/CartContext";
+// import { AdminProductsPage } from "../pages/AdminProductsPage";
+// import { AdminUsersPage } from "../pages/AdminUsersPage";
 
 export const RouterManager = () => {
   const { session } = useAuth();
@@ -21,13 +30,15 @@ export const RouterManager = () => {
         {/* Rutas Públicas con MainLayout */}
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/catalog" element={<ProductCatalog />} /> {/* Aquí va el catalogo de producto del usuario(cliente) */}
-          <Route path="/product/:id" element={<ProductDetails />} /> {/* Aquí va el detalle de producto del usuario(cliente) */}
+          <Route path="/catalog" element={<Catalogo />} /> {/* Aquí va el catalogo de producto del usuario(cliente) */}
+          <Route path="/product/:id" element={<DetalleProducto />} /> {/* Aquí va el detalle de producto del usuario(cliente) */}
+          <Route path="/cart" element={<Cart/>} />
         </Route>
 
         {/* Rutas de Autenticación sin Layout */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        
 
         {/* Rutas de Admin (Protegidas) con AdminLayout */}
         <Route
@@ -49,3 +60,8 @@ export const RouterManager = () => {
     </Router>
   );
 };
+
+
+
+
+
