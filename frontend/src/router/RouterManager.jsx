@@ -6,8 +6,8 @@ import { useAuth } from "../hooks/useAuth";
 import { Home } from "../pages/Home";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
-import { NotFound } from "../pages/NotFound";
-import { NotFound } from "../pages/NotFound";
+import { ProductCatalog } from "../pages/ProductCatalog";
+import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
 //Estos imports serán reemplazados por el Product Detail hecho por Javi
 //import { ProductDetails } from "../pages/ProductDetails"; 
