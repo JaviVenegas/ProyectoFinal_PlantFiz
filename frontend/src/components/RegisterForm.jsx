@@ -24,8 +24,14 @@ export const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
     handleSession(formData);
-    navigate("/admin/");
+
+    if (formData.rol === "user") {
+      navigate("/catalog");
+    } else {
+      navigate("/admin");
+    }
   };
 
   return (

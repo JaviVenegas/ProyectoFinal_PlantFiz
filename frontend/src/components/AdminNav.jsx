@@ -1,19 +1,15 @@
-import { Link } from 'react-router-dom';
+import { ListGroup } from "react-bootstrap";
 
 export const AdminNav = () => {
   return (
-    <nav className="admin-sidebar">
-      <ul>
-        <li>
-          <Link to="/admin">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/admin/products">Productos</Link>
-        </li>
-        <li>
-          <Link to="/admin/users">Usuarios</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className="sidebar p-4 border-end">
+      <ListGroup variant="flush">
+        <ListGroup.Item action>Mi cuenta</ListGroup.Item>
+        <ListGroup.Item action>Productos</ListGroup.Item>
+        <ListGroup.Item action>Usuarios</ListGroup.Item>
+        <ListGroup.Item action>Pedidos</ListGroup.Item>
+        <ListGroup.Item action>Cerrar Sesi&oacute;n</ListGroup.Item>
+      </ListGroup>
+    </div>
   );
 };

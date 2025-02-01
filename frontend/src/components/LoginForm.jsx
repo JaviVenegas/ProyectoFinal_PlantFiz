@@ -20,6 +20,10 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = (e) => {
+    if (session == null) {
+      return alert("Usuario no registrado");
+    }
+
     e.preventDefault();
 
     if (
@@ -75,7 +79,6 @@ export const LoginForm = () => {
                 Credenciales incorrectas, intente de nuevo
               </Container>
             )}
-
           </Form>
           <p className="mt-3 text-center">
             ¿No tienes cuenta? <br></br>
