@@ -10,7 +10,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { NotFound } from "../pages/NotFound";
 // import { AdminProductsPage } from "../pages/AdminProductsPage";
-// import { AdminUsersPage } from "../pages/AdminUsersPage";
+// import { AdminUsersPage } from "../pages/AdminUsersPage"; Comentario de algo
 import { NotFound } from "../pages/NotFound";
 import Nav from "../components/Nav";
 import Catalogo from "../pages/Catalogo";
