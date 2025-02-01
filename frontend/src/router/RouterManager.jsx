@@ -4,22 +4,15 @@ import { MainLayout } from "../layouts/MainLayout";
 import { AdminLayout } from "../layouts/AdminLayout";
 import { useAuth } from "../hooks/useAuth";
 import { Home } from "../pages/Home";
-import { ProductCatalog } from "../pages/ProductCatalog";
-import { ProductDetails } from "../pages/ProductDetails";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
-import { NotFound } from "../pages/NotFound";
-// import { AdminProductsPage } from "../pages/AdminProductsPage";
-// import { AdminUsersPage } from "../pages/AdminUsersPage"; Comentario de algo
-import { NotFound } from "../pages/NotFound";
-import Nav from "../components/Nav";
+import { AdminCatalogPage } from "../pages/AdminCatalogPage";
+import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
+//Estos imports serán reemplazados por el Product Detail hecho por Javi
+//import { ProductDetails } from "../pages/ProductDetails"; 
 import Cart from "../pages/Cart";
 import DetalleProducto from "../pages/DetalleProducto";
-import Footer  from "../components/Footer";
-import { CartProvider } from "../context/CartContext";
-// import { AdminProductsPage } from "../pages/AdminProductsPage";
-// import { AdminUsersPage } from "../pages/AdminUsersPage";
 
 export const RouterManager = () => {
   const { session } = useAuth();
@@ -49,7 +42,7 @@ export const RouterManager = () => {
             </AuthGuard>
           }
         >
-          <Route index element={<ProductCatalog />} />
+          <Route index element={<AdminCatalogPage />} />
           <Route path="products" element={'<AdminProductsPage />'} />
           <Route path="users" element={'<AdminUsersPage />'} />
         </Route>

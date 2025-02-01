@@ -1,13 +1,13 @@
 import { plantas } from "../data/data.js";
-import { ProductCard } from "../components/ProductCard";
+import { AdminCatalog } from "../components/AdminCatalog";
 import { Container } from "react-bootstrap";
 
-export const ProductCatalog = () => {
+export const AdminCatalogPage = () => {
   return (
     <Container className="mt-4">
       <h2>Editar catálogo</h2>
       {plantas.map((planta) => (
-        <ProductCard key={planta.id} product={planta} />
+        <AdminCatalog key={planta.id} product={planta} />
       ))}
     </Container>
   );

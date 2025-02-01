@@ -1,14 +1,15 @@
 import "./App.css";
 import { AuthProvider } from "./context/AuthProvider";
+import CartProvider from "./context/CartContext";
 import { RouterManager } from "./router/RouterManager";
-
-// Aqui se declaran los import como el del carrito de compras
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <RouterManager />
+        <CartProvider>
+          <RouterManager />
+        </CartProvider>
       </AuthProvider>
     </>
   );
