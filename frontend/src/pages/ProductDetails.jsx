@@ -1,11 +1,12 @@
-// frontend/src/pages/ProductDetails.jsx
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { plantas } from '../data/data'; // Asegúrate de importar tu data.js correctamente
+import { useParams, Link } from "react-router-dom";
+import { plantas } from "../data/data.js";
 
 export const ProductDetails = () => {
   const { id } = useParams(); // Obtiene el id de la URL
-  const planta = plantas.find((p) => p.id === id); // Busca la planta en el array
+
+  const planta = plantas.find((p) => p.id === parseInt(id)); // Busca la planta en el array
+
+  console.log(planta);
 
   // Si no se encuentra la planta, muestra un mensaje
   if (!planta) {
@@ -29,8 +30,8 @@ export const ProductDetails = () => {
       {/* Contenedor principal */}
       <div className="details-container">
         {/* Imagen de la planta */}
-        <img 
-          src={`/images/${planta.url}`} // Asume que las imágenes están en public/images
+        <img
+          src={planta.url} // Asume que las imágenes están en public/images
           alt={planta.nombre_planta}
           className="plant-image"
         />
@@ -40,7 +41,7 @@ export const ProductDetails = () => {
           <h1>{planta.nombre_planta}</h1>
           <p className="price">Precio: ${planta.precio}</p>
           <p className="origin">Origen: {planta.origen}</p>
-          
+
           <div className="description">
             <h3>Descripción</h3>
             <p>{planta.descripcion_hojas}</p>
@@ -48,9 +49,15 @@ export const ProductDetails = () => {
 
           <div className="care-info">
             <h3>Cuidados</h3>
-            <p><strong>Ambiente ideal:</strong> {planta.ideal_para}</p>
-            <p><strong>Riego:</strong> {planta.agua}</p>
-            <p><strong>Luz:</strong> {planta.luz}</p>
+            <p>
+              <strong>Ambiente ideal:</strong> {planta.ideal_para}
+            </p>
+            <p>
+              <strong>Riego:</strong> {planta.agua}
+            </p>
+            <p>
+              <strong>Luz:</strong> {planta.luz}
+            </p>
           </div>
 
           <div className="categories">

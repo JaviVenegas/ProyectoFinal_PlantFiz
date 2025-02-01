@@ -1,19 +1,40 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
+  const { handleSession, session } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     correo: "",
     contrasena: "",
   });
 
-  const handleChange = (e) => {
+  const [error, setError] = useState(false);
+
+  const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
+    if (session == null) {
+      return alert("Usuario no registrado");
+    }
+
     e.preventDefault();
-    console.log(formData);
+
+    if (
+      session.correo === formData.correo &&
+      session.contrasena === formData.contrasena
+    ) {
+      handleSession(session);
+      navigate("/admin");
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -33,7 +54,7 @@ export const LoginForm = () => {
                 type="email"
                 name="correo"
                 value={formData.correo}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -44,7 +65,7 @@ export const LoginForm = () => {
                 type="password"
                 name="contrasena"
                 value={formData.contrasena}
-                onChange={handleChange}
+                onChange={handleOnChange}
                 required
               />
             </Form.Group>
@@ -52,10 +73,16 @@ export const LoginForm = () => {
             <Button variant="dark" type="submit" className="w-100">
               Entrar
             </Button>
+
+            {error && (
+              <Container className="alert alert-danger mt-3" role="alert">
+                Credenciales incorrectas, intente de nuevo
+              </Container>
+            )}
           </Form>
           <p className="mt-3 text-center">
             ¿No tienes cuenta? <br></br>
-            <a href="#">Registrate</a>
+            <Link to="/register">Registrate</Link>
           </p>
         </Container>
       </Container>

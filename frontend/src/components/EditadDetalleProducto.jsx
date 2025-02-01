@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card, Form, Button, Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const [stock, setStock] = useState(product.stock);
@@ -33,9 +34,9 @@ const ProductCard = ({ product }) => {
               />
             </Form.Group>
 
-            <a href="#" className="text-primary">
-              Editar datos producto
-            </a>
+            <Link
+              to={`/product/${product.id}`}
+              className="text-primary">Editar datos producto</Link>
           </Col>
         </Card.Body>
 
