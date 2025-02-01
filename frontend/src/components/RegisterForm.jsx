@@ -14,7 +14,7 @@ export const RegisterForm = () => {
     apellido: "",
     correo: "",
     contrasena: "",
-    rol: "admin",
+    rol: "user",
     telefono: "",
   });
 
