@@ -1,14 +1,13 @@
-import './App.css'
-import { RouterManager } from './router/RouterManager'
-
-// Aqui se declaran los import como el del carrito de compras
+import './App.css';
+import { RouterManager }  from './router/RouterManager';
 
 function App() {
   return (
     <>
-     <RouterManager />
+      <RouterManager />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
