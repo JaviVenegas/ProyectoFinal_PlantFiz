@@ -1,5 +1,5 @@
 import { plantas } from "../data/data.js";
-import { AdminCatalog } from "../components/AdminCatalog";
+import { AdminCatalog } from "../components/AdminCatalog.jsx";
 import { Container } from "react-bootstrap";
 
 export const AdminCatalogPage = () => {

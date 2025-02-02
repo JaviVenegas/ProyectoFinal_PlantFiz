@@ -13,7 +13,7 @@ const CustomNav = () => {
         <Container>
           <Nav>
           <Nav.Link href="/" className="nav-link-custom">Home</Nav.Link>
-          <Nav.Link href="/catalog" className="nav-link-custom">Catálogo</Nav.Link>
+          <Nav.Link href="/catalogo" className="nav-link-custom">Catálogo</Nav.Link>
           </Nav>
           <div className="d-flex w-25">
             <Button 

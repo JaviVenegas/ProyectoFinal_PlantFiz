@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
             </Form.Group>
 
             <Link
-              to={`/product/${product.id}`}
+              to={`/AdminEditarInfoProducto/${product.id}`}
               className="text-primary">Editar datos producto</Link>
           </Col>
         </Card.Body>
