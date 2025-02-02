@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom'; // Importamos useParams
 import { plantas } from '../data/data'; // Importamos el array de plantas
 import ElijePlantfiz from "../components/ElijePlantfiz";
+import Header from "../components/Header";
 import { Col, Row, Container, Button, Badge } from 'react-bootstrap'; // Importamos Badge para el contador
 import { IoSunnyOutline } from "react-icons/io5";
 import { IoWaterOutline } from "react-icons/io5";
@@ -9,6 +10,7 @@ import { LuHouse } from "react-icons/lu";
 import { BiWorld } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
 import { CartContext } from "../context/CartContext"; // Asegúrate de que el nombre sea CartContext
+
 
 const DetalleProducto = () => {
   const { id } = useParams(); // Obtenemos el id de la URL
@@ -31,11 +33,11 @@ const DetalleProducto = () => {
     <div>
       <Container>
         <Row> 
-          <Col md={6} className="mt-4">
+          <Col md={6} className="mt-4 me-5">
             <img src={planta.url || 'default-image.jpg'} alt={planta.nombre_planta} className="card-img-top rounded mx-auto d-block" />
             <div className="mt-2"> <FaHeart className="fs-4" /> Guardar como favorito</div>
           </Col>
-          <Col md={4}>
+          <Col md={5} className = "d-flex justify-content-end ms-4">
             <div className="card-body">
               <h2 className="card-title text-start text-uppercase mt-4 mb-4 fs-4">{planta.nombre_planta}</h2>
               <h2 className="card-title text-start text-lowcase mt-4 mb-4 fs-6"> <BiWorld className=" fs-4" /> Origen: {planta.origen}</h2>
@@ -61,14 +63,15 @@ const DetalleProducto = () => {
                 </div>
               </Button>
 
+
               <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingOne">
-                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                       <LuHouse className="me-2 fs-4" />Ideal para 
                     </button>
                   </h2>
-                  <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div className="accordion-body">
                       <strong>{planta.ideal_para}</strong>  
                     </div>
@@ -102,6 +105,7 @@ const DetalleProducto = () => {
             </div>
           </Col>
         </Row>
+        <Header/>
         <ElijePlantfiz />
       </Container>
     </div>

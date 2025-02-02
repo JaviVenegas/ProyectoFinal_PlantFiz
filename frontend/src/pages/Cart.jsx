@@ -1,45 +1,71 @@
-import React from 'react';
-import ProductCard from "../components/ProductCardCart";
+import React, { useContext } from 'react';
 import { Card, Form, Button, Col, Container, Row } from "react-bootstrap";
-import { plantas } from '../data/data'; // Asegúrate de que plantas es un array de objetos
+import { IoTrashOutline } from "react-icons/io5";
 import { CartContext } from "../context/CartContext";
-import { useContext } from 'react';
 
 const Cart = () => {
-        const { cart, total } = useContext(CartContext); 
-  return (
-    <div >
-        <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'> Carrito de compras</h1>
-        <Container className= "d-flex flex-row align-items-center justify-content-between my5">
-        <h5 className="ms-5"> PRODUCTO</h5>
-        <h5> PRECIO</h5>
-        <h5 className="me-5"> CANT.</h5>
-        </Container>
-      {/* Iterar sobre el array plantas */}
-      {plantas.map((planta) => (
-          // Crear un ProductCard por cada planta
-          <ProductCard 
-          key={planta.id} 
-          product={{
-              id: planta.id,
-              precio: planta.precio,
-              nombre_planta: planta.nombre_planta,
-              stock: planta.stock,
-              url: planta.url
-            }} 
-            />
-        ))}
-        <h2 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'> Total carrito de compras</h2>
-        <Row className="d-flex flex-row mt-3 align-items-left align-self-sm justify-content-around my-5'"> 
-            <Col md={6} className='fw-bold me-1 align-items-left '>Total </Col>
-            <Col md={6}> ${total.toLocaleString()}  </Col>
-        </Row>
-        <Button variant="outline-secondary" className="w-100  mx-5" style={{ borderRadius: '0' }}>
-                <div className="d-flex align-items-center justify-content-evenly"> Finalizar Compra</div>
-              </Button>
+    const { cart, addCart, removeFromCart, deletePlanta, total } = useContext(CartContext);
 
-    </div>
-  );
-}
+    return (
+        <Container className="my-5">
+            <h1 className="text-center my-4">Carrito de Compras</h1>
+
+            {cart.length === 0 ? (
+                <p className="text-center">El carrito está vacío.</p>
+            ) : (
+                <>
+                    {/* Info del carrito */}
+                    <Container className="d-flex flex-column my-3">
+                        {cart.map((item) => (
+                            <Card key={item.id} className="d-flex flex-row align-items-center my-3 p-3 shadow-sm">
+                                <Card.Img
+                                    src={item.url}
+                                    alt={item.nombre_planta}
+                                    className="me-3"
+                                    style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                                />
+
+                                <Card.Body className="d-flex justify-content-between align-items-center w-100">
+                                    <Col md={3}>
+                                        <Card.Title>{item.nombre_planta}</Card.Title>
+                                        <div className="d-flex align-items-center">
+                                            <IoTrashOutline />
+                                            <Button 
+                                                variant="outline-danger" 
+                                                className="ms-2"
+                                                onClick={() => deletePlanta(item.id)}
+                                            >
+                                                QUITAR
+                                            </Button>
+                                        </div>
+                                    </Col>
+
+                                    <Col md={3} className="text-center">
+                                        <strong className="fs-6">${item.precio.toLocaleString()}</strong>
+                                    </Col>
+
+                                    <Col md={3} className="d-flex align-items-center justify-content-between">
+                                        <Button variant="outline-secondary" onClick={() => removeFromCart(item.id)}>-</Button>
+                                        <Form.Group className="mx-2">
+                                            <strong className="fs-6">{item.count}</strong>
+                                        </Form.Group>
+                                        <Button variant="outline-secondary" onClick={() => addCart({ ...item, count: 1 })}>+</Button>
+                                    </Col>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </Container>
+
+                    {/* Total y Finalizar Compra */}
+                    <div className="text-center my-4">
+                        <h5>Total: ${total.toLocaleString()}</h5>
+                        <Button variant="success" className="mt-3">Finalizar Compra</Button>
+                    </div>
+                </> 
+            )}
+        </Container>
+    );
+};
 
 export default Cart;
+

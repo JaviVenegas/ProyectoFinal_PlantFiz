@@ -9,6 +9,9 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { AdminCatalogPage } from "../pages/AdminCatalogPage";
 import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
+import AdminEditarInfoProducto from "../pages/AdminEditarInfoProducto";
+
+
 //Estos imports serán reemplazados por el Product Detail hecho por Javi
 //import { ProductDetails } from "../pages/ProductDetails"; 
 import Cart from "../pages/Cart";
@@ -23,9 +26,10 @@ export const RouterManager = () => {
         {/* Rutas Públicas con MainLayout */}
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/catalog" element={<Catalogo />} /> {/* Aquí va el catalogo de producto del usuario(cliente) */}
-          <Route path="/product/:id" element={<DetalleProducto />} /> {/* Aquí va el detalle de producto del usuario(cliente) */}
+          <Route path="/catalogo" element={<Catalogo />} /> {/* Aquí va el catalogo de producto del usuario(cliente) */}
+          <Route path="/DetalleProducto/:id" element={<DetalleProducto />} /> {/* Aquí va el detalle de producto del usuario(cliente) */}
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/AdminEditarInfoProducto/:id" element={<AdminEditarInfoProducto />} /> {/* PARA PROBAR DISEÑO LA DEJE AQUI) */}
         </Route>
 
         {/* Rutas de Autenticación sin Layout */}

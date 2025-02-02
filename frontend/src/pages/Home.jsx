@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import ElijePlantfiz from "../components/ElijePlantfiz";
 
 export const Home = () => {
   return (
     <div>
-      <h1>Bienvenido a PlantFiz 🌿</h1>
-      <Link to="/catalog">Ver catálogo</Link>
+      <Header/>
+      <ElijePlantfiz />
+
     </div>
   );
 };
