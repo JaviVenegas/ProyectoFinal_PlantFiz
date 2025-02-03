@@ -29,7 +29,7 @@ export const RouterManager = () => {
           <Route path="/catalogo" element={<Catalogo />} /> {/* Aquí va el catalogo de producto del usuario(cliente) */}
           <Route path="/DetalleProducto/:id" element={<DetalleProducto />} /> {/* Aquí va el detalle de producto del usuario(cliente) */}
           <Route path="/cart" element={<Cart/>} />
-          <Route path="/AdminEditarInfoProducto/:id" element={<AdminEditarInfoProducto />} /> {/* PARA PROBAR DISEÑO LA DEJE AQUI) */}
+          
         </Route>
 
         {/* Rutas de Autenticación sin Layout */}
@@ -49,6 +49,8 @@ export const RouterManager = () => {
           <Route index element={<AdminCatalogPage />} />
           <Route path="products" element={'<AdminProductsPage />'} />
           <Route path="users" element={'<AdminUsersPage />'} />
+          
+          <Route path="AdminEditarInfoProducto/:id" element={<AdminEditarInfoProducto />} /> 
         </Route>
 
         {/* Ruta 404 */}

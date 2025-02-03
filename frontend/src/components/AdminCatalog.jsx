@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState,} from "react";
 import { Card, Form, Button, Col, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const AdminCatalog = ({ product }) => {
   const [stock, setStock] = useState(product.stock);
   const [isAvailable, setIsAvailable] = useState(product.available);
 
+  const navigate = useNavigate();
   return (
     <Container className="my-3 p-3">
       <Card className="d-flex flex-row align-items-center">
@@ -33,9 +34,18 @@ export const AdminCatalog = ({ product }) => {
               />
             </Form.Group>
 
-            <Link
-              to={`/product/${product.id}`}
-              className="text-primary">Editar datos producto</Link>
+            <Button
+              variant="primary"
+              onClick={() => navigate(`/admin/AdminEditarInfoProducto/${product.id}`)}
+            >
+              Editar datos producto
+            </Button>
+
+            {/* <Link
+              to={`/admin/AdminEditarInfoProducto/${product.id}`}
+              className="text-primary">Editar datos producto</Link> */}
+
+
           </Col>
         </Card.Body>
 
