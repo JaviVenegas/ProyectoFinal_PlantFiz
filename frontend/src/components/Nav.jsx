@@ -1,38 +1,78 @@
 import { Navbar, Nav, Container, Button, Form } from "react-bootstrap";
-import { useContext } from 'react';
+import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import './Nav.css';
+import "./Nav.css";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const CustomNav = () => {
+  //const { handleSession } = useContext(AuthContext);// Que pasa si en vez el useAuth, usamos AuthContext
+  const { session, handleLogout } = useAuth();
+  const navigate = useNavigate();
   const { total } = useContext(CartContext);
+
+  const handleClickLogout = () => {
+    handleLogout();
+    navigate("/");
+  };
+
+  const handleClickLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       {/* Barra superior */}
-      <Navbar expand="lg" className="border-bottom" style={{ background: "#ddd" }}>
+      <Navbar
+        expand="lg"
+        className="border-bottom"
+        style={{ background: "#ddd" }}
+      >
         <Container>
           <Nav>
-          <Nav.Link href="/" className="nav-link-custom">Home</Nav.Link>
-          <Nav.Link href="/catalog" className="nav-link-custom">Catálogo</Nav.Link>
+            <Nav.Link href="/" className="nav-link-custom">
+              Home
+            </Nav.Link>
+            <Nav.Link href="/catalog" className="nav-link-custom">
+              Catálogo
+            </Nav.Link>
           </Nav>
           <div className="d-flex w-25">
-            <Button 
-              variant="outline-primary" 
-              className="w-100 border-end" 
-              style={{ borderRadius: '0' }}
-              href="/login"
-            >
-              Login
-            </Button>
-            <Button 
-              variant="outline-secondary" 
-              className="w-100" 
-              style={{ borderRadius: '0' }}
+            {session ? (
+              <Button
+                variant="outline-primary"
+                className="w-100 border-end"
+                style={{ borderRadius: "0" }}
+                href="/login"
+                onClick={handleClickLogout}
+              >
+                {" "}
+                Cerrar sesion{" "}
+              </Button>
+            ) : (
+              <Button
+                variant="outline-primary"
+                className="w-100 border-end"
+                style={{ borderRadius: "0" }}
+                href="/login"
+                onClick={handleClickLogin}
+              >
+                {" "}
+                Iniciar sesion{" "}
+              </Button>
+            )}
+
+            <Button
+              variant="outline-secondary"
+              className="w-100"
+              style={{ borderRadius: "0" }}
               href="/cart"
             >
               <div className="d-flex align-items-center justify-content-evenly">
-              Cart
-              <FaShoppingCart /> Cart: ${total.toLocaleString()}
+                Cart
+                <FaShoppingCart /> Cart: ${total.toLocaleString()}
               </div>
             </Button>
           </div>
@@ -76,6 +116,4 @@ const CustomNav = () => {
   );
 };
 
-
-
-export default CustomNav
+export default CustomNav;

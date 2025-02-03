@@ -14,7 +14,7 @@ export const RegisterForm = () => {
     apellido: "",
     correo: "",
     contrasena: "",
-    rol: "admin",
+    rol: "user",
     telefono: "",
   });
 
@@ -24,7 +24,6 @@ export const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     handleSession(formData);
 
     if (formData.rol === "user") {
