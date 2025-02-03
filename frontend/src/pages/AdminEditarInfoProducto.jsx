@@ -1,53 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { plantas } from '../data/data';
-import { AdminNav } from '../components/AdminNav';
 
-const AdminEditarInfoProducto = ({ productoId }) => {
-  // Establecer estado para los campos
+const AdminEditarInfoProducto = () => {
+  const { id } = useParams(); // Obtiene el ID desde la URL
+  const plantaEncontrada = plantas.find(p => p.id === parseInt(id)); // Busca la planta
+
+  // Estado para manejar los datos del formulario
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [origen, setOrigen] = useState('');
-  const [descripcion_hoja, setDescripcion_hoja] = useState('');
-  const [ideal_para, setIdealPara] = useState('');
+  const [descripcionHoja, setDescripcionHoja] = useState('');
+  const [idealPara, setIdealPara] = useState('');
   const [agua, setAgua] = useState('');
   const [luz, setLuz] = useState('');
   const [stock, setStock] = useState('');
-  const [categorias, setcategorias] = useState('');
-  const [url, setUrl] = useState('');  // URL de la imagen
+  const [categorias, setCategorias] = useState('');
+  const [url, setUrl] = useState('');
 
-  // Establecer los valores del formulario
+  // Cargar los datos de la planta al estado
   useEffect(() => {
-    const producto = plantas.find(planta => planta.id === productoId);
-    if (producto) {
-      setNombre(producto.nombre_planta);
-      setPrecio(producto.precio);
-      setOrigen(producto.origen);
-      setDescripcion_hoja(producto.descripcion_hoja);
-      setIdealPara(producto.ideal_para);
-      setAgua(producto.agua);
-      setLuz(producto.luz);
-      setStock(producto.stock);
-      setcategorias(producto.categorias);
-      setUrl(producto.Url);  // Asegúrate de que 'Url' sea la propiedad correcta de la imagen
+    if (plantaEncontrada) {
+      setNombre(plantaEncontrada.nombre_planta);
+      setPrecio(plantaEncontrada.precio);
+      setOrigen(plantaEncontrada.origen);
+      setDescripcionHoja(plantaEncontrada.descripcion_hoja);
+      setIdealPara(plantaEncontrada.ideal_para);
+      setAgua(plantaEncontrada.agua);
+      setLuz(plantaEncontrada.luz);
+      setStock(plantaEncontrada.stock);
+      setCategorias(plantaEncontrada.categorias);
+      setUrl(plantaEncontrada.url); // Asegúrate de que el nombre de la propiedad es correcto
     }
-  }, [productoId]);
+  }, [id, plantaEncontrada]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para guardar los cambios
-    console.log('Datos guardados', { nombre, precio, origen });
+    console.log('Datos guardados:', { nombre, precio, origen });
   };
 
   return (
     <> 
-      <AdminNav />
-      <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'> Editar datos del producto</h1>
+      <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'>Editar datos del producto</h1>
       <Form onSubmit={handleSubmit}>
-    
         <Row>
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Nombre Producto:</Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Nombre Producto:</Form.Label>
             <Form.Control
               type="text"
               value={nombre}
@@ -55,8 +54,9 @@ const AdminEditarInfoProducto = ({ productoId }) => {
               placeholder="Nombre de la planta"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Precio: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Precio:</Form.Label>
             <Form.Control
               type="number"
               value={precio}
@@ -64,8 +64,9 @@ const AdminEditarInfoProducto = ({ productoId }) => {
               placeholder="Precio de la planta"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Origen: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Origen:</Form.Label>
             <Form.Control
               type="text"
               value={origen}
@@ -73,65 +74,72 @@ const AdminEditarInfoProducto = ({ productoId }) => {
               placeholder="Origen de la planta"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Descripcion Hojas: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
             <Form.Control
               type="text"
-              value={descripcion_hoja}
-              onChange={(e) => setDescripcion_hoja(e.target.value)}
-              placeholder="Descripcion Hojas"
+              value={descripcionHoja}
+              onChange={(e) => setDescripcionHoja(e.target.value)}
+              placeholder="Descripción Hojas"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Ideal para: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Ideal para:</Form.Label>
             <Form.Control
               type="text"
-              value={ideal_para}
+              value={idealPara}
               onChange={(e) => setIdealPara(e.target.value)}
               placeholder="Ideal para"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Agua: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Agua:</Form.Label>
             <Form.Control
               type="text"
               value={agua}
               onChange={(e) => setAgua(e.target.value)}
-              placeholder="agua"
+              placeholder="Agua"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Luz: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Luz:</Form.Label>
             <Form.Control
               type="text"
               value={luz}
               onChange={(e) => setLuz(e.target.value)}
-              placeholder="luz"
+              placeholder="Luz"
             />
           </Col>
+          
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Stock: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Stock:</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               value={stock}
-              onChange={(e) => setOrigen(e.target.value)}
+              onChange={(e) => setStock(e.target.value)}
               placeholder="Stock"
             />
           </Col>
+
           <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}> Categorias: </Form.Label>
+            <Form.Label className="mb-0" style={{ width: '150px' }}>Categorías:</Form.Label>
             <Form.Control
               type="text"
               value={categorias}
-              onChange={(e) => setcategorias(e.target.value)}
-              placeholder="Categorias"
+              onChange={(e) => setCategorias(e.target.value)}
+              placeholder="Categorías"
             />
           </Col>
         </Row>
-        <Button variant="outline-secondary" className="jd-flex mt-3 align-items-center align-self-sm-stretch justify-content-center mx-5" style={{ borderRadius: '0' }} type="submit">
+
+        <Button variant="outline-secondary" className="mt-3" style={{ borderRadius: '0' }} type="submit">
           Guardar
         </Button>
-        <Button variant="outline-secondary" className="jd-flex mt-3 align-items-center align-self-sm-stretch justify-content-center mx-5" style={{ borderRadius: '0' }} type="button">
+        <Button variant="outline-secondary" className="mt-3 ms-3" style={{ borderRadius: '0' }} type="button">
           Cancelar
         </Button>
       </Form>
