@@ -16,6 +16,10 @@ export const useStorage = () => {
 		}
 	};
 
+	const handleRemoveStorageSession = () => {
+		localStorage.removeItem('USER_SESSION');
+	};
+
 	useEffect(() => {
 		if (encrypted) {
 			localStorage.setItem('USER_SESSION', encrypted);
@@ -25,6 +29,7 @@ export const useStorage = () => {
 	return {
 		handleSetStorageSession,
 		handleGetStorageSession,
-		decrypted,
+		handleRemoveStorageSession,
+		decrypted
 	};
 };

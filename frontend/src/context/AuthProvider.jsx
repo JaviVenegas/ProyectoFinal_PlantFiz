@@ -4,7 +4,7 @@ import { useStorage } from '../hooks/useStorage';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const { handleSetStorageSession, handleGetStorageSession, decrypted } =
+	const { handleSetStorageSession, handleGetStorageSession, handleRemoveStorageSession, decrypted } =
 		useStorage();
 
 	const [session, setSession] = useState(null);
@@ -13,6 +13,11 @@ export const AuthProvider = ({ children }) => {
 	const handleSession = (session) => {
 		setSession(session);
 		handleSetStorageSession(session);
+	};
+
+	const handleLogout = () => {
+		setSession(null);
+		handleRemoveStorageSession(); 
 	};
 
 	useEffect(() => {
@@ -30,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 	}, [decrypted]);
 
 	return (
-		<AuthContext.Provider value={{ session, isLoading, handleSession }}>
+		<AuthContext.Provider value={{ session, isLoading, handleSession, handleLogout }}>
 			{children}
 		</AuthContext.Provider>
 	);
