@@ -33,13 +33,14 @@ const handleRegister = async (req, res, next) => {
 
         console.log(req.body);
 
-
         const userExists = await Auth.authenticateUser(email);
         if (userExists) {
             res.status(409).json({ msg: 'El correo ya ha sido registrado' });
-        }
+        } 
+        // AQUI LO QUE ESTA PASANDO ES QUE EL CORREO YA ESTA REGISTRADO Y NO SABE COMO MANEJAR EL ERROR EL ERRORS MESSAGE NO ESTA DEFINIDO
 
         const hashedPassword = await bcrypt.hash(contrasena, 10);
+
 
         const newUser = await Auth.createUser(rut, nombre, apellido, correo, hashedPassword, rol, telefono);
         res.status(201).send({ message: 'Usuario creado con éxito', user: newUser });
