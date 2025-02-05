@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Nav } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -114,9 +114,10 @@ export const RegisterForm = () => {
               Crear Cuenta
             </Button>
           </Form>
-          <p className="mt-3 text-center">
-            ¿Ya tienes cuenta? <br></br>
-            <Link to="/login">Iniciar sesión</Link>
+          <p className="mt-3 text-center p-3 d-flex flex-column">
+            ¿Ya tienes cuenta?{" "}
+            <Link to="/login">Iniciar sesión</Link> <br />
+            <Nav.Link href="/">Ir a la página principal</Nav.Link>
           </p>
         </Container>
       </Container>
