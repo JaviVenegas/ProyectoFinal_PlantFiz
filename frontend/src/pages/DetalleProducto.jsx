@@ -9,7 +9,7 @@ import { IoWaterOutline } from "react-icons/io5";
 import { LuHouse } from "react-icons/lu";
 import { BiWorld } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
-import { CartContext } from "../context/CartContext"; // Asegúrate de que el nombre sea CartContext
+import { CartContext } from "../context/CartContext"; 
 
 
 const DetalleProducto = () => {

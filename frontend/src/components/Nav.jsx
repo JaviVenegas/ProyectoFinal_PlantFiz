@@ -33,7 +33,7 @@ const CustomNav = () => {
             <Nav.Link href="/" className="nav-link-custom">
               Home
             </Nav.Link>
-            <Nav.Link href="/catalog" className="nav-link-custom">
+            <Nav.Link href="/catalogo" className="nav-link-custom">
               Catálogo
             </Nav.Link>
           </Nav>

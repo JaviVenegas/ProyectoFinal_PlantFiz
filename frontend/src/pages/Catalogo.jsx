@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCardGaleria from '../components/ProductCardGaleria';   // Diseño de la cards
 import { plantas } from '../data/data';  // Array de plantas
-import { Navbar, Nav, Container, Button, Form } from "react-bootstrap";
+import { Container, Button, Form } from "react-bootstrap";
 import Categorias from '../components/Categorias';
 
  const Catalogo = () => {    // como se ordenan las cards en la galeria 

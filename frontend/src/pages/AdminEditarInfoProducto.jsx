@@ -7,6 +7,7 @@ const AdminEditarInfoProducto = () => {
   const { id } = useParams(); // Obtiene el ID desde la URL
   const plantaEncontrada = plantas.find(p => p.id === parseInt(id)); // Busca la planta
 
+  
   // Estado para manejar los datos del formulario
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
@@ -31,7 +32,7 @@ const AdminEditarInfoProducto = () => {
       setLuz(plantaEncontrada.luz);
       setStock(plantaEncontrada.stock);
       setCategorias(plantaEncontrada.categorias);
-      setUrl(plantaEncontrada.url); // Asegúrate de que el nombre de la propiedad es correcto
+      setUrl(plantaEncontrada.url); 
     }
   }, [id, plantaEncontrada]);
 
