@@ -66,8 +66,7 @@ const CustomNav = () => {
               style={{ borderRadius: "0" }}
               href="/cart"
             >
-              <div className="d-flex align-items-center justify-content-evenly">
-                Cart
+              <div className="d-flex align-items-center justify-content-around">
                 <FaShoppingCart /> Cart: ${total.toLocaleString()}
               </div>
             </Button>
