@@ -1,11 +1,9 @@
+-- Active: 1729855615076@@127.0.0.1@5432@plantfiz@public
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
 -- ==================================================
 
--- Opcional: Seleccionar el esquema donde se crearán las tablas 
--- (si no se usa, las tablas van a public por defecto).
--- CREATE SCHEMA PLANTFIZ;
--- SET search_path TO PLANTFIZ;
+CREATE DATABASE plantfiz;
 
 -- ===============================
 -- 1. TABLA: usuarios
@@ -46,7 +44,7 @@ CREATE TABLE plantas (
     descripcion_hojas TEXT,
     ideal_para TEXT,
     agua VARCHAR(50),
-    luz VARCHAR(50),
+    luz VARCHAR(50)
 );
 
 -- ===============================
@@ -109,3 +107,24 @@ CREATE TABLE planta_categoria (
     CONSTRAINT fk_plantacategoria_planta FOREIGN KEY (id_planta) REFERENCES plantas (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT fk_plantacategoria_categoria FOREIGN KEY (id_categoria) REFERENCES categorias (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+-- ==================================================
+--  SCRIPT DE CREACION DE REGISTROS PARA PROBAR LA BASE DE DATOS POSTGRESQL
+-- ==================================================
+
+-- ===============================
+-- 1. TABLA: usuarios
+-- ===============================
+
+INSERT INTO usuarios (rut, nombre, apellido, correo, contrasena, rol, telefono) VALUES
+('1-9', 'Juan', 'Pérez', 'juan.perez@example.com', 'password123', 'admin', '123456789'),
+('2-7', 'María', 'González', 'maria.gonzalez@example.com', 'securepassword', 'user', '987654321'),
+('3-5', 'Carlos', 'López', 'carlos.lopez@example.com', 'mypassword', 'user', '456789123'),
+('4-3', 'Ana', 'Martínez', 'ana.martinez@example.com', 'password2023', 'user', '789123456'),
+('5-1', 'Luis', 'Hernández', 'luis.hernandez@example.com', 'adminpass', 'admin', '321654987'),
+('6-8', 'Laura', 'Díaz', 'laura.diaz@example.com', 'userpassword', 'user', '654987321'),
+('7-6', 'Pedro', 'Sánchez', 'pedro.sanchez@example.com', 'password456', 'user', '147258369'),
+('8-4', 'Carmen', 'Ramírez', 'carmen.ramirez@example.com', 'mysecurepassword', 'user', '963852741'),
+('9-2', 'José', 'Fernández', 'jose.fernandez@example.com', 'password789', 'user', '258369147'),
+('10-0', 'Marta', 'Ruiz', 'marta.ruiz@example.com', 'user2023', 'user', '369147258');
