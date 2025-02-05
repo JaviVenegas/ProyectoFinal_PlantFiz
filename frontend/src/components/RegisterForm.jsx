@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
   const { handleSession } = useAuth();
@@ -14,7 +14,7 @@ export const RegisterForm = () => {
     apellido: "",
     correo: "",
     contrasena: "",
-    rol: "user",
+    rol: "admin",
     telefono: "",
   });
 
@@ -116,7 +116,7 @@ export const RegisterForm = () => {
           </Form>
           <p className="mt-3 text-center">
             ¿Ya tienes cuenta? <br></br>
-            <a href="#">Ingresar</a>
+            <Link to="/login">Iniciar sesión</Link>
           </p>
         </Container>
       </Container>

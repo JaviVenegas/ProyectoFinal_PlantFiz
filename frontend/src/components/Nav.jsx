@@ -3,12 +3,10 @@ import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import "./Nav.css";
 import { CartContext } from "../context/CartContext";
-import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const CustomNav = () => {
-  //const { handleSession } = useContext(AuthContext);// Que pasa si en vez el useAuth, usamos AuthContext
   const { session, handleLogout } = useAuth();
   const navigate = useNavigate();
   const { total } = useContext(CartContext);
@@ -45,7 +43,6 @@ const CustomNav = () => {
                 variant="outline-primary"
                 className="w-100 border-end"
                 style={{ borderRadius: "0" }}
-                href="/login"
                 onClick={handleClickLogout}
               >
                 {" "}
@@ -56,7 +53,6 @@ const CustomNav = () => {
                 variant="outline-primary"
                 className="w-100 border-end"
                 style={{ borderRadius: "0" }}
-                href="/login"
                 onClick={handleClickLogin}
               >
                 {" "}

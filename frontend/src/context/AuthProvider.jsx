@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
 	const handleLogout = () => {
 		setSession(null);
-		handleRemoveStorageSession(); //Que pasa si aquí añado la sesión? Cual es la diferencia
+		handleRemoveStorageSession(); 
 	};
 
 	useEffect(() => {
