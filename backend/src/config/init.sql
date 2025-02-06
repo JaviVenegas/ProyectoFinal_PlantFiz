@@ -20,6 +20,8 @@ CREATE TABLE usuarios (
     telefono VARCHAR(20) NOT NULL
 );
 
+DROP TABLE usuarios;
+
 -- ===============================
 -- 2. TABLA: direcciones
 -- ===============================

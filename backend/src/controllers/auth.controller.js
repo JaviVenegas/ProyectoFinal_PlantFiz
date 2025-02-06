@@ -8,8 +8,8 @@ const handleLogin = async (req, res, next) => {
 
         const userExists = await Auth.authenticateUser(email);
         if (!userExists) {
-			res.status(404).json({ msg: 'Usuario no encontrado' });
-		}
+            res.status(404).json({ msg: 'Usuario no encontrado' });
+        }
 
         const match = await bcrypt.compare(password, userExists.password);
         if (!match) {
@@ -29,20 +29,19 @@ const handleLogin = async (req, res, next) => {
 
 const handleRegister = async (req, res, next) => {
     try {
-        const { email, rut, nombre, apellido, correo, contrasena, rol, telefono } = req.body;
+        const { rut, nombre, apellido, correo, contrasena, telefono, rol } = req.body;
 
-        console.log(req.body);
-
-        const userExists = await Auth.authenticateUser(email);
+        const userExists = await Auth.getUser(correo);
+        // esta logica tengo que revisarla porque no esta funcionando
         if (userExists) {
             res.status(409).json({ msg: 'El correo ya ha sido registrado' });
         } 
-        // AQUI LO QUE ESTA PASANDO ES QUE EL CORREO YA ESTA REGISTRADO Y NO SABE COMO MANEJAR EL ERROR EL ERRORS MESSAGE NO ESTA DEFINIDO
+        //
 
-        const hashedPassword = await bcrypt.hash(contrasena, 10);
+        // const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-
-        const newUser = await Auth.createUser(rut, nombre, apellido, correo, hashedPassword, rol, telefono);
+        
+        const newUser = await Auth.createUser(rut, nombre, apellido, correo, contrasena, telefono, rol);
         res.status(201).send({ message: 'Usuario creado con éxito', user: newUser });
 
     } catch (error) {
