@@ -31,17 +31,13 @@ const handleRegister = async (req, res, next) => {
     try {
         const { rut, nombre, apellido, correo, contrasena, telefono, rol } = req.body;
 
-        const userExists = await Auth.getUser(correo);
-        // esta logica tengo que revisarla porque no esta funcionando
-        if (userExists) {
-            res.status(409).json({ msg: 'El correo ya ha sido registrado' });
-        } 
-        //
+        const emailExists = await Auth.getUser(correo);
+        if (emailExists) {
+            res.status(409).json({ msg: 'El correo ya ha sido registrado' }); // estos errores tengo que abstraerlos
+        }
 
-        // const hashedPassword = await bcrypt.hash(contrasena, 10);
-
-        
-        const newUser = await Auth.createUser(rut, nombre, apellido, correo, contrasena, telefono, rol);
+        const hashedPassword = await bcrypt.hash(contrasena, 10);
+        const newUser = await Auth.createUser(rut, nombre, apellido, correo, hashedPassword, telefono, rol);
         res.status(201).send({ message: 'Usuario creado con éxito', user: newUser });
 
     } catch (error) {
@@ -52,8 +48,8 @@ const handleRegister = async (req, res, next) => {
 
 const handleGetUser = async (req, res, next) => {
     try {
-        const { email } = req.user; // Email extraido desde el token, hay que consologearlo para ver que data hay 
-        const user = await Auth.getUser(email);
+        const { correo } = req.user; // Email extraido desde el token, hay que consologearlo para ver que data hay 
+        const user = await Auth.getUser(correo);
         res.json(user);
     } catch (error) {
         next(error);

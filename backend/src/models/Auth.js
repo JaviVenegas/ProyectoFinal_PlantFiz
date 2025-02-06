@@ -20,7 +20,7 @@ const authenticateUser = async (correo) => {
 
 const getUser = async (correo) => {
     try {
-        const result = await DB.query('SELECT * FROM usuarios WHERE email = $1', [correo]);
+        const result = await DB.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
         return result.rows[0];
 
     } catch (error) {
