@@ -1,4 +1,4 @@
--- Active: 1729855615076@@127.0.0.1@5432@plantfiz@public
+-- Active: 1729978767201@@127.0.0.1@5432@plantfiz
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
 -- ==================================================
@@ -36,7 +36,8 @@ CREATE TABLE direcciones (
 -- ===============================
 -- 3. TABLA: plantas
 -- ===============================
-CREATE TABLE plantas (
+
+CREATE TABLE plantas (   
     id SERIAL PRIMARY KEY,
     nombre_planta VARCHAR(100) NOT NULL,
     precio INT NOT NULL,
@@ -46,6 +47,15 @@ CREATE TABLE plantas (
     agua VARCHAR(50),
     luz VARCHAR(50)
 );
+
+
+-- Se debe subir la  cantidad de caracteres de 50 a 250 ya que los textos son mas largos 
+ALTER TABLE plantas 
+    ALTER COLUMN agua TYPE VARCHAR(250),
+    ALTER COLUMN luz TYPE VARCHAR(250);
+
+
+ SELECT * FROM plantas;
 
 -- ===============================
 -- 4. TABLA: categorias de plantas
@@ -128,3 +138,86 @@ INSERT INTO usuarios (rut, nombre, apellido, correo, contrasena, rol, telefono) 
 ('8-4', 'Carmen', 'Ramírez', 'carmen.ramirez@example.com', 'mysecurepassword', 'user', '963852741'),
 ('9-2', 'José', 'Fernández', 'jose.fernandez@example.com', 'password789', 'user', '258369147'),
 ('10-0', 'Marta', 'Ruiz', 'marta.ruiz@example.com', 'user2023', 'user', '369147258');
+
+
+
+
+
+INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz) VALUES
+('Aphelandra', 5500, 'América tropical (principalmente Brasil)', 
+ 'Hojas grandes, alargadas, de color verde brillante con venas prominentes. Pueden presentar tonos de color blanco o amarillento en algunas especies.', 
+ 'Es una planta de interior que necesita ambientes cálidos y luminosos, protegidos de la luz directa del sol.', 
+ 'Riego moderado, permite que la capa superior del suelo se seque.', 
+ 'Luz indirecta brillante, tolera luz más baja.' 
+),
+
+('Dólar Blanco', 7000, 'China', 
+ 'Hojas redondas, de un verde brillante con un contorno más claro, en forma de disco o moneda. Tienen un aspecto muy decorativo.', 
+ 'Interior. Es perfecta para interiores con buena luz natural indirecta, como escritorios o estanterías.', 
+ 'Regar cuando el sustrato esté seco, evitando exceso de agua.', 
+ 'Luz indirecta brillante, evitar luz solar directa.' 
+),
+
+('Musa Velutina (chica)', 15000, 'Sudeste Asiático', 
+ 'Hojas largas, de un verde intenso, de textura aterciopelada. La planta en su fase joven tiene un porte más compacto.', 
+ 'Interior o Exterior. En climas cálidos, se puede mantener afuera en sombra parcial, pero generalmente se prefiere en interiores con buena luz y temperatura cálida.', 
+ 'Mantener el sustrato ligeramente húmedo, regar de manera regular.', 
+ 'Luz brillante indirecta, tolera algo de luz directa.' 
+),
+
+('Cinta (Chlorophytum comosum)', 3500, 'África tropical y Asia', 
+ 'Hojas largas, estrechas, de color verde. Son muy decorativas y se desarrollan en forma de roseta.', 
+ 'Interior o Exterior. Puede crecer tanto en interiores como en exteriores, siempre que esté protegido del sol directo fuerte. Se adapta bien a ambos ambientes.', 
+ 'Requiere riego moderado, permitiendo que la tierra se seque entre riegos.', 
+ 'Prefiere luz indirecta brillante, se adapta a luz baja.' 
+),
+
+('Helecho Polystichum', 11000, 'Sur y oeste de Europa', 
+ 'Hojas frondosas y pinnadas, de un verde brillante, con una textura suave. A menudo forman un helecho de tamaño mediano a grande.', 
+ 'Interior o Exterior. Es adecuado tanto para ambientes interiores como exteriores en zonas sombreadas o semi sombreadas, en climas templados.', 
+ 'Requiere un suelo constantemente húmedo, pero no encharcado.', 
+ 'Prefiere sombra parcial o luz indirecta brillante.' 
+),
+
+('Ficus Lyrata', 14000, 'África Occidental', 
+ 'Hojas grandes, brillantes, de forma lobulada que recuerdan a una lira, de color verde oscuro.', 
+ 'Interior. Esta planta se disfruta mejor en interiores debido a su sensibilidad al frío.', 
+ 'Regar moderadamente, dejando que el sustrato se seque parcialmente.', 
+ 'Luz indirecta brillante, tolera algo de luz directa.' 
+),
+
+('Philodendro paraguayo', 9000, 'Paraguay, Brasil y Bolivia', 
+ 'Las hojas son grandes, de color verde brillante y tienen una forma triangular con márgenes ligeramente ondulados.', 
+ 'Interiores, en lugares con luz indirecta.', 
+ 'Mantener el sustrato ligeramente húmedo, sin encharcar.', 
+ 'Prefiere luz indirecta brillante, tolera poca luz.' 
+),
+
+('Singonio Plateado (Chico)', 5000, 'América tropical, especialmente en Brasil', 
+ 'Hojas en forma de flecha, color verde plateado o gris con vetas más claras. Es una planta trepadora.', 
+ 'Interior, ya que le gusta el calor y la humedad.', 
+ 'Mantener el sustrato húmedo, pero no saturado. Regar cuando la capa superior del suelo se seque.', 
+ 'Requiere luz brillante indirecta, tolera sombra parcial.' 
+),
+
+('Singonio Plateado (Grande)', 10500, 'América tropical, especialmente en Brasil', 
+ 'Hojas en forma de flecha, color verde plateado o gris con vetas más claras. Es una planta trepadora.', 
+ 'Interior, ya que le gusta el calor y la humedad.', 
+ 'Mantener el sustrato húmedo, pero no saturado. Regar cuando la capa superior del suelo se seque.', 
+ 'Requiere luz brillante indirecta, tolera sombra parcial.' 
+),
+
+('Fiscus Ali', 8000, 'Sudeste asiático', 
+ 'Hojas alargadas, de un verde oscuro brillante, bastante resistentes. La planta tiene una apariencia arbustiva.', 
+ 'Interiores, en lugares con luz indirecta.', 
+ 'Necesita riego cuando el sustrato esté seco al tacto, evitar el exceso de agua.', 
+ 'Requiere luz indirecta brillante, puede tolerar sombra.' 
+),
+
+('Monstera Deliciosa', 7500, 'Centroamérica', 
+ 'Hojas grandes, verdes y con perforaciones características que le dan su aspecto único.', 
+ 'Interior en zonas con buena iluminación.', 
+ 'Regar cuando la capa superior del suelo esté seca, sin encharcar.', 
+ 'Luz indirecta brillante o sombra parcial, tolera poca luz.'
+);
+
