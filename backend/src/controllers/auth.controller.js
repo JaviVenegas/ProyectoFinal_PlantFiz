@@ -4,23 +4,26 @@ const bcrypt = require('bcrypt');
 
 const handleLogin = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        console.log('hola');
+        const { correo, contrasena } = req.body;
 
-        const userExists = await Auth.authenticateUser(email);
-        if (!userExists) {
-            res.status(404).json({ msg: 'Usuario no encontrado' });
-        }
+        console.log(req.body);
 
-        const match = await bcrypt.compare(password, userExists.password);
-        if (!match) {
-            res.status(401).json({ msg: 'Credenciales incorrectas' });
-        } else {
-            const data = {
-                email
-            };
-            const token = signToken(data);
-            res.json({ token });
-        }
+        // const userExists = await Auth.authenticateUser(correo);
+        // if (!userExists) {
+        //     res.status(404).json({ msg: 'Usuario no encontrado' });
+        // }
+
+        // const match = await bcrypt.compare(contrasena, userExists.contrasena);
+        // if (!match) {
+        //     res.status(401).json({ msg: 'Credenciales incorrectas' });
+        // } else {
+        //     const data = {
+        //         email
+        //     };
+        //     const token = signToken(data);
+        //     res.json({ token });
+        // }
 
     } catch (error) {
         next(error);
