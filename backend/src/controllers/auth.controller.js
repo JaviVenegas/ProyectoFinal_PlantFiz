@@ -9,21 +9,21 @@ const handleLogin = async (req, res, next) => {
 
         console.log(req.body);
 
-        // const userExists = await Auth.authenticateUser(correo);
-        // if (!userExists) {
-        //     res.status(404).json({ msg: 'Usuario no encontrado' });
-        // }
+        const userExists = await Auth.authenticateUser(correo);
+        if (!userExists) {
+            res.status(404).json({ msg: 'Usuario no encontrado' });
+        }
 
-        // const match = await bcrypt.compare(contrasena, userExists.contrasena);
-        // if (!match) {
-        //     res.status(401).json({ msg: 'Credenciales incorrectas' });
-        // } else {
-        //     const data = {
-        //         email
-        //     };
-        //     const token = signToken(data);
-        //     res.json({ token });
-        // }
+        const match = await bcrypt.compare(contrasena, userExists.contrasena);
+        if (!match) {
+            res.status(401).json({ msg: 'Credenciales incorrectas' });
+        } else {
+            const data = {
+                email
+            };
+            const token = signToken(data);
+            res.json({ token });
+        }
 
     } catch (error) {
         next(error);
@@ -35,6 +35,8 @@ const handleRegister = async (req, res, next) => {
         const { rut, nombre, apellido, correo, contrasena, telefono, rol } = req.body;
 
         const emailExists = await Auth.getUser(correo);
+        
+        //ESTO TENGO QUE PASARLO A LOS CODIGOS DE ESTATUS DEL MIDDLEWARE
         if (emailExists) {
             res.status(409).json({ msg: 'El correo ya ha sido registrado' }); // estos errores tengo que abstraerlos
         }
