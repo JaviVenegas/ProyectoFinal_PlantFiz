@@ -58,7 +58,7 @@ const handleGetUser = async (req, res, next) => {
             message: 'Usuario obtenido con éxito',
             data: user
         });
-        
+
     } catch (error) {
         next(error);
     }
@@ -67,6 +67,7 @@ const handleGetUser = async (req, res, next) => {
 const handleUpdateUser = async (req, res, next) => {
     try {
         const { rut, nombre, apellido, correoNuevo, telefono, correoAnterior } = req.body;
+        const { correo } = req.user;
 
         const userExists = await Auth.getUser(correoAnterior);
         if (!userExists) {
@@ -74,20 +75,51 @@ const handleUpdateUser = async (req, res, next) => {
             return;
         }
 
-        const updatedUser = await Auth.updateUser(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
-        res.status(200).json({
-            message: 'Usuario actualizado con éxito',
-            data: updatedUser
-        });
+        if (correo === correoAnterior) {
+            const updatedUser = await Auth.updateUser(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
+            res.status(200).json({
+                message: 'Usuario actualizado con éxito',
+                data: updatedUser
+            });
+        } else {
+            res.status(401).json({ msg: 'No tienes permiso para actualizar este usuario' });
+        }
 
-    } catch (error) {
-        next(error);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    const handleChangePassword = async (req, res, next) => {
+        try {
+            const { correo } = req.user;
+            const { contrasenaActual, contrasenaNueva } = req.body;
+    
+            const userExists = await Auth.getUser(correo);
+            if (!userExists) {
+                res.status(404).json({ msg: 'Usuario no encontrado' });
+                return;
+            }
+    
+            const match = await bcrypt.compare(contrasenaActual, userExists.contrasena);
+            if (!match) {
+                res.status(401).json({ msg: 'Credenciales incorrectas' });
+            } else {
+                const hashedPassword = await bcrypt.hash(contrasenaNueva, 10);
+                const updatedUser = await Auth.updateUser(correo, correo, hashedPassword);
+                res.status(200).json({
+                    message: 'Contraseña actualizada con éxito',
+                    data: updatedUser
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    module.exports = {
+        handleLogin,
+        handleRegister,
+        handleGetUser,
+        handleUpdateUser
     }
-};
-
-module.exports = {
-    handleLogin,
-    handleRegister,
-    handleGetUser,
-    handleUpdateUser
-}
