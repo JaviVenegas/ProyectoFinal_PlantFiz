@@ -20,7 +20,7 @@ const authenticateUser = async (correo) => {
 
 const getUser = async (correo) => {
     try {
-        const result = await DB.query('SELECT rut, apellido, correo, telefono FROM usuarios WHERE correo = $1', [correo]);
+        const result = await DB.query('SELECT rut, nombre, apellido, correo, telefono FROM usuarios WHERE correo = $1', [correo]);
         return result.rows[0];
 
     } catch (error) {
@@ -47,15 +47,39 @@ const createUser = async (rut, nombre, apellido, correo, contrasena, telefono, r
 const updateUser = async (rut, nombre, apellido, correoNuevo, telefono, correoAnterior) => {
     try {
 
-        const SQLQuery = `
-            UPDATE usuarios
-            SET rut = $1, nombre = $2, apellido = $3, correo = $4, telefono = $5
-            WHERE correo = $6
-            RETURNING rut, nombre, apellido, correo, telefono
-        `;
+        const SQLQuery = await handleUpdateFilters(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
 
-        const result = await DB.query(SQLQuery, [rut, nombre, apellido, correoNuevo, telefono, correoAnterior]);
+        const result = await DB.query(SQLQuery);
         return result.rows[0];
+
+    } catch (error) {
+        throw error;
+    }
+};
+
+const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono, correoAnterior) => {
+    try {
+        let filtros = [];
+        let returnValues = [];
+
+        if (rut) filtros.push(`rut = '${rut}'`) && returnValues.push('rut');
+        if (nombre) filtros.push(`nombre = '${nombre}'`) && returnValues.push('nombre');
+        if (apellido) filtros.push(`apellido = '${apellido}'`) && returnValues.push('apellido');
+        if (correoNuevo) filtros.push(`correo = '${correoNuevo}'`) && returnValues.push('correo');
+        if (telefono) filtros.push(`telefono = '${telefono}'`) && returnValues.push('telefono');
+
+        let queryUpdate = "UPDATE usuarios SET ";
+        let returnValuesString = returnValues.join(', ');
+
+        if (filtros.length > 0) {
+            queryUpdate += filtros.join(', ');
+            queryUpdate += ` 
+            WHERE correo = '${correoAnterior}'
+            RETURNING ${returnValuesString};
+            `;
+        }
+        
+        return queryUpdate;
 
     } catch (error) {
         throw error;
