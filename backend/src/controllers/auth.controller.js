@@ -10,7 +10,7 @@ const handleLogin = async (req, res, next) => {
         if (!userExists) {
             res.status(404).json({ msg: 'Usuario no encontrado' });
             return;
-        } 
+        }
 
         const match = await bcrypt.compare(contrasena, userExists.contrasena);
         if (!match) {
@@ -33,7 +33,7 @@ const handleRegister = async (req, res, next) => {
         const { rut, nombre, apellido, correo, contrasena, telefono, rol } = req.body;
 
         const emailExists = await Auth.getUser(correo);
-        
+
         //ESTO TENGO QUE PASARLO A LOS CODIGOS DE ESTATUS DEL MIDDLEWARE
         if (emailExists) {
             res.status(409).json({ msg: 'El correo ya ha sido registrado' }); // estos errores tengo que abstraerlos
@@ -51,9 +51,35 @@ const handleRegister = async (req, res, next) => {
 
 const handleGetUser = async (req, res, next) => {
     try {
-        const { correo } = req.user;  
+        const { correo } = req.user;
         const user = await Auth.getUser(correo);
-        res.json(user); // toda la data del usuario
+
+        res.status(200).json({
+            message: 'Usuario obtenido con éxito',
+            data: user
+        });
+        
+    } catch (error) {
+        next(error);
+    }
+};
+
+const handleUpdateUser = async (req, res, next) => {
+    try {
+        const { rut, nombre, apellido, correoNuevo, telefono, correoAnterior } = req.body;
+
+        const userExists = await Auth.getUser(correoAnterior);
+        if (!userExists) {
+            res.status(404).json({ msg: 'Usuario no encontrado' });
+            return;
+        }
+
+        const updatedUser = await Auth.updateUser(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
+        res.status(200).json({
+            message: 'Usuario actualizado con éxito',
+            data: updatedUser
+        });
+
     } catch (error) {
         next(error);
     }
@@ -62,5 +88,6 @@ const handleGetUser = async (req, res, next) => {
 module.exports = {
     handleLogin,
     handleRegister,
-    handleGetUser
+    handleGetUser,
+    handleUpdateUser
 }
