@@ -4,22 +4,20 @@ const bcrypt = require('bcrypt');
 
 const handleLogin = async (req, res, next) => {
     try {
-        console.log('hola');
         const { correo, contrasena } = req.body;
-
-        console.log(req.body);
 
         const userExists = await Auth.authenticateUser(correo);
         if (!userExists) {
             res.status(404).json({ msg: 'Usuario no encontrado' });
-        }
+            return;
+        } 
 
         const match = await bcrypt.compare(contrasena, userExists.contrasena);
         if (!match) {
             res.status(401).json({ msg: 'Credenciales incorrectas' });
         } else {
             const data = {
-                email
+                correo
             };
             const token = signToken(data);
             res.json({ token });
@@ -53,9 +51,9 @@ const handleRegister = async (req, res, next) => {
 
 const handleGetUser = async (req, res, next) => {
     try {
-        const { correo } = req.user; // Email extraido desde el token, hay que consologearlo para ver que data hay 
+        const { correo } = req.user;  
         const user = await Auth.getUser(correo);
-        res.json(user);
+        res.json(user); // toda la data del usuario
     } catch (error) {
         next(error);
     }
