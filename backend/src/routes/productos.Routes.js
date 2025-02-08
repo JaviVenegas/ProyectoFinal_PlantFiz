@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const router = Router();
+const {handleGetAllPlantas, handleGetPlanta, handlePostPlanta, handleDeletePlanta, handleEditPlanta} = require('../controllers/plantas.controller');
 
 
-router.get('/productos', handleGetProductos); //obtener todos los productos
-router.get('/productos/{id}', handleGetProducto); //obtener producto por id 
-router.post('/productos', handleCreateProducto); //crear producto
-router.put('/productos/{id}', handleUpdateProducto); //actualizar producto
-router.delete('/productos/{id}', handleDeleteProducto); //eliminar producto
+router.get('/plantas', handleGetAllPlantas); //obtener todos los productos
+router.get('/plantas/:id', handleGetPlanta); //obtener producto por id 
+router.post('/planta', handlePostPlanta); //crear producto en admin 
+router.patch('/plantas/:id', handleEditPlanta); //actualizar producto admin 
+router.delete('/plantas/:id', handleDeletePlanta); //eliminar producto en admin 
 
 
 
 module.exports = router;
+

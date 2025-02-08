@@ -221,3 +221,4 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
 
+select * from plantas 
