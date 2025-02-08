@@ -34,10 +34,12 @@ const handleGetPlanta = async (req, res, next) => {
 const handlePostPlanta = async (req, res, next) => {
     try {
         const { nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz} = req.body;
-        await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz);
+        const response = await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz);
         
         res.json ({
-            message: 'Planta agregada correctamente'
+            message: 'Planta agregada correctamente',
+            data: response 
+
         })
 
     } catch (error) {
@@ -72,9 +74,24 @@ const handleEditPlanta = async (req, res, next) => {
 const handleDeletePlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
-        await plantas.eliminarPlanta(id);
 
-        res.json({ message: 'Planta eliminada correctamente' });
+
+        // Verificar si la planta existe
+        const existe = await plantas.existe(id);
+
+        if (!existe) {
+            throw new Error('PLANT_DELETE_ERROR');
+        }
+
+        //Si exisste, se elimina
+        const response =  await plantas.eliminarPlanta(id);
+
+        res.status (200).json({
+            message: 'Planta eliminada correctamente',
+            data: response
+        });
+
+
     } catch (error) {
         next(error);
     }

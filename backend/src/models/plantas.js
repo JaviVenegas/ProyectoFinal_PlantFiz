@@ -3,21 +3,27 @@ const pgFormat = require('pg-format')
 
 
 //Crear planta para portal admin
-const agregarPlanta = async (nomnre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz ) => {
+const agregarPlanta = async (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz ) => {
     try {    
-        const SQLQuery = pgFormat(
+        const SQLQuery = 
             `INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz)
-            VALUES (%L, %L, %L, %L, %L, %L, %L)`,
-            nomnre_planta,
+            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+        const SQLValues = [
+            nombre_planta,
             precio,
             origen,
             descripcion_hojas,
             ideal_para,
             agua,
             luz
-        )
-        const result = await DB.query(SQLQuery)
-        return { rows: result.rows, rowCount: result.rowCount };
+        ]
+
+        const result = await DB.query(SQLQuery, SQLValues)
+
+        if (result.rowCount === 0) {
+            throw new Error('PLANT_REGISTER_ERROR');
+        }
+        return result.rows[0];
 
     } catch (error) {
         throw error 
@@ -73,15 +79,37 @@ const editarPlanta = async (id, cambios) => {
         throw error;
     }
 };
+
+
 //Eliminar planta en portal admin
 const eliminarPlanta = async (id) => {
     try {    
-        const SQLQuery = pgFormat(
-            `DELETE FROM plantas WHERE id = %L`,
-            id
-        )    
-        const result = await DB.query(SQLQuery)
-        return { rows: result.rows, rowCount: result.rowCount };
+        const SQLQuery = 
+            `DELETE FROM plantas WHERE id = $1 RETURNING *`;
+        const SQLValues = [id]
+       
+        const result = await DB.query(SQLQuery, SQLValues)
+
+
+        if (result.rowCount === 0) {
+            throw new Error('PLANT_DELETE_ERROR');
+        }
+        return result.rows[0];
+
+    } catch (error) {
+        throw error
+    }
+}
+
+//Verificar si la planta existe
+const existe= async (id) => {
+    try {    
+        const SQLQuery = 
+            `SELECT 1 FROM plantas WHERE id = $1`
+        const SQLValues = [id]
+        
+        const {rowCount} = await DB.query(SQLQuery, SQLValues)
+        return rowCount > 0;
 
     } catch (error) {
         throw error
@@ -94,7 +122,8 @@ module.exports = {
     agregarPlanta, 
     editarPlanta,
     eliminarPlanta, 
-    ObtenerPlantaPorId
+    ObtenerPlantaPorId, 
+    existe
 }
 
 
