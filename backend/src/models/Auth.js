@@ -78,7 +78,7 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
             RETURNING ${returnValuesString};
             `;
         }
-        
+
         return queryUpdate;
 
     } catch (error) {
@@ -86,11 +86,48 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
     }
 };
 
+const getUserPassword = async (correo) => {
+    try {
+        const result = await DB.query('SELECT contrasena FROM usuarios WHERE correo = $1', [correo]);
+        return result.rows[0];
 
+    } catch (error) {
+        throw error;
+    }
+};
+
+const updateUserPassword = async (correo, hashedNewPassword) => {
+    try {
+        const SQLQuery = `
+            UPDATE usuarios
+            SET contrasena = $2
+            WHERE correo = $1
+        `;
+
+        const result = await DB.query(SQLQuery, [correo, hashedNewPassword]);
+        return result.rows[0];
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+const deleteUser = async (correo) => {
+    try {
+        const result = await DB.query('DELETE FROM usuarios WHERE correo = $1', [correo]);
+        return result.rows[0];
+
+    } catch (error) {
+        throw error;
+    }
+};
 
 module.exports = {
     authenticateUser,
     getUser,
     createUser,
-    updateUser
+    updateUser,
+    getUserPassword,
+    updateUserPassword,
+    deleteUser
 };
