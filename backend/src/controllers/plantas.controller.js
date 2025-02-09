@@ -5,11 +5,18 @@ const plantas= require('../models/plantas');
 //Obtener todos los productos
 const handleGetAllPlantas = async (req, res, next) => {
     try {
-        const ListadoPlantas = await plantas.obtenerPlantas();
+        const { limit } = req.query;  //destructuring de limit de query
+        const ListadoPlantas = await plantas.obtenerPlantas(limit);
+
+        if (!ListadoPlantas) {
+            throw new Error('PLANT_GET_ERROR');
+        }
+
         res.json({
             message: 'Plantas obtenidas correctamente',
             data: ListadoPlantas
         });
+
     } catch (error) {
         next(error);
     }
@@ -20,6 +27,12 @@ const handleGetPlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
         const response = await plantas.ObtenerPlantaPorId(id);
+
+        if (!response) {
+            throw new Error('PLANT_GET_ERROR');
+        }
+
+
         res.json({
             message: 'Planta obtenida correctamente',
             data: response

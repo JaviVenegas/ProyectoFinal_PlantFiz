@@ -35,6 +35,12 @@ module.exports = {
         message: 'Error al registrar la planta',
         description: 'Falta rellenar algún campo',
     },
+    PLANT_GET_ERROR: {  
+        id: 'erroralobtenerplantas',
+        statusCode: 400,
+        message: 'Error al obtener las plantas',
+        description: 'Error al obtener las plantas',
+    },
     PLANT_EDIT_ERROR: { 
         id: 'editPlantError',
         statusCode: 400,

@@ -31,14 +31,18 @@ const agregarPlanta = async (nombre_planta, precio, origen, descripcion_hojas, i
     }
 }
 //Obtener todos las plantas con paginacion y orden para portal catalogo 
-const obtenerPlantas = async () => { 
+const obtenerPlantas = async ( limit = 12 ) => { 
     try {
         const SQLQuery = 
-            `SELECT * FROM plantas `
+            `SELECT * FROM plantas limit $1`
+        const SQLValues = [limit]
 
-        const result = await DB.query(SQLQuery)
+        const result = await DB.query(SQLQuery, SQLValues)
         console.log("Resultados de la consulta:", result.rows);
-        return result.rows
+        return {
+            rowCount: result.rowCount,
+            rows: result.rows
+        }
     } catch (error) {
         console.error("Error al obtener plantas:", error);
         throw error
