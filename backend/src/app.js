@@ -2,17 +2,17 @@ const express = require('express')
 const morgan = require('morgan')
 const APIRoutes = require('./routes/routes')
 const errorMiddleware = require('./middlewares/errorMiddleware')
-const cors = require('cors')
+const cors = require('cors')  //habilita la comunicacion entre distintas app o dominios diferentes
 
 const app = express()
 
 //Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors())
+app.use(cors())  
 
 // Routes
-app.use('/', APIRoutes)
+app.use('/api', APIRoutes)
 
 // Middleware de error
 app.use(errorMiddleware)
