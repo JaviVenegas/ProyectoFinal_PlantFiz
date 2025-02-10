@@ -21,6 +21,9 @@ const authenticateUser = async (correo) => {
 const getUser = async (correo) => {
     try {
         const result = await DB.query('SELECT rut, nombre, apellido, correo, telefono FROM usuarios WHERE correo = $1', [correo]);
+
+        if (!result.rowCount) throw new Error('USER_NOT_FOUND');
+
         return result.rows[0];
 
     } catch (error) {
@@ -37,6 +40,9 @@ const createUser = async (rut, nombre, apellido, correo, contrasena, telefono, r
         `;
 
         const result = await DB.query(SQLQuery, [rut, nombre, apellido, correo, contrasena, telefono, rol]);
+
+        if (!result.rowCount) throw new Error('REGISTER_ERROR');
+
         return result.rows[0];
 
     } catch (error) {
@@ -50,6 +56,8 @@ const updateUser = async (rut, nombre, apellido, correoNuevo, telefono, correoAn
         const SQLQuery = await handleUpdateFilters(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
 
         const result = await DB.query(SQLQuery);
+
+        if (!result.rowCount) throw new Error('UPDATE_USER_ERROR');
         return result.rows[0];
 
     } catch (error) {
@@ -89,7 +97,12 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
 const getUserPassword = async (correo) => {
     try {
         const result = await DB.query('SELECT contrasena FROM usuarios WHERE correo = $1', [correo]);
-        return result.rows[0];
+
+        if (!result.rowCount) throw new Error('USER_NOT_FOUND');
+
+        return {
+            contrasena: result.rows[0].contrasena
+        };
 
     } catch (error) {
         throw error;
