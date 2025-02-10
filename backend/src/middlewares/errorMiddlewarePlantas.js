@@ -1,4 +1,4 @@
-const errors = require('../helpers/errorsMessages')
+const errors = require('../helpers/errorsMessagesPlantas')
 
 const errorMiddleware = (err, req, res, next) => {
     console.error("Error recibido en middleware:", err);

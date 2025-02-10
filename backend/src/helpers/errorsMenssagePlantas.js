@@ -17,12 +17,29 @@ module.exports = {
         message: 'Error al registrar usuario',
         description: 'Error inesperado en el servidor, intenta de nuevo',
     },
-    
+    REGISTER_SUCCESS: {  
+        id: 'registerSuccess',
+        statusCode: 201,
+        message: 'Registro exitoso',
+        description: 'Usuario registrado con éxito',
+    },
+    CREDENTIALS_ERROR: {  
+        id: 'credentialsError',
+        statusCode: 401,
+        message: 'Credenciales incorrectas',
+        description: 'Credenciales incorrectas',
+    },
     PLANT_REGISTER_ERROR: {  
         id: 'registerPlantError',
         statusCode: 400,
         message: 'Error al registrar la planta',
         description: 'Falta rellenar algún campo',
+    },
+    PLANT_GET_ERROR: {  
+        id: 'erroralobtenerplantas',
+        statusCode: 400,
+        message: 'Error al obtener las plantas',
+        description: 'Error al obtener las plantas',
     },
     PLANT_EDIT_ERROR: { 
         id: 'editPlantError',
