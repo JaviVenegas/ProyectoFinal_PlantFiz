@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "jest --forceExit"
+    "test:watch": "jest --watchAll",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
