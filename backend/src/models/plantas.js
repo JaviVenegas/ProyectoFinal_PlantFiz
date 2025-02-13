@@ -3,22 +3,21 @@ const pgFormat = require('pg-format')
 
 
 //Crear planta para portal admin
+
 const agregarPlanta = async (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz ) => {
     try {    
-        const SQLQuery = 
-            `INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz)
-            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
-        const SQLValues = [
-            nombre_planta,
-            precio,
-            origen,
-            descripcion_hojas,
-            ideal_para,
-            agua,
-            luz
-        ]
-
-        const result = await DB.query(SQLQuery, SQLValues)
+        const result = await DB.query(  
+            `INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,  // El punto y coma no debe estar aquí
+            [  // Aquí empieza el array de los valores
+                nombre_planta,
+                precio,
+                origen,
+                descripcion_hojas,
+                ideal_para,
+                agua,
+                luz
+            ]
+        );
 
         if (result.rowCount === 0) {
             throw new Error('PLANT_REGISTER_ERROR');
@@ -26,10 +25,10 @@ const agregarPlanta = async (nombre_planta, precio, origen, descripcion_hojas, i
         return result.rows[0];
 
     } catch (error) {
-        throw error 
-    
+        throw error;
     }
-}
+};
+
 //Obtener todos las plantas con paginacion y orden para portal catalogo 
 const obtenerPlantas = async ( limit = 12 ) => { 
     try {
