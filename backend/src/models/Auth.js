@@ -30,7 +30,7 @@ const createUser = async (rut, nombre, apellido, correo, contrasena, telefono, r
         const SQLQuery = `
             INSERT INTO usuarios (rut, nombre, apellido, correo, contrasena, telefono, rol)
             VALUES ($1, $2, $3, $4, $5, $6, $7) 
-            RETURNING rut, nombre, apellido, correo, telefono
+            RETURNING rut, nombre, apellido, correo, telefono, rol
         `;
 
         const result = await DB.query(SQLQuery, [rut, nombre, apellido, correo, contrasena, telefono, rol]);
