@@ -10,9 +10,7 @@ const authenticateUser = async (correo) => {
         );
 
         const result = await DB.query(SQLQuery);
-
-        if (!result.rowCount) throw new Error('USER_NOT_FOUND');
-        return result.rows[0];
+        return result.rows[0] || null;
     } catch (error) {
         throw error;
     }
@@ -21,10 +19,7 @@ const authenticateUser = async (correo) => {
 const getUser = async (correo) => {
     try {
         const result = await DB.query('SELECT rut, nombre, apellido, correo, telefono FROM usuarios WHERE correo = $1', [correo]);
-
-        if (!result.rowCount) throw new Error('USER_NOT_FOUND');
-
-        return result.rows[0];
+        return result.rows[0] || null;
 
     } catch (error) {
         throw error;
@@ -70,25 +65,39 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
         let filtros = [];
         let returnValues = [];
 
-        if (rut) filtros.push(`rut = '${rut}'`) && returnValues.push('rut');
-        if (nombre) filtros.push(`nombre = '${nombre}'`) && returnValues.push('nombre');
-        if (apellido) filtros.push(`apellido = '${apellido}'`) && returnValues.push('apellido');
-        if (correoNuevo) filtros.push(`correo = '${correoNuevo}'`) && returnValues.push('correo');
-        if (telefono) filtros.push(`telefono = '${telefono}'`) && returnValues.push('telefono');
-
-        let queryUpdate = "UPDATE usuarios SET ";
-        let returnValuesString = returnValues.join(', ');
-
-        if (filtros.length > 0) {
-            queryUpdate += filtros.join(', ');
-            queryUpdate += ` 
-            WHERE correo = '${correoAnterior}'
-            RETURNING ${returnValuesString};
-            `;
+        if (rut) {
+            filtros.push(pgFormat("rut = %L", rut));
+            returnValues.push('rut');
+        }
+        if (nombre) {
+            filtros.push(pgFormat("nombre = %L", nombre));
+            returnValues.push('nombre');
+        }
+        if (apellido) {
+            filtros.push(pgFormat("apellido = %L", apellido));
+            returnValues.push('apellido');
+        }
+        if (correoNuevo) {
+            filtros.push(pgFormat("correo = %L", correoNuevo));
+            returnValues.push('correo');
+        }
+        if (telefono) {
+            filtros.push(pgFormat("telefono = %L", telefono));
+            returnValues.push('telefono');
         }
 
-        return queryUpdate;
+        if (filtros.length === 0) {
+            throw new Error('NO_FILTERS');
+        }
 
+        const queryUpdate = pgFormat(
+            "UPDATE usuarios SET %s WHERE correo = %L RETURNING %s",
+            filtros.join(", "),
+            correoAnterior,
+            returnValues.join(", ")
+        );
+
+        return queryUpdate;
     } catch (error) {
         throw error;
     }
@@ -97,13 +106,7 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
 const getUserPassword = async (correo) => {
     try {
         const result = await DB.query('SELECT contrasena FROM usuarios WHERE correo = $1', [correo]);
-
-        if (!result.rowCount) throw new Error('USER_NOT_FOUND');
-
-        return {
-            contrasena: result.rows[0].contrasena
-        };
-
+        return result.rows[0]?.contrasena || null;
     } catch (error) {
         throw error;
     }
@@ -118,6 +121,7 @@ const updateUserPassword = async (correo, hashedNewPassword) => {
         `;
 
         const result = await DB.query(SQLQuery, [correo, hashedNewPassword]);
+
         return result.rows[0];
 
     } catch (error) {

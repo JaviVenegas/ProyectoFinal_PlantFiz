@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cors())  
 
 // Routes
-app.use('/api', APIRoutes)
+app.use('/', APIRoutes)
 
 // Middleware de error
 app.use(errorMiddleware)
