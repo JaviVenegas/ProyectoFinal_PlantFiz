@@ -4,7 +4,7 @@ const pgFormat = require('pg-format');
 const authenticateUser = async (correo) => {
     try {
         const SQLQuery = pgFormat(
-            `SELECT correo, contrasena FROM usuarios
+            `SELECT correo, contrasena, rol FROM usuarios
             WHERE correo = %L`,
             correo
         );

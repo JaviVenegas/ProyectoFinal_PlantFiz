@@ -10,7 +10,7 @@ const handleLogin = async (req, res, next) => {
         if (!userExists) {
             throw new Error('USER_NOT_FOUND');
         }
-
+        
         const match = await bcrypt.compare(contrasena, userExists.contrasena);
         if (!match) {
             throw new Error('CREDENTIALS_ERROR');
@@ -18,7 +18,14 @@ const handleLogin = async (req, res, next) => {
 
         const data = { correo };
         const token = signToken(data);
-        res.json({ token });
+        res.json({ 
+            message: 'Inicio de sesión exitoso',
+            token,
+            user: {
+                correo: userExists.correo,
+                rol: userExists.rol
+            }
+         });
 
     } catch (error) {
         next(error);
