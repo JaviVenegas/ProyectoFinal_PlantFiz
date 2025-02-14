@@ -20,7 +20,6 @@ const getUser = async (correo) => {
     try {
         const result = await DB.query('SELECT rut, nombre, apellido, correo, telefono FROM usuarios WHERE correo = $1', [correo]);
         return result.rows[0] || null;
-
     } catch (error) {
         throw error;
     }
@@ -45,10 +44,10 @@ const createUser = async (rut, nombre, apellido, correo, contrasena, telefono, r
     }
 };
 
-const updateUser = async (rut, nombre, apellido, correoNuevo, telefono, correoAnterior) => {
+const updateUser = async (rut, nombre, apellido, telefono, correo) => {
     try {
 
-        const SQLQuery = await handleUpdateFilters(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
+        const SQLQuery = await handleUpdateFilters(rut, nombre, apellido, telefono, correo);
 
         const result = await DB.query(SQLQuery);
 
@@ -60,7 +59,7 @@ const updateUser = async (rut, nombre, apellido, correoNuevo, telefono, correoAn
     }
 };
 
-const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono, correoAnterior) => {
+const handleUpdateFilters = async (rut, nombre, apellido, telefono, correo) => {
     try {
         let filtros = [];
         let returnValues = [];
@@ -77,10 +76,6 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
             filtros.push(pgFormat("apellido = %L", apellido));
             returnValues.push('apellido');
         }
-        if (correoNuevo) {
-            filtros.push(pgFormat("correo = %L", correoNuevo));
-            returnValues.push('correo');
-        }
         if (telefono) {
             filtros.push(pgFormat("telefono = %L", telefono));
             returnValues.push('telefono');
@@ -93,7 +88,7 @@ const handleUpdateFilters = async (rut, nombre, apellido, correoNuevo, telefono,
         const queryUpdate = pgFormat(
             "UPDATE usuarios SET %s WHERE correo = %L RETURNING %s",
             filtros.join(", "),
-            correoAnterior,
+            correo,
             returnValues.join(", ")
         );
 
