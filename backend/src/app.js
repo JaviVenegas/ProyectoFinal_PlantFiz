@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());  
 
 // Routes
-app.use('/api', APIRoutes)
+app.use('/', APIRoutes)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 

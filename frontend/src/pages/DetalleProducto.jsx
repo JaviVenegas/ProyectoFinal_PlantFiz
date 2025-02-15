@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom'; // Importamos useParams
-import { plantas } from '../data/data'; // Importamos el array de plantas
 import ElijePlantfiz from "../components/ElijePlantfiz";
 import Header from "../components/Header";
 import { Col, Row, Container, Button, Badge } from 'react-bootstrap'; // Importamos Badge para el contador
@@ -10,17 +9,44 @@ import { LuHouse } from "react-icons/lu";
 import { BiWorld } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
 import { CartContext } from "../context/CartContext"; 
-
+import { ENDPOINT } from "../config/constants.js";
+import axios from "axios";
 
 const DetalleProducto = () => {
   const { id } = useParams(); // Obtenemos el id de la URL
-  const planta = plantas.find(p => p.id === parseInt(id)); // Buscamos la planta por el id
   const { addCart, cart } = useContext(CartContext); // Accedemos a addCart y cart desde el contexto
+
+  const [plantas, setPlantas] = useState([]); // Estado para las plantas
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga de datos
+
+  useEffect(() => {
+    const fetchPlantas = async () => {
+      try {
+        const response = await axios.get(ENDPOINT);
+        setPlantas(response.data.data.rows || []);
+      } catch (error) {
+        console.error('Error al obtener las plantas:', error);
+        setLoading(false); 
+      }
+    };
+
+    fetchPlantas();
+  }, []);
+
+  // Busca la planta usando el id
+  const planta = plantas.find(p => p.id === Number(id));
+  console.log(planta);
+
+  if (loading) {
+    return <div>Cargando...</div>; // Muestra un mensaje mientras carga los datos
+  }
 
   if (!planta) {
     return <div>Planta no encontrada</div>; // En caso de no encontrar la planta
   }
 
+
+  // para el cart  
   // Función para contar cuántas veces una planta específica está en el carrito
   const getProductCount = (productId) => {
     const product = cart.find(item => item.id === productId);
@@ -37,7 +63,7 @@ const DetalleProducto = () => {
             <img src={planta.url || 'default-image.jpg'} alt={planta.nombre_planta} className="card-img-top rounded mx-auto d-block" />
             <div className="mt-2"> <FaHeart className="fs-4" /> Guardar como favorito</div>
           </Col>
-          <Col md={5} className = "d-flex justify-content-end ms-4">
+          <Col md={5} className="d-flex justify-content-end ms-4">
             <div className="card-body">
               <h2 className="card-title text-start text-uppercase mt-4 mb-4 fs-4">{planta.nombre_planta}</h2>
               <h2 className="card-title text-start text-lowcase mt-4 mb-4 fs-6"> <BiWorld className=" fs-4" /> Origen: {planta.origen}</h2>
@@ -62,7 +88,6 @@ const DetalleProducto = () => {
                   )}
                 </div>
               </Button>
-
 
               <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
@@ -113,4 +138,3 @@ const DetalleProducto = () => {
 };
 
 export default DetalleProducto;
-

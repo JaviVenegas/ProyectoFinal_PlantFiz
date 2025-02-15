@@ -1,11 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { plantas } from '../data/data';
+import { ENDPOINT } from "../config/constants.js";  
+import axios from "axios";
+
 
 const AdminEditarInfoProducto = () => {
   const { id } = useParams(); // Obtiene el ID desde la URL
+
+  const [plantas, setPlantas] = useState([]);
   const plantaEncontrada = plantas.find(p => p.id === parseInt(id)); // Busca la planta
+
+    const editarDatosPlanta = async () => {
+      try {
+        const response = await axios.patch(`${ENDPOINT.editarPlanta}/${id}`, {
+          nombre_planta: nombre,
+          precio: precio,
+          origen: origen,
+          descripcion_hoja: descripcionHoja,
+          ideal_para: idealPara,
+          agua: agua,
+          luz: luz,
+          stock: stock,
+          categorias: categorias,
+          url: url,
+        });
+          
+        
+        setPlantas(response.data.data.rows || []);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    useEffect(() => {
+      editarDatosPlanta();
+    }
+    , []);
 
   
   // Estado para manejar los datos del formulario

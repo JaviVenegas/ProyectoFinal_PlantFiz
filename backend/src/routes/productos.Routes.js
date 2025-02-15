@@ -4,10 +4,10 @@ const {handleGetAllPlantas, handleGetPlanta, handlePostPlanta, handleDeletePlant
 
 
 router.get('/plantas', handleGetAllPlantas); //obtener todos los productos
-router.get('/plantas/:id', handleGetPlanta); //obtener producto por id 
-router.post('/plantas', handlePostPlanta); //crear producto en admin 
-router.patch('/plantas/:id', handleEditPlanta); //actualizar producto admin 
-router.delete('/plantas/:id', handleDeletePlanta); //eliminar producto en admin 
+router.get('/planta/:id', handleGetPlanta); //obtener producto por id 
+router.post('/planta', handlePostPlanta); //crear producto en admin 
+router.patch('/planta/:id', handleEditPlanta); //actualizar producto admin 
+router.delete('/planta/:id', handleDeletePlanta); //eliminar producto en admin 
 
 
 

@@ -1,35 +1,60 @@
-import React from 'react';
-import ProductCardGaleria from '../components/ProductCardGaleria';   // Diseño de la cards
-import { plantas } from '../data/data';  // Array de plantas
-import { Container, Button, Form } from "react-bootstrap";
-import Categorias from '../components/Categorias';
+import React, { useState, useEffect } from "react";
+import ProductCardGaleria from "../components/ProductCardGaleria";
+import { Container, Button } from "react-bootstrap";
+import Categorias from "../components/Categorias";
+import { ENDPOINT } from "../config/constants.js";
+import axios from "axios";
 
- const Catalogo = () => {    // como se ordenan las cards en la galeria 
+const Catalogo = () => {
+  const [plantas, setPlantas] = useState([]);
+
+  const fetchPlantas = async () => {
+    try {
+      const response = await axios.get(ENDPOINT.getPlantas);
+      console.log("Datos recibidos:", response.data);
+
+      setPlantas(response.data.data.rows || []);
+    } catch (error) {
+      console.error("Error al obtener las plantas:", error);
+      setPlantas([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlantas();
+  }, []);
+
   return (
     <>
-    <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around'>Tienda</h1>
-    <Categorias />
-    <Container className="d-flex mt-3 align-items-center align-self-sm-stretch justify-content-around">  
-      <Button variant="outline-secondary" className="w-100 me-5" style={{ borderRadius: '0' }}>
-        <div className="d-flex align-items-center justify-content-evenly"> Resultados</div>
-      </Button>
-      <Button variant="outline-secondary" className="w-100  ms-5" style={{ borderRadius: '0' }}>
-        <div className="d-flex align-items-center justify-content-evenly"> Filtros</div>
-      </Button>
-       </Container>
-    <Container className="cd-flex mt-3 align-items-center justify-content-around">
-      <div className="container-fluid p-0">
-        <div className="row">
-          {plantas.map((planta) => (  
-            <div className="col-12 col-md-3" key={planta.id}>
-              <ProductCardGaleria planta={planta} />  
-            </div>
-          ))}
+      <h1 className="d-flex mt-3 align-items-left align-self-sm justify-content-around">
+        Tienda
+      </h1>
+      <Categorias />
+      <Container className="d-flex mt-3 align-items-center align-self-sm-stretch justify-content-around">
+        <Button variant="outline-secondary" className="w-100 me-5" style={{ borderRadius: "0" }}>
+          <div className="d-flex align-items-center justify-content-evenly">Resultados</div>
+        </Button>
+        <Button variant="outline-secondary" className="w-100 ms-5" style={{ borderRadius: "0" }}>
+          <div className="d-flex align-items-center justify-content-evenly">Filtros</div>
+        </Button>
+      </Container>
+      <Container className="cd-flex mt-3 align-items-center justify-content-around">
+        <div className="container-fluid p-0">
+          <div className="row">
+            {Array.isArray(plantas) && plantas.length > 0 ? (
+              plantas.map((planta) => (
+                <div className="col-12 col-md-3" key={planta.id}>
+                  <ProductCardGaleria planta={planta} />
+                </div>
+              ))
+            ) : (
+              <p>No hay productos disponibles.</p>
+            )}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
     </>
   );
-}
+};
 
-export default Catalogo
+export default Catalogo;

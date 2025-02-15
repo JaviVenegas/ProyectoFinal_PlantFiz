@@ -41,10 +41,7 @@ export const AdminCatalog = ({ product }) => {
               Editar datos producto
             </Button>
 
-            {/* <Link
-              to={`/admin/AdminEditarInfoProducto/${product.id}`}
-              className="text-primary">Editar datos producto</Link> */}
-
+          
 
           </Col>
         </Card.Body>
