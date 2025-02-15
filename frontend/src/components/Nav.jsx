@@ -36,6 +36,12 @@ const CustomNav = () => {
             <Nav.Link href="/catalogo" className="nav-link-custom">
               Catálogo
             </Nav.Link>
+
+            {session ? (
+              <Nav.Link href="/perfil" className="nav-link-custom">
+                Perfil
+              </Nav.Link>
+            ) : null}
           </Nav>
           <div className="d-flex w-25">
             {session ? (
