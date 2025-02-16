@@ -5,16 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../config/constants";
 import axios from "axios";
 
-export const UserEditForm = ({ setEditData }) => {
-  const { session, handleSession } = useAuth();
+export const ChangePasswordForm = ({ setEditPassword }) => {
+  const { session } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    rut: session?.rut || "",
-    nombre: session?.nombre || "",
-    apellido: session?.apellido || "",
-    telefono: session?.telefono || "",
+    contrasenaActual:"",
+    contrasenaNueva:"",
+    confirmacionContrasenaNueva:""
+    // currentPassword: "",
+    // newPassword: "",
+    // confirmPassword: "",
   });
 
   const handleOnChange = (e) => {
@@ -25,87 +27,76 @@ export const UserEditForm = ({ setEditData }) => {
     e.preventDefault();
     setError("");
 
+    if (formData.newPassword !== formData.confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+
     try {
-      await axios.put(ENDPOINT.updateUser, formData, {
-        headers: {
-          Authorization: `Bearer ${session?.token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      // Aquí debes agregar la petición para actualizar la contraseña
+      await axios.put(ENDPOINT.changePassword, formData,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      const { data } = await axios.get(ENDPOINT.userProfile, {
-        headers: {
-          Authorization: `Bearer ${session?.token}`,
-        },
-      });
-
-      handleSession({
-        ...session,
-        user: data.user,
-      });
-
-      setEditData(false);
+      setEditPassword(false);
       navigate("/perfil/data");
-
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || "Error al actualizar datos";
+        error.response?.data?.message || "Error al actualizar la contraseña";
       setError(errorMessage);
     }
   };
 
   const handleSubmitCancel = () => {
-    setEditData(false);
+    setEditPassword(false);
     navigate("/perfil/data");
   };
 
   return (
     <Container className="p-3">
       <Container className="d-flex">
-        <h3 className="mb-4">Editar Datos</h3>
+        <h3 className="mb-4">Cambiar Contraseña</h3>
       </Container>
       <Container className="d-flex mt-4">
         <Form
           className="w-50 border p-4 rounded shadow-sm"
           onSubmit={handleSubmit}
         >
-          <Form.Group controlId="formRut" className="mb-3">
-            <Form.Label>RUT</Form.Label>
+          <Form.Group controlId="formContrasenaActual" className="mb-3">
+            <Form.Label>Contraseña Actual</Form.Label>
             <Form.Control
-              type="text"
-              name="rut"
-              value={formData.rut}
+              type="password"
+              name="contrasenaActual"
+              value={formData.contrasenaActual}
               onChange={handleOnChange}
+              required
             />
           </Form.Group>
 
-          <Form.Group controlId="formNombre" className="mb-3">
-            <Form.Label>Nombre</Form.Label>
+          <Form.Group controlId="formNuevaContrasena" className="mb-3">
+            <Form.Label>Nueva Contraseña</Form.Label>
             <Form.Control
-              type="text"
-              name="nombre"
-              value={formData.nombre}
+              type="password"
+              name="contrasenaNueva"
+              value={formData.contrasenaNueva}
               onChange={handleOnChange}
+              required
             />
           </Form.Group>
 
-          <Form.Group controlId="formApellido" className="mb-3">
-            <Form.Label>Apellido</Form.Label>
+          <Form.Group controlId="formConfirmarNuevaContrasena" className="mb-3">
+            <Form.Label>Confirmar Nueva Contraseña</Form.Label>
             <Form.Control
-              type="text"
-              name="apellido"
-              value={formData.apellido}
+              type="password"
+              name="confirmacionContrasenaNueva"
+              value={formData.confirmacionContrasenaNueva}
               onChange={handleOnChange}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formTelefono" className="mb-3">
-            <Form.Label>Teléfono</Form.Label>
-            <Form.Control
-              type="text"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleOnChange}
+              required
             />
           </Form.Group>
 

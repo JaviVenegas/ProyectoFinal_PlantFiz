@@ -10,14 +10,12 @@ import { AdminCatalogPage } from "../pages/AdminCatalogPage";
 import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
 import AdminEditarInfoProducto from "../pages/AdminEditarInfoProducto";
-
-//Estos imports serán reemplazados por el Product Detail hecho por Javi
-//import { ProductDetails } from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import DetalleProducto from "../pages/DetalleProducto";
 import { PerfilUsuario } from "../pages/PerfilUsuario";
 import { UserDashboard } from "../pages/UserDashboard";
 import { UserData } from "../pages/UserData";
+import { UserAddresses } from "../pages/UserAddresses";
 
 export const RouterManager = () => {
   const { session } = useAuth();
@@ -39,8 +37,8 @@ export const RouterManager = () => {
             {/* Rutas hijas de perfil */}
             <Route index element={<UserDashboard />} />
             <Route path="data" element={<UserData />} />
+            <Route path="addresses" element={<UserAddresses />} />
             <Route path="orders" element={"<UserOrders />"} />
-            <Route path="addresses" element={"<UserAddresses />"} />
             <Route path="favorites" element={"<UserFavorites />"} />
           </Route>
         </Route>
