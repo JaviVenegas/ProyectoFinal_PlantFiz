@@ -6,6 +6,8 @@ import './AdminLayout.css';
 
 export const AdminLayout = () => {
   const { session } = useAuth();
+  
+  console.log(session);
 
   return (
     <Container fluid className="admin-layout">
@@ -20,7 +22,7 @@ export const AdminLayout = () => {
           {/* Encabezado del dashboard */}
           <div className="admin-header mb-4">
             <h1>Panel de Administración</h1>
-            <p className="text-muted">Bienvenido, {session?.nombre}</p>
+            <p className="text-muted">Bienvenido, {session?.user?.nombre} { session?.user?.apellido}</p>
           </div>
 
           {/* Contenido dinámico de las rutas hijas */}
