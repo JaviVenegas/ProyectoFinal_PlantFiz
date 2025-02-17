@@ -1,5 +1,4 @@
-
-import miImagen from '../assets/publicidad.jpg';
+import miImagen from '../../public/images/suculentas.jpg';
 
 
 const Header = () => {

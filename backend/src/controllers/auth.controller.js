@@ -10,7 +10,7 @@ const handleLogin = async (req, res, next) => {
         if (!userExists) {
             throw new Error('USER_NOT_FOUND');
         }
-
+        
         const match = await bcrypt.compare(contrasena, userExists.contrasena);
         if (!match) {
             throw new Error('CREDENTIALS_ERROR');
@@ -18,7 +18,14 @@ const handleLogin = async (req, res, next) => {
 
         const data = { correo };
         const token = signToken(data);
-        res.json({ token });
+        res.json({ 
+            message: 'Inicio de sesión exitoso',
+            token,
+            user: {
+                correo: userExists.correo,
+                rol: userExists.rol
+            }
+         });
 
     } catch (error) {
         next(error);
@@ -61,19 +68,15 @@ const handleGetUser = async (req, res, next) => {
 
 const handleUpdateUser = async (req, res, next) => {
     try {
-        const { rut, nombre, apellido, correoNuevo, telefono, correoAnterior } = req.body;
+        const { rut, nombre, apellido, telefono } = req.body;
         const { correo } = req.user;
 
-        const userExists = await Auth.getUser(correoAnterior);
+        const userExists = await Auth.getUser(correo);
         if (!userExists) {
             throw new Error('USER_NOT_FOUND');
         }
 
-        if (correo !== correoAnterior) {
-            throw new Error('PERMISSION_DENIED');
-        }
-
-        const updatedUser = await Auth.updateUser(rut, nombre, apellido, correoNuevo, telefono, correoAnterior);
+        const updatedUser = await Auth.updateUser(rut, nombre, apellido, telefono, correo);
         res.status(200).json({ message: 'Usuario actualizado con éxito', data: updatedUser });
 
     } catch (error) {
@@ -85,7 +88,7 @@ const handleChangePassword = async (req, res, next) => {
     try {
         const { correo } = req.user;
         const { contrasenaActual, contrasenaNueva, confirmacionContrasenaNueva } = req.body;
-
+        
         const userExists = await Auth.getUser(correo);
         const userData = await Auth.getUserPassword(correo);
 
@@ -97,11 +100,11 @@ const handleChangePassword = async (req, res, next) => {
             throw new Error('PASSWORD_CONFIRMATION_MISMATCH');
         }
 
-        const matchPassword = await bcrypt.compare(contrasenaActual, userData.contrasena);
+        const matchPassword = await bcrypt.compare(contrasenaActual, userData);
         if (!matchPassword) {
             throw new Error('INVALID_CURRENT_PASSWORD');
         }
-
+        
         const hashedNewPassword = await bcrypt.hash(contrasenaNueva, 10);
         const updatedUser = await Auth.updateUserPassword(correo, hashedNewPassword);
         res.status(200).json({ message: 'Contraseña actualizada con éxito', data: updatedUser });
