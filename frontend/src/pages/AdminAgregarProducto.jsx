@@ -3,10 +3,11 @@ import { Form, Col, Row, Button } from 'react-bootstrap';
 import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 import React from 'react'
 
 const AdminAgregarProducto = () => {
+    const navigate = useNavigate();
 
     const [nombre_planta, setNombrePlanta] = useState('');
     const [precio, setPrecio] = useState('');
@@ -116,7 +117,10 @@ const AdminAgregarProducto = () => {
         <Button variant="outline-secondary" className="mt-3" style={{ borderRadius: '0' }} type="submit">
           Agregar nuevo producto
         </Button>
-        <Button variant="outline-secondary" className="mt-3 ms-3" style={{ borderRadius: '0' }} type="button">
+        <Button variant="outline-secondary" 
+        onClick={() => navigate(`/admin`)}
+        className="mt-3 ms-3" 
+        style={{ borderRadius: '0' }} type="button">
           Cancelar
         </Button>
       </Form>

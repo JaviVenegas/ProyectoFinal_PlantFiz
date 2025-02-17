@@ -9,7 +9,7 @@ const Header = () => {
                 className="p-5 text-center bg-image my-4"
                 style={{
                     backgroundImage: `url(${miImagen})`,
-                    height: '17rem',
+                    height: '30rem',
                     width: '100%',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
