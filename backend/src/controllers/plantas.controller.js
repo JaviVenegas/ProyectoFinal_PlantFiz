@@ -72,22 +72,35 @@ const handlePostPlanta = async (req, res, next) => {
 const handleEditPlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
-
         const cambios = req.body;
 
-        if (Object.keys(cambios).length === 0) {
-            return res.status(400).json({ error: 'No se proporcionaron cambios' });
+        // Validar que el ID sea un número válido
+        if (!id || isNaN(id)) {
+            return res.status(400).json({ message: "ID no válido o no proporcionado" });
         }
-        const editado= await plantas.editarPlanta(id, cambios);
+
+        // Validar que al menos un campo ha sido modificado
+        if (!cambios || Object.keys(cambios).length === 0) {
+            return res.status(400).json({ message: "No se proporcionaron cambios para actualizar" });
+        }
+
+        // Llamar a la función de edición en la base de datos
+        const editado = await plantas.editarPlanta(id, cambios);
+
+        if (!editado) {
+            return res.status(404).json({ message: "No se encontró la planta o no se pudo actualizar" });
+        }
 
         res.json({
-            message: 'Planta actualizada correctamente',
-            data: edita})
-    
+            message: "Planta actualizada correctamente",
+            data: editado
+        });
+
     } catch (error) {
-        next(error);
+        console.error("Error en handleEditPlanta:", error);
+        next(error); // Pasar el error al middleware de manejo de errores
     }
-}
+};
 
 
 

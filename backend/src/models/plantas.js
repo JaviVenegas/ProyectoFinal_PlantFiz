@@ -62,24 +62,64 @@ const ObtenerPlantaPorId = async (id) => {
 }
 
 //Editar planta para portal admin 
+const editarPlantatt = async (id, nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz) => {
+    try {    
+        const SQLQuery = `UPDATE plantas SET 
+            nombre_planta = $1,
+            precio = $2,
+            origen = $3, 
+            descripcion_hoja = $4, 
+            ideal_para = $5,
+            agua = $6, 
+            luz = $7
+        WHERE id = $8 RETURNING *`;
+        const values = [      
+            nombre_planta,
+            precio,
+            origen,
+            descripcion_hojas,
+            ideal_para,
+            agua,
+            luz, 
+            id
+        ]
+        
+        const result = await DB.query(SQLQuery,values);
+
+        return result.rows[0]; // Devuelve el objeto actualizado
+    } catch (error) {
+        console.error("Error en editarPlanta:", error);
+        throw error;
+    }
+};
+
 const editarPlanta = async (id, cambios) => {
     try {
-        // Obtener los campos y valores de los cambios
+        if (!id || isNaN(id)) {
+            throw new Error("ID no válido o no proporcionado");
+        }
+
         const campos = Object.keys(cambios);
         const valores = Object.values(cambios);
 
-        // Construcción dinámica de la cláusula SET para la consulta
-        const setClause = campos.map((campo, index) => `${campo} = $${index + 1}`).join(", ");
+        if (campos.length === 0) {
+            throw new Error("No se proporcionaron cambios");
+        }
 
-        // Crear la consulta SQL para actualizar
-        const query = `UPDATE plantas SET ${setClause} WHERE id = $${campos.length + 1} RETURNING *`;
+        // Construye la consulta SQL de manera segura
+        const setClause = campos.map((campo, i) => `${campo.trim()} = $${i + 1}`).join(", ");
+        const SQLQuery = `UPDATE plantas SET ${setClause} WHERE id = $${campos.length + 1} RETURNING *`;
 
-        // Ejecutar la consulta en la base de datos
-        const { rows } = await DB.query(query, [...valores, id]);
+        console.log("SQLQuery:", SQLQuery);
+        console.log("Valores para la consulta:", [...valores, id]);
 
-        return rows[0]; // Retorna el objeto actualizado
+        // Ejecuta la consulta en la BD
+        const { rows } = await DB.query(SQLQuery, [...valores, id]);
+
+        return rows[0]; // Retorna la planta actualizada
     } catch (error) {
-        throw error; // Si ocurre un error, se lanza una excepción
+        console.error("Error en editarPlanta:", error);
+        throw error;
     }
 };
 
