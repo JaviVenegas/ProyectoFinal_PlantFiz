@@ -1,5 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { plantas } from "../data/data.js";
+import { ENDPOINT } from "../config/constants.js";
+import axios from "axios";
+
 
 export const ProductDetails = () => {
   const { id } = useParams(); // Obtiene el id de la URL

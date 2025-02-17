@@ -3,6 +3,8 @@ import { Card, Form, Button, Col, Container, Row } from "react-bootstrap";
 import { IoTrashOutline } from "react-icons/io5";
 import { CartContext } from "../context/CartContext";
 
+
+
 const Cart = () => {
     const { cart, addCart, removeFromCart, deletePlanta, total } = useContext(CartContext);
 
