@@ -1,4 +1,3 @@
-const { signToken } = require('../helpers/jwt');
 const Direcciones = require('../models/Direcciones');
 
 const handleGetDirections = async (req, res, next) => {
@@ -11,8 +10,7 @@ const handleGetDirections = async (req, res, next) => {
         }
 
         const directions = await Direcciones.getDirections(user.id);
-        
-        res.status(200).json({ message: 'Direcciones obtenidas con éxito', data: directions });
+        res.status(200).json({ message: 'Direcciones obtenidas con éxito', directions });
 
     } catch (error) {
         next(error);

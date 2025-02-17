@@ -117,7 +117,7 @@ export const UserEditForm = ({ setEditData }) => {
             </Button>
 
             <Button variant="dark" onClick={handleSubmitCancel}>
-              Volver
+              Cancelar
             </Button>
           </Container>
         </Form>

@@ -1,11 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
 import { AddressForm } from "../components/AddressForm";
+import { ENDPOINT } from "../config/constants";
+import axios from "axios";
 
 export const UserAddresses = () => {
   const [editAddress, setEditAddress] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null); // Nueva variable de estado
   const { session } = useAuth();
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const { data } = await axios.get(ENDPOINT.getAddresses, {
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        });
+
+        setAddresses(data.directions);
+      } catch (error) {
+        console.error("Error al obtener direcciones:", error);
+      }
+    };
+
+    fetchAddresses();
+  }, [session.token]);
 
   return (
     <Container>
@@ -14,30 +36,49 @@ export const UserAddresses = () => {
       </Container>
 
       {editAddress ? (
-        <AddressForm setEditAddress={setEditAddress} />
+        <AddressForm
+          setEditAddress={setEditAddress}
+          addressData={selectedAddress} // Se pasa la dirección seleccionada
+        />
       ) : (
         <Container className="d-flex mt-4">
           <Card className="w-50 border p-4 rounded shadow-sm">
             <Card.Body>
-              {session?.user?.addresses?.length > 0 ? (
-                session.user.addresses.map((address, index) => (
+              {addresses.length > 0 ? (
+                addresses.map((address, index) => (
                   <div key={index} className="mb-3 p-2 border rounded">
                     <p className="mb-1">
-                      <strong>Dirección:</strong> {address.street}, {address.city}
+                      <strong>Dirección:</strong> {address.direccion},
                     </p>
                     <p className="mb-1">
-                      <strong>Región:</strong> {address.region}
+                      <strong>Ciudad:</strong> {address.ciudad},
                     </p>
                     <p className="mb-1">
-                      <strong>Código Postal:</strong> {address.postalCode}
+                      <strong>Región:</strong> {address.region},
                     </p>
-                    <div className="d-flex justify-content-end">
+                    <p className="mb-1">
+                      <strong>Código Postal:</strong>
+                      {address.codigo_postal || "N/A"}
+                    </p>
+                    <div className="d-flex justify-content-end align-items-center gap-3">
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => console.log("Eliminar dirección", address.id)}
+                        onClick={() =>
+                          console.log("Eliminar dirección", address.id)
+                        }
                       >
                         Eliminar
+                      </Button>
+                      <Button
+                        variant="info"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedAddress(address); 
+                          setEditAddress(true); 
+                        }}
+                      >
+                        Editar
                       </Button>
                     </div>
                   </div>
@@ -47,7 +88,13 @@ export const UserAddresses = () => {
               )}
 
               <div className="text-center mt-4">
-                <Button variant="dark" onClick={() => setEditAddress(true)}>
+                <Button
+                  variant="dark"
+                  onClick={() => {
+                    setSelectedAddress(null); // Se limpia la dirección seleccionada (para crear una nueva)
+                    setEditAddress(true);
+                  }}
+                >
                   Añadir Dirección
                 </Button>
               </div>
