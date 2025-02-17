@@ -1,10 +1,5 @@
 
 
-export const URLBASE = 'http://localhost:3000';
-
-
-export const ENDPOINT = {
-
  
 // Productos
 // Categoria Plantas
@@ -14,7 +9,7 @@ export const ENDPOINT = {
     agregarPlanta: `${URLBASE}/productos/planta`,          // POST - Crear una planta
     editarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // PATCH - Editar una planta
     eliminarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // DELETE - Eliminar una planta
-  };
+  
   
 
 
