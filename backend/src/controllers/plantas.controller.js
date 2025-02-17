@@ -14,8 +14,10 @@ const handleGetAllPlantas = async (req, res, next) => {
 
         res.json({
             message: 'Plantas obtenidas correctamente',
-            data: ListadoPlantas
+            plantas: ListadoPlantas,
+           
         });
+
 
     } catch (error) {
         next(error);
@@ -26,21 +28,25 @@ const handleGetAllPlantas = async (req, res, next) => {
 const handleGetPlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const response = await plantas.ObtenerPlantaPorId(id);
-
-        if (!response) {
+        const unaPlanta = await plantas.ObtenerPlantaPorId(id);
+        if (!unaPlanta) {
             throw new Error('PLANT_GET_ERROR');
         }
 
 
+        console.log({
+            planta: unaPlanta
+        }
+        );
+
         res.json({
             message: 'Planta obtenida correctamente',
-            data: response
+            planta: unaPlanta
         });
     } catch (error) {
         next(error);
     }
-}
+};
 
 
 //Agregar un producto con POST  
@@ -61,7 +67,8 @@ const handlePostPlanta = async (req, res, next) => {
 }
 
 
-//Editar un producto con DELETE 
+//Editar un producto con PATCH
+
 const handleEditPlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -71,11 +78,11 @@ const handleEditPlanta = async (req, res, next) => {
         if (Object.keys(cambios).length === 0) {
             return res.status(400).json({ error: 'No se proporcionaron cambios' });
         }
-        const response = await plantas.editarPlanta(id, cambios);
+        const editado= await plantas.editarPlanta(id, cambios);
 
         res.json({
             message: 'Planta actualizada correctamente',
-            data: response})
+            data: edita})
     
     } catch (error) {
         next(error);
@@ -83,25 +90,17 @@ const handleEditPlanta = async (req, res, next) => {
 }
 
 
+
+
 // eliminar una planta 
 const handleDeletePlanta = async (req, res, next) => {
     try {
         const { id } = req.params;
-
-
-        // Verificar si la planta existe
-        const existe = await plantas.existe(id);
-
-        if (!existe) {
-            throw new Error('PLANT_DELETE_ERROR');
-        }
-
-        //Si exisste, se elimina
-        const response =  await plantas.eliminarPlanta(id);
+        const borrada =  await plantas.eliminarPlanta(id);
 
         res.status (200).json({
             message: 'Planta eliminada correctamente',
-            data: response
+            data: borrada
         });
 
 
