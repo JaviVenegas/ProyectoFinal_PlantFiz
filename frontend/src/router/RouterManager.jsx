@@ -10,6 +10,7 @@ import { AdminCatalogPage } from "../pages/AdminCatalogPage";
 import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
 import AdminEditarInfoProducto from "../pages/AdminEditarInfoProducto";
+import AdminAgregarProducto  from "../pages/AdminAgregarProducto";
 
 
 //Estos imports serán reemplazados por el Product Detail hecho por Javi
@@ -51,6 +52,7 @@ export const RouterManager = () => {
           <Route path="users" element={'<AdminUsersPage />'} />
           
           <Route path="AdminEditarInfoProducto/:id" element={<AdminEditarInfoProducto />} /> 
+          <Route path="AdminAgregarProducto" element={<AdminAgregarProducto />} /> 
         </Route>
 
         {/* Ruta 404 */}

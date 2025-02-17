@@ -10,10 +10,12 @@ const Catalogo = () => {
 
   const fetchPlantas = async () => {
     try {
-      const response = await axios.get(ENDPOINT.getPlantas);
-      console.log("Datos recibidos:", response.data);
+      const { data } = await axios.get(ENDPOINT.getPlantas);
 
-      setPlantas(response.data.data.rows || []);
+      setPlantas(data.plantas || []);
+
+      console.log(data);
+      
     } catch (error) {
       console.error("Error al obtener las plantas:", error);
       setPlantas([]);
