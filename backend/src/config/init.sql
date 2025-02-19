@@ -1,4 +1,4 @@
--- Active: 1729978767201@@127.0.0.1@5432@plantfiz
+-- Active: 1729899505784@@127.0.0.1@5432@plan_de_viajes@public
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
 -- ==================================================
@@ -221,4 +221,8 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
 
-select * from plantas 
+-- Insertar datos en la tabla "direcciones"
+INSERT INTO direcciones (id_usuario, direccion, ciudad, region, codigo_postal) VALUES
+(20, 'Av. Siempre Viva 742', 'Springfield', 'Illinois', '62704'),
+(20, 'Calle Falsa 123', 'Ciudad Gótica', 'Nueva York', '10001'),
+(20, 'Paseo del Prado 56', 'Madrid', 'Madrid', '28014');

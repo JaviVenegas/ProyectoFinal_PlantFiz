@@ -8,7 +8,7 @@ import axios from "axios";
 export const UserAddresses = () => {
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState(null); // Nueva variable de estado
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const { session } = useAuth();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const UserAddresses = () => {
       {editAddress ? (
         <AddressForm
           setEditAddress={setEditAddress}
-          addressData={selectedAddress} // Se pasa la dirección seleccionada
+          address={selectedAddress}
         />
       ) : (
         <Container className="d-flex mt-4">
@@ -91,7 +91,7 @@ export const UserAddresses = () => {
                 <Button
                   variant="dark"
                   onClick={() => {
-                    setSelectedAddress(null); // Se limpia la dirección seleccionada (para crear una nueva)
+                    setSelectedAddress(null);
                     setEditAddress(true);
                   }}
                 >

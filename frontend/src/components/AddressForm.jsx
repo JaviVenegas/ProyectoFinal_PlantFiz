@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import axios from "axios";
 import { ENDPOINT } from "../config/constants";
+import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 
 export const AddressForm = ({ setEditAddress, address }) => {
-    console.log(address);
+  const { session } = useAuth();
+
   const [formData, setFormData] = useState({
-    direccion: addressData?.direccion || "",
-    ciudad: addressData?.ciudad || "",
-    region: addressData?.region || "",
-    codigo_postal: addressData?.codigo_postal || "",
+    direccion: address.direccion,
+    ciudad: address.ciudad,
+    region: address.region,
+    codigo_postal: address.codigo_postal,
   });
 
   const handleChange = (e) => {
@@ -22,16 +24,20 @@ export const AddressForm = ({ setEditAddress, address }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      response = await axios.put(`${ENDPOINT.updateAddress}/${addressData.id}`, formData, {
+      console.log('http://localhost:3000/')
+      console.log(`${ENDPOINT.updateAddress}/${address.id}`);
+      response = await axios.put(`${ENDPOINT.updateAddress}/${address.id}`, formData, {
         headers: {
           Authorization: `Bearer ${session?.token}`,
           "Content-Type": "application/json",
         },
       });
 
+      
+
       console.log("Respuesta del servidor:", response);
 
-      setEditAddress(false); // Cerrar el formulario
+      setEditAddress(false); 
     } catch (error) {
       console.error("Error al actualizar la dirección:", error);
       alert("Hubo un error al actualizar la dirección");
