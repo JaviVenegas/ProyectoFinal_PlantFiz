@@ -14,8 +14,8 @@ export const ENDPOINT = {
   // Addresses (Direcciones)
   getAddresses: `${URLBASE}/user/directions/`,        // GET (necesita token)
   createAddress: `${URLBASE}/user/directions/createDirection`, // POST (necesita token)
-  updateAddress: (address.id) => `${URLBASE}/user/directions/updateDirection/${address.id}`, // PUT (necesita token)
-  deleteAddress: (id) => `${URLBASE}/user/directions/deleteDirection/${id}`, // DELETE (necesita token)
+  updateAddress: `${URLBASE}/user/directions/updateDirection`, // PUT (necesita token)
+  deleteAddress: `${URLBASE}/user/directions/deleteDirection`, // DELETE (necesita token)
 
   // Productos (Faltan subrutas de productos)
   productos: `${URLBASE}/productos` // GET 

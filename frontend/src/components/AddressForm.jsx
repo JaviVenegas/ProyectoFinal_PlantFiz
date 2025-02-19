@@ -24,23 +24,17 @@ export const AddressForm = ({ setEditAddress, address }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('http://localhost:3000/')
-      console.log(`${ENDPOINT.updateAddress}/${address.id}`);
-      response = await axios.put(`${ENDPOINT.updateAddress}/${address.id}`, formData, {
+      const response = await axios.put(`${ENDPOINT.updateAddress}/${address.id}`, formData, {
         headers: {
           Authorization: `Bearer ${session?.token}`,
           "Content-Type": "application/json",
         },
       });
 
-      
-
-      console.log("Respuesta del servidor:", response);
-
       setEditAddress(false); 
+      
     } catch (error) {
       console.error("Error al actualizar la dirección:", error);
-      alert("Hubo un error al actualizar la dirección");
     }
   };
 

@@ -3,9 +3,11 @@ import { Container, Card, Button } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
 import { AddressForm } from "../components/AddressForm";
 import { ENDPOINT } from "../config/constants";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const UserAddresses = () => {
+  const navigate = useNavigate();
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -29,6 +31,20 @@ export const UserAddresses = () => {
     fetchAddresses();
   }, [session.token]);
 
+  const handleDeleteAddress = async (id) => {
+    try {
+      await axios.delete(`${ENDPOINT.deleteAddress}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+        },
+      });
+
+      navigate("/perfil/");
+    } catch (error) {
+      console.error("Error al eliminar la direccion:", error);
+    }
+  };
+
   return (
     <Container>
       <Container className="d-flex">
@@ -42,11 +58,11 @@ export const UserAddresses = () => {
         />
       ) : (
         <Container className="d-flex mt-4">
-          <Card className="w-50 border p-4 rounded shadow-sm">
+          <Card className="w-100 border p-2 rounded shadow-sm">
             <Card.Body>
               {addresses.length > 0 ? (
                 addresses.map((address, index) => (
-                  <div key={index} className="mb-3 p-2 border rounded">
+                  <div key={index} className="mb-4 p-4 border rounded">
                     <p className="mb-1">
                       <strong>Dirección:</strong> {address.direccion},
                     </p>
@@ -58,27 +74,29 @@ export const UserAddresses = () => {
                     </p>
                     <p className="mb-1">
                       <strong>Código Postal:</strong>
-                      {address.codigo_postal || "N/A"}
+                      {address.codigo_postal}
                     </p>
+
                     <div className="d-flex justify-content-end align-items-center gap-3">
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() =>
-                          console.log("Eliminar dirección", address.id)
-                        }
-                      >
-                        Eliminar
-                      </Button>
                       <Button
                         variant="info"
                         size="sm"
                         onClick={() => {
-                          setSelectedAddress(address); 
-                          setEditAddress(true); 
+                          setSelectedAddress(address);
+                          setEditAddress(true);
                         }}
                       >
                         Editar
+                      </Button>
+
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() =>
+                          handleDeleteAddress(address.id)
+                        }
+                      >
+                        Eliminar
                       </Button>
                     </div>
                   </div>
