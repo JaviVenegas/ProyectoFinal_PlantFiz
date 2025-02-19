@@ -31,9 +31,9 @@ const AdminAgregarProducto = () => {
             luz,
           });
       
-          console.log("Datos actualizados:", response.data);
+        
         } catch (error) {
-          console.error("Error al actualizar la planta:", error);
+          throw error;
         }
       };
    

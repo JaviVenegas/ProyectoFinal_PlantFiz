@@ -21,7 +21,7 @@ app.use(cors());
 // Routes
 app.use('/', APIRoutes)
 
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Middleware de error
 app.use(errorMiddleware)

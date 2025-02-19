@@ -41,7 +41,6 @@ const obtenerPlantas = async ( limit = 12 ) => {
 
 
     } catch (error) {
-        console.error("Error al obtener plantas:", error);
         throw error
     }
     
@@ -54,7 +53,7 @@ const ObtenerPlantaPorId = async (id) => {
         const SQLValues = [id]
         const { rows }= await DB.query(SQLQuery, SQLValues)    
 
-        console.log(rows)
+        
         return rows [0];// El 0 hace que retorne solo 1 pregunta en lugar de array de plantas
     } catch (error) {
         throw error
@@ -88,7 +87,7 @@ const editarPlantatt = async (id, nombre_planta, precio, origen, descripcion_hoj
 
         return result.rows[0]; // Devuelve el objeto actualizado
     } catch (error) {
-        console.error("Error en editarPlanta:", error);
+    
         throw error;
     }
 };
@@ -110,15 +109,13 @@ const editarPlanta = async (id, cambios) => {
         const setClause = campos.map((campo, i) => `${campo.trim()} = $${i + 1}`).join(", ");
         const SQLQuery = `UPDATE plantas SET ${setClause} WHERE id = $${campos.length + 1} RETURNING *`;
 
-        console.log("SQLQuery:", SQLQuery);
-        console.log("Valores para la consulta:", [...valores, id]);
+
 
         // Ejecuta la consulta en la BD
         const { rows } = await DB.query(SQLQuery, [...valores, id]);
 
         return rows[0]; // Retorna la planta actualizada
     } catch (error) {
-        console.error("Error en editarPlanta:", error);
         throw error;
     }
 };

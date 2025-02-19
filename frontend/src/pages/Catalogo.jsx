@@ -14,7 +14,7 @@ const Catalogo = () => {
 
       setPlantas(data.plantas || []);
 
-      console.log(data);
+
       
     } catch (error) {
       console.error("Error al obtener las plantas:", error);

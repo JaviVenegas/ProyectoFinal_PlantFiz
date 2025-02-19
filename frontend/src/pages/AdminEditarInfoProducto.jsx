@@ -66,7 +66,6 @@ import { useNavigate } from 'react-router-dom';
 
     try {
       const response = await axios.patch(ENDPOINT.editarPlanta(id), cambios);
-      console.log("Datos actualizados:", response.data);
       
     } catch (err) {
       console.error("Error al actualizar la planta:", err);

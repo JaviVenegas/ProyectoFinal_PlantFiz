@@ -1,8 +1,9 @@
 /* Footer.css */
 .footer {
-    background-color: #ddd;
+  background-color: #c4bbdd;
     padding: 20px 0;
     margin-top: 40px;
+    color: #7d729b;
   }
   
   .contact-info p {
@@ -19,7 +20,7 @@
   }
   
   .footer-links a {
-    color: #000;
+    color: #7d729b;
     text-decoration: none;
   }
   
