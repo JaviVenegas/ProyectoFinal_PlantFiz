@@ -33,12 +33,6 @@ const handleGetPlanta = async (req, res, next) => {
             throw new Error('PLANT_GET_ERROR');
         }
 
-
-        console.log({
-            planta: unaPlanta
-        }
-        );
-
         res.json({
             message: 'Planta obtenida correctamente',
             planta: unaPlanta
@@ -97,7 +91,6 @@ const handleEditPlanta = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.error("Error en handleEditPlanta:", error);
         next(error); // Pasar el error al middleware de manejo de errores
     }
 };

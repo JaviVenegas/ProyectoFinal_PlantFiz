@@ -5,5 +5,16 @@
   }
   
   .nav-link-custom:hover {
-    color: #007bff; 
+    color: #7d729b"; 
   }
+  .custom-primary {
+    background-color:  #c4bbdd !important;
+    border-color: #7d729b !important;
+  }
+  
+  .custom-primary:hover {
+    background-color: #ffe171!important;
+    border-color: #ffe171 !important;
+    color:#000;
+  }
+  

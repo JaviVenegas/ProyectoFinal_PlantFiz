@@ -12,8 +12,6 @@ export const AdminCatalog = ({ product }) => {
   const borrarPlanta = async (id) => {
     try {
       await axios.delete(ENDPOINT.eliminarPlanta(id));
-
-      console.log(`Planta con ID ${id} eliminada`);
       
       window.location.reload(); // Actualiza la lista de productos después de eliminar
     } catch (error) {

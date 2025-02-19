@@ -1,7 +1,6 @@
 const errors = require('../helpers/errorsMenssages')
 
 const errorMiddleware = (err, req, res, next) => {
-    console.error("Error recibido en middleware:", err);
    
     const errorDetails = errors[err.message] || errors['SERVER_ERROR'];
     

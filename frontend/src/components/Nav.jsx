@@ -5,6 +5,9 @@ import "./Nav.css";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import miImagen from '../assets/logoplantfiz.png';
+
+
 
 const CustomNav = () => {
   const { session, handleLogout } = useAuth();
@@ -26,7 +29,7 @@ const CustomNav = () => {
       <Navbar
         expand="lg"
         className="border-bottom"
-        style={{ background: "#ddd" }}
+        style={{ background: "#c4bbdd" }}
       >
         <Container>
           <Nav>
@@ -37,12 +40,11 @@ const CustomNav = () => {
               Catálogo
             </Nav.Link>
           </Nav>
-          <div className="d-flex w-25">
+          <div className="d-flex w-25 ">
             {session ? (
               <Button
-                variant="outline-primary"
-                className="w-100 border-end"
-                style={{ borderRadius: "0" }}
+                className= "custom-primary  w-100 me-2"
+                style={{ borderRadius: "5px", borderWidth: "1px" }}
                 onClick={handleClickLogout}
               >
                 {" "}
@@ -50,9 +52,8 @@ const CustomNav = () => {
               </Button>
             ) : (
               <Button
-                variant="outline-primary"
-                className="w-100 border-end"
-                style={{ borderRadius: "0" }}
+                className=" custom-primary w-100 me-2"
+                style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
                 onClick={handleClickLogin}
               >
                 {" "}
@@ -61,9 +62,8 @@ const CustomNav = () => {
             )}
 
             <Button
-              variant="outline-secondary"
-              className="w-100"
-              style={{ borderRadius: "0" }}
+              className=" custom-primary w-100"
+              style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
               href="/cart"
             >
               <div className="d-flex align-items-center justify-content-around">
@@ -78,11 +78,13 @@ const CustomNav = () => {
       <Container className="d-flex mt-3 align-items-center justify-content-around">
         <div className="">
           {/* Logo */}
-          <div
-            className="me-4"
-            style={{ width: "150px", height: "100px", background: "#ddd" }}
-          >
-            Logo
+          <div className="me-4"
+            style={{ width: "120px", height: "120px", }}
+          >  <img 
+                src= {miImagen} 
+                alt="Imagen de ejemplo" 
+                className="img-fluid rounded mt-2"
+        />
           </div>
         </div>
 
