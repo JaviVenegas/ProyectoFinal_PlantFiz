@@ -11,10 +11,10 @@ export const UserAddresses = () => {
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const { session } = useAuth();
+  const { session, isLoading, setIsLoading } = useAuth();
 
   useEffect(() => {
-    const fetchAddresses = async () => {
+    const getAddresses = async () => {
       try {
         const { data } = await axios.get(ENDPOINT.getAddresses, {
           headers: {
@@ -26,10 +26,10 @@ export const UserAddresses = () => {
       } catch (error) {
         console.error("Error al obtener direcciones:", error);
       }
+      getAddresses();
+      setIsLoading(false);
     };
-
-    fetchAddresses();
-  }, [session.token]);
+  }, [isLoading]);
 
   const handleDeleteAddress = async (id) => {
     try {
@@ -39,7 +39,13 @@ export const UserAddresses = () => {
         },
       });
 
-      navigate("/perfil/");
+      const { data } = await axios.get(ENDPOINT.getAddresses, {
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+        },
+      });
+
+      setAddresses(data.directions);
     } catch (error) {
       console.error("Error al eliminar la direccion:", error);
     }
@@ -92,9 +98,7 @@ export const UserAddresses = () => {
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() =>
-                          handleDeleteAddress(address.id)
-                        }
+                        onClick={() => handleDeleteAddress(address.id)}
                       >
                         Eliminar
                       </Button>
