@@ -1,17 +1,13 @@
-import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { ENDPOINT } from "../config/constants";
-import { useAuth } from "../hooks/useAuth";
-import axios from "axios";
+import { useState } from "react";
 
-export const AddressForm = ({ setEditAddress, address }) => {
-  const { session } = useAuth();
+export const AddressForm = ({ handleSubmit, address }) => {
 
   const [formData, setFormData] = useState({
-    direccion: address.direccion,
-    ciudad: address.ciudad,
-    region: address.region,
-    codigo_postal: address.codigo_postal,
+    direccion: address.direccion || "",
+    ciudad: address.ciudad || "",
+    region: address.region || "",
+    codigo_postal: address.codigo_postal || "",
   });
 
   const handleChange = (e) => {
@@ -19,23 +15,6 @@ export const AddressForm = ({ setEditAddress, address }) => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(`${ENDPOINT.updateAddress}/${address.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${session?.token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      setEditAddress(false); 
-      
-    } catch (error) {
-      console.error("Error al actualizar la dirección:", error);
-    }
   };
 
   return (

@@ -1,35 +1,36 @@
 import { useState, useEffect } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
-import { AddressForm } from "../components/AddressForm";
+import { AddressFormPage } from "./AddressFormPage";
 import { ENDPOINT } from "../config/constants";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AddAddress } from "./AddAddress";
 
 export const UserAddresses = () => {
-  const navigate = useNavigate();
+  const [addAddress, setAddAddress] = useState(false);
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const { session, isLoading, setIsLoading } = useAuth();
+  const { session } = useAuth();
 
   useEffect(() => {
-    const getAddresses = async () => {
-      try {
-        const { data } = await axios.get(ENDPOINT.getAddresses, {
-          headers: {
-            Authorization: `Bearer ${session.token}`,
-          },
-        });
+    getAddresses();
+    
+  }, [editAddress]);
 
-        setAddresses(data.directions);
-      } catch (error) {
-        console.error("Error al obtener direcciones:", error);
-      }
-      getAddresses();
-      setIsLoading(false);
-    };
-  }, [isLoading]);
+  const getAddresses = async () => {
+    try {
+      const { data } = await axios.get(ENDPOINT.getAddresses, {
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+        },
+      });
+
+      setAddresses(data.directions);
+    } catch (error) {
+      console.error("Error al obtener direcciones:", error);
+    }
+  };
 
   const handleDeleteAddress = async (id) => {
     try {
@@ -51,6 +52,14 @@ export const UserAddresses = () => {
     }
   };
 
+  const handleAddAddress = () => {
+    try {
+      setAddAddress(true);
+    } catch (error) {
+      console.error("Error al agregar la direccion:", error);
+    }
+  };
+
   return (
     <Container>
       <Container className="d-flex">
@@ -58,10 +67,12 @@ export const UserAddresses = () => {
       </Container>
 
       {editAddress ? (
-        <AddressForm
+        <AddressFormPage
           setEditAddress={setEditAddress}
           address={selectedAddress}
         />
+      ) : addAddress ? (
+        <AddAddress setAddAddress={setAddAddress} />
       ) : (
         <Container className="d-flex mt-4">
           <Card className="w-100 border p-2 rounded shadow-sm">
@@ -112,10 +123,7 @@ export const UserAddresses = () => {
               <div className="text-center mt-4">
                 <Button
                   variant="dark"
-                  onClick={() => {
-                    setSelectedAddress(null);
-                    setEditAddress(true);
-                  }}
+                  onClick={handleAddAddress}
                 >
                   Añadir Dirección
                 </Button>
