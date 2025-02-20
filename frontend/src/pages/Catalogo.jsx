@@ -33,10 +33,10 @@ const Catalogo = () => {
       </h1>
       <Categorias />
       <Container className="d-flex mt-3 align-items-center align-self-sm-stretch justify-content-around">
-        <Button variant="outline-secondary" className="w-100 me-5" style={{ borderRadius: "0" }}>
+        <Button variant="outline-secondary" className="w-50 mx-5" style={{ borderRadius: "5px" }}>
           <div className="d-flex align-items-center justify-content-evenly">Resultados</div>
         </Button>
-        <Button variant="outline-secondary" className="w-100 ms-5" style={{ borderRadius: "0" }}>
+        <Button variant="outline-secondary" className="w-50 mx-5" style={{ borderRadius: "5px" }}>
           <div className="d-flex align-items-center justify-content-evenly">Filtros</div>
         </Button>
       </Container>

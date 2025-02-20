@@ -28,14 +28,14 @@ export const AdminCatalogPage = () => {
   }, []);
 
   return (
-    <Container className="mt-4">
-      <h2>Editar catálogo</h2>
-    <Container className="d-flex mt-3 align-items-left align justify-content-around">
+    <Container className="my-4">
+      <h2 className= "my-4">Editar catálogo</h2>
+    <Container className="mt-3">
       <Button 
         variant="outline-secondary" 
         onClick={() => navigate(`/admin/AdminAgregarProducto`)}
         className="w-50" 
-        style={{ borderRadius: "0" }}>
+        style={{ borderRadius: "5px" }}>
         <div className="d-flex align-items justify-content-evenly">Agregar producto</div>
       </Button>
 

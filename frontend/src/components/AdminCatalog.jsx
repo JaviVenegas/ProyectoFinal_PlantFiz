@@ -3,6 +3,7 @@ import { Card, Form, Button, Col, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
+import "./admin.css";
 
 export const AdminCatalog = ({ product }) => {
   const [stock, setStock] = useState(product.stock);
@@ -49,8 +50,10 @@ export const AdminCatalog = ({ product }) => {
             </Form.Group>
 
             <Button
+              className=" buttonAdmin me-2 "
               variant="primary"
               onClick={() => navigate(`/admin/AdminEditarInfoProducto/${product.id}`)}
+              style={{ borderRadius: "5px", borderWidth: "1px", backgroundcolor: "#7d729b"}}
             >
               Editar datos producto
             </Button>

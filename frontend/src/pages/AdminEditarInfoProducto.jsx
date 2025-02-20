@@ -80,8 +80,8 @@ import { useNavigate } from 'react-router-dom';
       <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'>Editar datos del producto</h1>
       <Form onSubmit={handleSubmit}>
         <Row>
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Nombre Producto:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Nombre Producto:</Form.Label>
             <Form.Control
               type="text"
               value={nombre_planta || ''}
@@ -90,8 +90,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Precio:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Precio:</Form.Label>
             <Form.Control
               type="number"
               value={precio}
@@ -100,8 +100,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Origen:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Origen:</Form.Label>
             <Form.Control
               type="text"
               value={origen}
@@ -110,8 +110,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
             <Form.Control
               type="text"
               value={descripcion_hoja}
@@ -120,8 +120,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Ideal para:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Ideal para:</Form.Label>
             <Form.Control
               type="text"
               value={ideal_para}
@@ -130,8 +130,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Agua:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Agua:</Form.Label>
             <Form.Control
               type="text"
               value={agua}
@@ -140,8 +140,8 @@ import { useNavigate } from 'react-router-dom';
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Luz:</Form.Label>
+          <Col xs={12} md={12} className=" d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Luz:</Form.Label>
             <Form.Control
               type="text"
               value={luz}
@@ -151,14 +151,16 @@ import { useNavigate } from 'react-router-dom';
           </Col>
         </Row>
 
-        <Button variant="outline-secondary" className="mt-3" style={{ borderRadius: '0' }} type="submit">
+        <Button variant="outline-secondary" className=" buttonAdmineditar mt-3" 
+        style={{ borderRadius: '5px', color: 'white' }} type="submit">
           Guardar
         </Button>
         <Button 
+        
         variant="outline-secondary" 
-        className="mt-3 ms-3" 
+        className=" buttonAdmineditar mt-3 ms-3" 
         onClick={() => navigate(`/admin`)}
-        style={{ borderRadius: '0' }} type="button">
+        style={{ borderRadius: '5px', color: 'white' }} type="button">
           Cancelar
         </Button>
       </Form>
