@@ -33,8 +33,19 @@ export const RouterManager = () => {
           <Route path="/cart" element={<Cart />} />
 
           {/* Seccion de usuario como ruta hija */}
-          <Route path="/perfil/" element={<PerfilUsuario />}>
+          <Route
+            path="/perfil/*"
+            element={
+              <AuthGuard
+                isAllow={session?.user.rol === "user"}
+                redirectTo="/login"
+              >
+                <PerfilUsuario />
+              </AuthGuard>
+            }
+          >
             {/* Rutas hijas de perfil */}
+            
             <Route index element={<UserDashboard />} />
             <Route path="data" element={<UserData />} />
             <Route path="addresses" element={<UserAddresses />} />

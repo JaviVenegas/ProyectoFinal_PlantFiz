@@ -17,7 +17,7 @@ export const RegisterForm = () => {
     correo: "",
     contrasena: "",
     telefono: "",
-    rol: "user"
+    rol: "admin"
   });
 
   const handleOnChange = (e) => {
@@ -130,7 +130,7 @@ export const RegisterForm = () => {
           <p className="mt-3 text-center p-3 d-flex flex-column">
             ¿Ya tienes cuenta?{" "}
             <Link to="/login">Iniciar sesión</Link> <br />
-            <Nav.Link href="/">Ir a la página principal</Nav.Link>
+            <Nav.Link as={Link} to="/">Ir a la página principal</Nav.Link>
           </p>
         </Container>
       </Container>

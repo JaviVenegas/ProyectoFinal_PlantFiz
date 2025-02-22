@@ -13,7 +13,6 @@ const CustomNav = () => {
 
   const handleClickLogout = () => {
     handleLogout();
-    navigate("/");
   };
 
   const handleClickLogin = () => {
@@ -43,11 +42,10 @@ const CustomNav = () => {
               </Nav.Link>
             ) : null}
           </Nav>
-          <div className="d-flex w-25">
+          <div className="d-flex align-items-center gap-3">
             {session ? (
               <Button
                 variant="outline-primary"
-                className="w-100 border-end"
                 style={{ borderRadius: "0" }}
                 onClick={handleClickLogout}
               >
@@ -57,7 +55,6 @@ const CustomNav = () => {
             ) : (
               <Button
                 variant="outline-primary"
-                className="w-100 border-end"
                 style={{ borderRadius: "0" }}
                 onClick={handleClickLogin}
               >
@@ -68,13 +65,10 @@ const CustomNav = () => {
 
             <Button
               variant="outline-secondary"
-              className="w-100"
               style={{ borderRadius: "0" }}
               href="/cart"
             >
-              <div className="d-flex align-items-center justify-content-around">
-                <FaShoppingCart /> Cart: ${total.toLocaleString()}
-              </div>
+              <FaShoppingCart /> Cart: ${total.toLocaleString()}
             </Button>
           </div>
         </Container>
