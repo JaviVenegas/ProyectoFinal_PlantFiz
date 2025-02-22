@@ -4,7 +4,7 @@ import { ENDPOINT } from "../config/constants";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 
-export const AddressForm = ({ setEditAddress, address }) => {
+export const EditAddressForm = ({ setEditAddress, address }) => {
   const { session } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -31,7 +31,8 @@ export const AddressForm = ({ setEditAddress, address }) => {
         },
       });
 
-      setEditAddress(false); 
+      setEditAddress(false);
+      
       
     } catch (error) {
       console.error("Error al actualizar la dirección:", error);
@@ -41,7 +42,7 @@ export const AddressForm = ({ setEditAddress, address }) => {
   return (
     <Container className="mt-4">
       <h3>Editar Dirección</h3>
-      <Form onSubmit={handleSubmit}>
+      <Form className="mt-3" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Dirección</Form.Label>
           <Form.Control
