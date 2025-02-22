@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
  const AdminEditarInfoProducto = () => {
@@ -18,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
   const [ideal_para, setIdealPara] = useState('');
   const [agua, setAgua] = useState('');
   const [luz, setLuz] = useState('');
+  const [cantidad, setCantidad] = useState('');
+  const [mensaje, setMensaje] = useState('');
 
 
  
@@ -35,6 +39,8 @@ import { useNavigate } from 'react-router-dom';
       setIdealPara(planta.ideal_para || '');
       setAgua(planta.agua || '');
       setLuz(planta.luz || '');
+      setCantidad(planta.cantidad || '');
+
     } catch (eror) {
       console.error( error );
      
@@ -58,11 +64,17 @@ import { useNavigate } from 'react-router-dom';
     if (ideal_para) cambios.ideal_para = ideal_para;
     if (agua) cambios.agua = agua;
     if (luz) cambios.luz = luz;
+    if (cantidad) cambios.cantidad = cantidad;
 
     if (Object.keys(cambios).length === 0) {
-      alert("No se han realizado cambios para actualizar.");
-      return;
-    }
+          setMensaje( "🌱 Planta editada con exito 🎉"); 
+          toast.success("🌱 Planta editada con exito 🎉");
+          setTimeout (() => setMensaje (""), 10000);
+    } else {
+      setMensaje("❌ Error al editar la planta ");
+      toast.error("❌ Error al editar la planta");
+      }
+    
 
     try {
       const response = await axios.patch(ENDPOINT.editarPlanta(id), cambios);
@@ -77,7 +89,7 @@ import { useNavigate } from 'react-router-dom';
 
   return (
     <> 
-      <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'>Editar datos del producto</h1>
+      <h1 className='mt-3 my-5'>Editar datos del producto</h1>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col xs={12} md={12} className="d-flex align-items-center my-3">
@@ -149,12 +161,22 @@ import { useNavigate } from 'react-router-dom';
               placeholder="Luz"
             />
           </Col>
+          <Col xs={12} md={12} className=" d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Cantidad:</Form.Label>
+            <Form.Control
+              type="text"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+              placeholder="cantidad"
+            />
+          </Col>
         </Row>
 
         <Button variant="outline-secondary" className=" buttonAdmineditar mt-3" 
         style={{ borderRadius: '5px', color: 'white' }} type="submit">
           Guardar
         </Button>
+        {mensaje && <p className="mt-3" > {mensaje}</p>}
         <Button 
         
         variant="outline-secondary" 

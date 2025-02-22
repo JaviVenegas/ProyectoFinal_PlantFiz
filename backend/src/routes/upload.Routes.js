@@ -1,10 +1,9 @@
 const { Router } = require('express');
-const { uploader } = require('../middlewares/uploadMiddlewares');
-const {
-	uploadSingle,
+const { uploader } = require('../middlewares/uploadMiddlewares'); 
+const {uploadSingle,
 	uploadMultiple,
 	getPublicFile,
-	getPrivateFile,
+	getPrivateFile
 } = require('../controllers/upload.controller');
 
 const router = Router();

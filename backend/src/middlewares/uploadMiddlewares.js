@@ -11,7 +11,7 @@ const storage = multer.diskStorage({   // donde se guarda el archivo en este cas
 		}
 	},
 	filename: (req, file, cb) => {
-		cb(null, `${Date.now()}-${file.originalname}`);   //cb=callback
+		cb(null, `${Date.now()}-${file.originalname}`);   //cb=callback mas nombre del archivo 
 	},
 });
 

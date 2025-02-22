@@ -20,6 +20,8 @@ const AdminAgregarProducto = () => {
     const [idealPara, setIdealPara] = useState('');
     const [agua, setAgua] = useState('');
     const [luz, setLuz] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [imagen_url, setImagen_url] = useState('');
     const [mensaje, setMensaje] = useState('');
 
     const handleSubmit = async (e) => {
@@ -35,6 +37,8 @@ const AdminAgregarProducto = () => {
             idealPara,
             agua,
             luz,
+            cantidad,
+            imagen_url
           });
           if ( response.status === 200 || response.status === 201) {
             setMensaje( "🌱 Planta agregada correctamente 🎉"); 
@@ -53,7 +57,7 @@ const AdminAgregarProducto = () => {
 
   return (
     <>
-       <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'>Editar datos del producto</h1>
+       <h1 className=' mt-3 my-5'>Agregar Producto</h1>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col xs={12} md={12} className="d-flex align-items-center my-3">
@@ -123,6 +127,24 @@ const AdminAgregarProducto = () => {
               value={luz}
               onChange={(e) => setLuz(e.target.value)}
               placeholder="Luz"
+            />
+          </Col>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Cantidad:</Form.Label>
+            <Form.Control
+              type="text"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+              placeholder="Cantidad"
+            />
+          </Col>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Url de la imagen:</Form.Label>
+            <Form.Control
+              type="text"
+              value={imagen_url}
+              onChange={(e) => setImagen_url(e.target.value)}
+              placeholder="Imagen URL"
             />
           </Col>
         </Row>

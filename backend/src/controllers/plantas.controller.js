@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const plantas= require('../models/plantas');
-
+const { DB } = require('../config/db');
 
 //Obtener todos los productos
 const handleGetAllPlantas = async (req, res, next) => {
@@ -46,8 +46,8 @@ const handleGetPlanta = async (req, res, next) => {
 //Agregar un producto con POST  
 const handlePostPlanta = async (req, res, next) => {
     try {
-        const { nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz} = req.body;
-        const response = await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz);
+        const { nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz, cantidad, imagen_url} = req.body;
+        const response = await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz, cantidad, imagen_url);
         
         res.json ({
             message: 'Planta agregada correctamente',
@@ -65,8 +65,8 @@ const handlePostPlanta = async (req, res, next) => {
 
 const handleEditPlanta = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const cambios = req.body;
+        const { id } = req.params; // Obtener el ID de los parámetros de la URL
+        const cambios = req.body; // Obtener los cambios del cuerpo de la solicitud
 
         // Validar que el ID sea un número válido
         if (!id || isNaN(id)) {
@@ -78,22 +78,42 @@ const handleEditPlanta = async (req, res, next) => {
             return res.status(400).json({ message: "No se proporcionaron cambios para actualizar" });
         }
 
-        // Llamar a la función de edición en la base de datos
-        const editado = await plantas.editarPlanta(id, cambios);
-
-        if (!editado) {
-            return res.status(404).json({ message: "No se encontró la planta o no se pudo actualizar" });
+        // Verificar si la planta existe antes de intentar editarla
+        const plantaExistente = await DB.query('SELECT * FROM plantas WHERE id = $1', [id]);
+        if (plantaExistente.rows.length === 0) {
+            return res.status(404).json({ message: "Planta no encontrada" });
         }
 
+        // Extraer la cantidad de los cambios si existe (o establecer un valor por defecto)
+        const cantidad = cambios.cantidad !== undefined ? cambios.cantidad : plantaExistente.rows[0].cantidad;
+        delete cambios.cantidad;  // Eliminar la cantidad de los cambios para que no se actualice en la tabla plantas
+
+        // Llamar a la función de edición en la base de datos para actualizar la planta
+        const editado = await plantas.editarPlanta(id, cambios);
+
+        // Actualizar la cantidad en la tabla `stock_plantas`
+        const updateStockQuery = `
+            UPDATE stock_plantas 
+            SET cantidad = $1 
+            WHERE id_planta = $2
+            RETURNING *;
+        `;
+        await DB.query(updateStockQuery, [cantidad, id]);
+
+        // Responder con el resultado de la edición
         res.json({
-            message: "Planta actualizada correctamente",
+            message: "Planta y cantidad actualizadas correctamente",
             data: editado
         });
 
     } catch (error) {
-        next(error); // Pasar el error al middleware de manejo de errores
+        console.error(error);
+        next(error);  // Pasar el error al middleware de manejo de errores
     }
 };
+
+
+
 
 
 

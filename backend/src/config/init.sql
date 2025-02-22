@@ -75,8 +75,26 @@ CREATE TABLE stock_plantas (
     CONSTRAINT fk_stock_planta FOREIGN KEY (id_planta) REFERENCES plantas (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+
+select * from stock_plantas
+
 -- ===============================
--- 6. TABLA: pedidos
+-- 6. TABLA: imagenes
+-- ===============================
+
+
+CREATE TABLE imagenes_plantas (
+    id SERIAL PRIMARY KEY,
+    id_planta INT NOT NULL,
+    imagen_url TEXT NOT NULL,  
+    CONSTRAINT fk_imagenes_plantas FOREIGN KEY (id_planta) 
+        REFERENCES plantas (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+select * from imagenes_plantas
+
+-- ===============================
+-- 7. TABLA: pedidos
 -- ===============================
 CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
@@ -93,7 +111,7 @@ CREATE TABLE pedidos (
 );
 
 -- ===============================
--- 7. TABLA: pedido_plantas
+-- 8. TABLA: pedido_plantas
 --    (Detalle de las plantas en cada pedido)
 -- ===============================
 CREATE TABLE pedido_plantas (
@@ -107,7 +125,7 @@ CREATE TABLE pedido_plantas (
 );
 
 -- ===============================
--- 8. TABLA INTERMEDIA: planta_categoria
+-- 9. TABLA INTERMEDIA: planta_categoria
 --    (Relación muchos-a-muchos entre plantas y categorías)
 -- ===============================
 CREATE TABLE planta_categoria (
@@ -220,5 +238,31 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Regar cuando la capa superior del suelo esté seca, sin encharcar.', 
  'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
+
+INSERT INTO stock_plantas (id_planta, cantidad) 
+VALUES 
+    (4, 3),
+    (5, 3),
+    (6, 4),
+    (7, 10),
+    (8, 3),
+    (9, 0),
+    (10, 0),
+    (2, 2),
+    (3, 4);
+
+INSERT INTO imagenes_plantas (id_planta, imagen_url) 
+VALUES 
+    (4, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
+    (5, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
+    (6, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
+    (7, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
+    (8, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
+    (9, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
+    (10, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg'),
+    (2, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
+    (3, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg');
+
+
 
 select * from plantas 

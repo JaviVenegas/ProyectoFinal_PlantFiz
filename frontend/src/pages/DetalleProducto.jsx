@@ -53,9 +53,14 @@ const DetalleProducto = () => {
   return (
     <Container>
       <Row>
-        <Col md={6} className="mt-4 me-5">
-          <img src={planta.url || 'default-image.jpg'} alt={planta.nombre_planta} className="card-img-top rounded mx-auto d-block" />
-          <div className="mt-2"> <FaHeart className="fs-4" /> Guardar como favorito</div>
+        <Col md={6} className="mt-4 ">
+          <img 
+          src={planta.imagen_url || 'default-image.jpg'} 
+          alt={planta.nombre_planta}
+          style={{ width: "80%", height: "70%", objectFit: "cover", borderRadius: "8px" }} 
+          className="card-img-top rounded ms-5 d-block" />
+          <div className="mt-4 ms-5"> 
+            <FaHeart className="fs-4" /> Guardar como favorito</div>
         </Col>
         <Col md={5} className="d-flex justify-content-end ms-4">
           <div className="card-body">
@@ -71,7 +76,8 @@ const DetalleProducto = () => {
               style={{ borderRadius: '0' }} 
               onClick={() => addCart({ ...planta, count: 1 })}
             >
-              <div className="d-flex align-items-center justify-content-evenly"> 
+              <div 
+              className="d-flex align-items-center justify-content-evenly">  
                 Añadir al carrito
                 {currentProductCount > 0 && (
                   <Badge bg="outline-secondary" className="ms-2">

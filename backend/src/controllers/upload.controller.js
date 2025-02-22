@@ -3,18 +3,21 @@ const { getHeadersToken, verifyToken } = require('../helpers/jwt');
 
 const uploadSingle = async (req, res, next) => {
 	try {
+		console.log('Headers:', req.headers);
+		console.log('Body:', req.body);
+		console.log('File:', req.file); 
+
 		const type = req.query.type;
 		const file = req.file;
 
 		if (!file) {
 			return res.status(400).json({
-				msg: 'No se subió ninggún archivo',
+				msg: 'No se subió ningún archivo',
 			});
 		}
 
 		const baseUrl = `${req.protocol}://${req.get('host')}`;
 		const fileDir = type === 'private' ? 'private' : 'public';
-
 		const fileUrl = `${baseUrl}/uploads/${fileDir}/${file.filename}`;
 
 		res.status(200).json({
@@ -22,7 +25,11 @@ const uploadSingle = async (req, res, next) => {
 			data: fileUrl,
 		});
 	} catch (error) {
-		next(error);
+		console.error('🔥 Error en uploadSingle:', error); // 🔥 Log del error exacto
+		res.status(500).json({
+			msg: 'Error interno en el servidor',
+			error: error.message,
+		});
 	}
 };
 
