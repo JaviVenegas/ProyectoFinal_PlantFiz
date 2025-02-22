@@ -68,10 +68,6 @@ const handleEditPlanta = async (req, res, next) => {
         const { id } = req.params; // Obtener el ID de los parámetros de la URL
         const cambios = req.body; // Obtener los cambios del cuerpo de la solicitud
 
-        // Validar que el ID sea un número válido
-        if (!id || isNaN(id)) {
-            return res.status(400).json({ message: "ID no válido o no proporcionado" });
-        }
 
         // Validar que al menos un campo ha sido modificado
         if (!cambios || Object.keys(cambios).length === 0) {
@@ -80,6 +76,7 @@ const handleEditPlanta = async (req, res, next) => {
 
         // Verificar si la planta existe antes de intentar editarla
         const plantaExistente = await DB.query('SELECT * FROM plantas WHERE id = $1', [id]);
+
         if (plantaExistente.rows.length === 0) {
             return res.status(404).json({ message: "Planta no encontrada" });
         }
@@ -91,8 +88,18 @@ const handleEditPlanta = async (req, res, next) => {
         // Llamar a la función de edición en la base de datos para actualizar la planta
         const editado = await plantas.editarPlanta(id, cambios);
 
-        // Actualizar la cantidad en la tabla `stock_plantas`
+        // Actualizar la cantidad en la tabla stock_plantas
         const updateStockQuery = `
+            UPDATE stock_plantas 
+            SET cantidad = $1 
+            WHERE id_planta = $2
+            RETURNING *;
+        `;
+        await DB.query(updateStockQuery, [cantidad, id]);
+
+
+        // Actualizar la cantidad en la tabla de imagenes_plantas
+        const updateImageQuery = `
             UPDATE stock_plantas 
             SET cantidad = $1 
             WHERE id_planta = $2

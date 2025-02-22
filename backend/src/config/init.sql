@@ -241,28 +241,34 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
 
 INSERT INTO stock_plantas (id_planta, cantidad) 
 VALUES 
-    (4, 3),
-    (5, 3),
-    (6, 4),
-    (7, 10),
-    (8, 3),
-    (9, 0),
-    (10, 0),
-    (2, 2),
-    (3, 4);
+    (72, 3),
+    (73, 3),
+    (74, 4),
+    (75, 10),
+    (76, 3),
+    (77, 0),
+    (78, 0),
+    (79, 2),
+    (80, 4);
 
 INSERT INTO imagenes_plantas (id_planta, imagen_url) 
 VALUES 
-    (4, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
-    (5, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
-    (6, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
-    (7, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
-    (8, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
-    (9, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
-    (10, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg'),
-    (2, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
-    (3, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg');
+    (72, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
+    (73, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
+    (74, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg'),
+    (75, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
+    (76, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
+    (77, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
+    (78, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
+    (79, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
+    (80, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
+    (81, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg');
+    ;
 
 
 
-select * from plantas 
+select * from plantas
+
+select * from imagenes_plantas
+
+select * from stock_plantas

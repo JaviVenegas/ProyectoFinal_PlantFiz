@@ -39,9 +39,11 @@ export const AdminCatalogPage = () => {
         </Button>
       </Container>
 
-      {plantas.map((planta) => (
-        <AdminCatalog key={planta.id} product={planta} />
-      ))}
+      <Container className="mt-5">
+        {plantas.map((planta) => (
+          <AdminCatalog key={planta.id} product={planta} />
+        ))}
+      </Container>
     </Container>
   );
 };
