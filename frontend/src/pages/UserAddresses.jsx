@@ -7,29 +7,28 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const UserAddresses = () => {
-  const navigate = useNavigate();
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const { session, isLoading, setIsLoading } = useAuth();
+  const { session, setIsLoading } = useAuth();
 
   useEffect(() => {
-    const getAddresses = async () => {
-      try {
-        const { data } = await axios.get(ENDPOINT.getAddresses, {
-          headers: {
-            Authorization: `Bearer ${session.token}`,
-          },
-        });
+    getAddresses();
+  }, []);
 
-        setAddresses(data.directions);
-      } catch (error) {
-        console.error("Error al obtener direcciones:", error);
-      }
-      getAddresses();
-      setIsLoading(false);
-    };
-  }, [isLoading]);
+  const getAddresses = async () => {
+    try {
+      const { data } = await axios.get(ENDPOINT.getAddresses, {
+        headers: {
+          Authorization: `Bearer ${session.token}`,
+        },
+      });
+
+      setAddresses(data.directions);
+    } catch (error) {
+      console.error("Error al obtener direcciones:", error);
+    }
+  };
 
   const handleDeleteAddress = async (id) => {
     try {
