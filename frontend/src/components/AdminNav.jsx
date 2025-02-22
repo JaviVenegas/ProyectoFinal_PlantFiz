@@ -10,6 +10,7 @@ export const AdminNav = () => {
       <ListGroup variant="flush">
         <ListGroup.Item action as={Link} to="/admin/">Mi cuenta</ListGroup.Item>
         <ListGroup.Item action as={Link} to="/admin/products">Productos</ListGroup.Item>
+        <ListGroup.Item action as={Link} to="/catalogo">Cat&aacute;logo</ListGroup.Item>
         <ListGroup.Item action>Usuarios</ListGroup.Item>
         <ListGroup.Item action>Pedidos</ListGroup.Item>
         <ListGroup.Item action onClick={handleLogout}>Cerrar Sesi&oacute;n</ListGroup.Item>
