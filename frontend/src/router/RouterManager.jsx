@@ -24,7 +24,7 @@ export const RouterManager = () => {
     <Router>
       <Routes>
         {/* Rutas Públicas con MainLayout */}
-        <Route element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/catalogo" element={<Catalogo />} />
           {/* Aquí va el catalogo de producto del usuario(cliente) */}

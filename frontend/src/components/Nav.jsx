@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import "./Nav.css";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const CustomNav = () => {
@@ -13,6 +13,7 @@ const CustomNav = () => {
 
   const handleClickLogout = () => {
     handleLogout();
+    navigate("/");
   };
 
   const handleClickLogin = () => {
@@ -29,15 +30,15 @@ const CustomNav = () => {
       >
         <Container>
           <Nav>
-            <Nav.Link href="/" className="nav-link-custom">
+            <Nav.Link as={Link} to="/" className="nav-link-custom">
               Home
             </Nav.Link>
-            <Nav.Link href="/catalogo" className="nav-link-custom">
+            <Nav.Link as={Link} to="/catalogo" className="nav-link-custom">
               Catálogo
             </Nav.Link>
 
             {session ? (
-              <Nav.Link href="/perfil" className="nav-link-custom">
+              <Nav.Link as={Link} to="/perfil" className="nav-link-custom">
                 Perfil
               </Nav.Link>
             ) : null}
@@ -66,7 +67,7 @@ const CustomNav = () => {
             <Button
               variant="outline-secondary"
               style={{ borderRadius: "0" }}
-              href="/cart"
+              as={Link} to="/cart"
             >
               <FaShoppingCart /> Cart: ${total.toLocaleString()}
             </Button>
