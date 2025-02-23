@@ -16,13 +16,16 @@ const AdminAgregarProducto = () => {
     const [nombre_planta, setNombrePlanta] = useState('');
     const [precio, setPrecio] = useState('');
     const [origen, setOrigen] = useState('');
-    const [descripcionHoja, setDescripcionHoja] = useState('');
-    const [idealPara, setIdealPara] = useState('');
+    const [descripcion_hojas, setDescripcionHoja] = useState('');
+    const [ideal_para, setIdealPara] = useState('');
     const [agua, setAgua] = useState('');
     const [luz, setLuz] = useState('');
     const [cantidad, setCantidad] = useState('');
     const [imagen_url, setImagen_url] = useState('');
     const [mensaje, setMensaje] = useState('');
+
+
+
 
     const handleSubmit = async (e) => {
       e.preventDefault(); 
@@ -32,8 +35,8 @@ const AdminAgregarProducto = () => {
             nombre_planta,
             precio,
             origen,
-            descripcionHoja,
-            idealPara,
+            descripcion_hojas,
+            ideal_para,
             agua,
             luz,
             cantidad,
@@ -94,7 +97,7 @@ const AdminAgregarProducto = () => {
             <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
             <Form.Control
               type="text"
-              value={descripcionHoja}
+              value={descripcion_hojas}
               onChange={(e) => setDescripcionHoja(e.target.value)}
               placeholder="Descripción Hojas"
             />
@@ -104,7 +107,7 @@ const AdminAgregarProducto = () => {
             <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Ideal para:</Form.Label>
             <Form.Control
               type="text"
-              value={idealPara}
+              value={ideal_para}
               onChange={(e) => setIdealPara(e.target.value)}
               placeholder="Ideal para"
             />
