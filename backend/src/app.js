@@ -20,9 +20,9 @@ app.use(
     cors({
         origin: [ 
             process.env.NODE_ENV == 'production'
-                ? 'https://proyectofinal-plantfiz.onrender.com/'
+                ? 'https://proyectofinal-plantfiz.onrender.com'
                 : 'http://localhost:5173/',
-        ],
+            ],
 }));  
 
 // Routes
