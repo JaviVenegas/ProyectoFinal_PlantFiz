@@ -13,8 +13,7 @@ import AdminEditarInfoProducto from "../pages/AdminEditarInfoProducto";
 import AdminAgregarProducto  from "../pages/AdminAgregarProducto";
 
 
-//Estos imports serán reemplazados por el Product Detail hecho por Javi
-//import { ProductDetails } from "../pages/ProductDetails"; 
+
 import Cart from "../pages/Cart";
 import DetalleProducto from "../pages/DetalleProducto";
 
