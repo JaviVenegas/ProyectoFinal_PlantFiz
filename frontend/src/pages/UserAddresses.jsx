@@ -9,11 +9,9 @@ import { AddAddress } from "./AddAddress";
 
 export const UserAddresses = () => {
   const [addAddress, setAddAddress] = useState(false);
-  const [addAddress, setAddAddress] = useState(false);
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const { session } = useAuth();
   const { session } = useAuth();
 
   useEffect(() => {
@@ -28,11 +26,6 @@ export const UserAddresses = () => {
         },
       });
 
-      setAddresses(data.directions);
-    } catch (error) {
-      console.error("Error al obtener direcciones:", error);
-    }
-  };
       setAddresses(data.directions);
     } catch (error) {
       console.error("Error al obtener direcciones:", error);
