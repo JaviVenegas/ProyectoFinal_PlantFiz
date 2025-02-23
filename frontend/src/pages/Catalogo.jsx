@@ -6,7 +6,7 @@ import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
 
 
-import "../../src/components/catalogo.css";
+//import "../../src/components/catalogo.css";
 
 
 const Catalogo = () => {
