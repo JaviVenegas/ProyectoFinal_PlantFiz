@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 
 export const AdminCatalogPage = () => {
   const navigate = useNavigate();
-
   const [plantas, setPlantas] = useState([]);
 
   const fetchPlantas = async () => {

@@ -65,60 +65,32 @@ const handlePostPlanta = async (req, res, next) => {
 
 const handleEditPlanta = async (req, res, next) => {
     try {
-        const { id } = req.params; // Obtener el ID de los parámetros de la URL
-        const cambios = req.body; // Obtener los cambios del cuerpo de la solicitud
+        const { id } = req.params;
+        const cambios = req.body;
 
-
-        // Validar que al menos un campo ha sido modificado
         if (!cambios || Object.keys(cambios).length === 0) {
             return res.status(400).json({ message: "No se proporcionaron cambios para actualizar" });
         }
 
-        // Verificar si la planta existe antes de intentar editarla
+        // Verificar si la planta existe
         const plantaExistente = await DB.query('SELECT * FROM plantas WHERE id = $1', [id]);
 
         if (plantaExistente.rows.length === 0) {
             return res.status(404).json({ message: "Planta no encontrada" });
         }
 
-        // Extraer la cantidad de los cambios si existe (o establecer un valor por defecto)
-        const cantidad = cambios.cantidad !== undefined ? cambios.cantidad : plantaExistente.rows[0].cantidad;
-        delete cambios.cantidad;  // Eliminar la cantidad de los cambios para que no se actualice en la tabla plantas
-
-        // Llamar a la función de edición en la base de datos para actualizar la planta
         const editado = await plantas.editarPlanta(id, cambios);
 
-        // Actualizar la cantidad en la tabla stock_plantas
-        const updateStockQuery = `
-            UPDATE stock_plantas 
-            SET cantidad = $1 
-            WHERE id_planta = $2
-            RETURNING *;
-        `;
-        await DB.query(updateStockQuery, [cantidad, id]);
-
-
-        // Actualizar la cantidad en la tabla de imagenes_plantas
-        const updateImageQuery = `
-            UPDATE stock_plantas 
-            SET cantidad = $1 
-            WHERE id_planta = $2
-            RETURNING *;
-        `;
-        await DB.query(updateStockQuery, [cantidad, id]);
-
-        // Responder con el resultado de la edición
         res.json({
-            message: "Planta y cantidad actualizadas correctamente",
+            message: "Planta actualizada correctamente",
             data: editado
         });
 
     } catch (error) {
         console.error(error);
-        next(error);  // Pasar el error al middleware de manejo de errores
+        next(error);
     }
 };
-
 
 
 

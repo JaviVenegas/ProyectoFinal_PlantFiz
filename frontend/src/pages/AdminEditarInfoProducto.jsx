@@ -16,17 +16,18 @@ import "react-toastify/dist/ReactToastify.css";
   const [nombre_planta, setNombrePlanta] = useState('');
   const [precio, setPrecio] = useState('');
   const [origen, setOrigen] = useState('');
-  const [descripcion_hoja, setDescripcionHoja] = useState('');
+  const [descripcion_hojas, setDescripcionHojas] = useState('');
   const [ideal_para, setIdealPara] = useState('');
   const [agua, setAgua] = useState('');
   const [luz, setLuz] = useState('');
   const [cantidad, setCantidad] = useState('');
+  const [imagen_url, setImagen_url] = useState('');
   const [mensaje, setMensaje] = useState('');
 
 
  
 
-  // 🔹 Función para obtener los datos de la planta
+  // Función para obtener los datos de la planta
   const fetchPlanta = async () => {
     try {
       const { data } = await axios.get(ENDPOINT.getPlantaPorId(id));
@@ -35,14 +36,16 @@ import "react-toastify/dist/ReactToastify.css";
       setNombrePlanta(planta.nombre_planta || '');
       setPrecio(planta.precio || '');
       setOrigen(planta.origen || '');
-      setDescripcionHoja(planta.descripcion_hoja || '');
+      setDescripcionHojas(planta.descripcion_hojas || '');
       setIdealPara(planta.ideal_para || '');
       setAgua(planta.agua || '');
       setLuz(planta.luz || '');
       setCantidad(planta.cantidad || '');
+      setImagen_url(planta.imagen_url || '');
+  
 
-    } catch (eror) {
-      console.error( error );
+    } catch (error) {
+      console.error(error );
      
     }
   };
@@ -60,32 +63,29 @@ import "react-toastify/dist/ReactToastify.css";
     if (nombre_planta) cambios.nombre_planta = nombre_planta;
     if (precio) cambios.precio = precio;
     if (origen) cambios.origen = origen;
-    if (descripcion_hoja) cambios.descripcion_hoja = descripcion_hoja;
+    if (descripcion_hojas) cambios.descripcion_hojas = descripcion_hojas;
     if (ideal_para) cambios.ideal_para = ideal_para;
     if (agua) cambios.agua = agua;
     if (luz) cambios.luz = luz;
     if (cantidad) cambios.cantidad = cantidad;
-
-    if (Object.keys(cambios).length === 0) {
-          setMensaje( "🌱 Planta editada con exito 🎉"); 
-          toast.success("🌱 Planta editada con exito 🎉");
-          setTimeout (() => setMensaje (""), 10000);
-    } else {
-      setMensaje("❌ Error al editar la planta ");
-      toast.error("❌ Error al editar la planta");
-      }
-    
+    if (imagen_url) cambios.imagen_url = imagen_url;
 
     try {
       const response = await axios.patch(ENDPOINT.editarPlanta(id), cambios);
-      
+
+      if (response.status === 200 || response.status === 201) {
+        setMensaje("🌱 Planta editada con éxito 🎉");
+        toast.success("🌱 Planta editada con éxito 🎉");
+      }
+
+      navigate("/admin");
     } catch (err) {
       console.error("Error al actualizar la planta:", err);
-      
+      setMensaje("❌ Error al editar la planta");
+      toast.error("❌ Error al editar la planta");
     }
   };
 
- 
 
   return (
     <> 
@@ -126,8 +126,8 @@ import "react-toastify/dist/ReactToastify.css";
             <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
             <Form.Control
               type="text"
-              value={descripcion_hoja}
-              onChange={(e) => setDescripcionHoja(e.target.value)}
+              value={descripcion_hojas}
+              onChange={(e) => setDescripcionHojas(e.target.value)}
               placeholder="Descripción Hojas"
             />
           </Col>
@@ -170,9 +170,20 @@ import "react-toastify/dist/ReactToastify.css";
               placeholder="cantidad"
             />
           </Col>
+          <Col xs={12} md={12} className=" d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}> Imagen Url:</Form.Label>
+            <Form.Control
+              type="text"
+              value={imagen_url}
+              onChange={(e) => setImagen_url(e.target.value)}
+              placeholder="Url imagen"
+            />
+          </Col>
         </Row>
 
-        <Button variant="outline-secondary" className=" buttonAdmineditar mt-3" 
+        <Button 
+        variant="outline-secondary" 
+        className=" buttonAdmineditar mt-3" 
         style={{ borderRadius: '5px', color: 'white' }} type="submit">
           Guardar
         </Button>

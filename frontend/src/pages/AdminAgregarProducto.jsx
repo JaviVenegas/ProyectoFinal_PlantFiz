@@ -25,8 +25,7 @@ const AdminAgregarProducto = () => {
     const [mensaje, setMensaje] = useState('');
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-        
+      e.preventDefault(); 
         
         try {
           const response = await axios.post(ENDPOINT.agregarPlanta, {
@@ -132,7 +131,7 @@ const AdminAgregarProducto = () => {
           <Col xs={12} md={12} className="d-flex align-items-center my-3">
             <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Cantidad:</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               value={cantidad}
               onChange={(e) => setCantidad(e.target.value)}
               placeholder="Cantidad"
