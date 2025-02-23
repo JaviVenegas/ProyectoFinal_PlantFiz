@@ -6,7 +6,7 @@ import axios from "axios";
 import "./admin.css";
 
 export const AdminCatalog = ({ product }) => {
-  const [cantidad, setCantidad]= useState(product.stock);
+  const [cantidad, setCantidad] = useState(product.cantidad ?? "");
   const [isAvailable, setIsAvailable] = useState(product.available);
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -34,10 +34,14 @@ export const AdminCatalog = ({ product }) => {
 
   useEffect(() => {
     getPlantaPorId(product.id).then((planta) => {
-      setCantidad(planta.cantidad);
-      setIsAvailable(planta.available);
+      if (planta) {
+        setCantidad(planta.cantidad ?? ""); 
+        setIsAvailable(planta.available);
+      }
     });
   }, [product.id]);
+  
+
 
   return (
     <Container className="my-3 p-3">
