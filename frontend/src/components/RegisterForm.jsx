@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../config/constants";
 import axios from "axios";
 
+const { VITE_API_URL} = import.meta.env;
 export const RegisterForm = () => {
   const { handleSession } = useAuth();
   const navigate = useNavigate();
