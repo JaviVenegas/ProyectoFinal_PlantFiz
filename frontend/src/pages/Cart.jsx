@@ -21,7 +21,7 @@ const Cart = () => {
                         {cart.map((item) => (
                             <Card key={item.id} className="d-flex flex-row align-items-center my-3 p-3 shadow-sm">
                                 <Card.Img
-                                    src={item.url}
+                                    src={item.imagen_url}
                                     alt={item.nombre_planta}
                                     className="me-3"
                                     style={{ width: "80px", height: "80px", objectFit: "cover" }}
