@@ -95,7 +95,7 @@ const CustomNav = () => {
           <div className="flex-grow-1 w-100">
             <div
               className="mb-2"
-              style={{ background: "#ddd", padding: "5px" }}
+              style={{ background: "#ddd", padding: "5px", borderRadius: "5px", }}
             >
               Links Despacho
             </div>

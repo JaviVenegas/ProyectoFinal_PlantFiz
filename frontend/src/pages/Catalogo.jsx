@@ -5,6 +5,10 @@ import Categorias from "../components/Categorias";
 import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
 
+
+import "../../src/components/catalogo.css";
+
+
 const Catalogo = () => {
   const [plantas, setPlantas] = useState([]);
 
@@ -33,15 +37,15 @@ const Catalogo = () => {
       </h1>
       <Categorias />
       <Container className="d-flex mt-3 align-items-center align-self-sm-stretch justify-content-around">
-        <Button variant="outline-secondary" className="w-100 me-5" style={{ borderRadius: "0" }}>
+        <Button variant="outline-secondary" className=" buttonfiltros w-50 mx-5" style={{ borderRadius: "5px" }}>
           <div className="d-flex align-items-center justify-content-evenly">Resultados</div>
         </Button>
-        <Button variant="outline-secondary" className="w-100 ms-5" style={{ borderRadius: "0" }}>
+        <Button variant="outline-secondary" className="buttonfiltros  w-50 mx-5" style={{ borderRadius: "5px" }}>
           <div className="d-flex align-items-center justify-content-evenly">Filtros</div>
         </Button>
       </Container>
       <Container className="cd-flex mt-3 align-items-center justify-content-around">
-        <div className="container-fluid p-0">
+        <div className="card-containerproductos">
           <div className="row">
             {Array.isArray(plantas) && plantas.length > 0 ? (
               plantas.map((planta) => (

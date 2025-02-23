@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const plantas= require('../models/plantas');
-
+const { DB } = require('../config/db');
 
 //Obtener todos los productos
 const handleGetAllPlantas = async (req, res, next) => {
@@ -46,8 +46,8 @@ const handleGetPlanta = async (req, res, next) => {
 //Agregar un producto con POST  
 const handlePostPlanta = async (req, res, next) => {
     try {
-        const { nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz} = req.body;
-        const response = await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz);
+        const { nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz, cantidad, imagen_url} = req.body;
+        const response = await plantas.agregarPlanta(nombre_planta, precio, origen, descripcion_hojas, ideal_para, agua, luz, cantidad, imagen_url);
         
         res.json ({
             message: 'Planta agregada correctamente',
@@ -68,22 +68,18 @@ const handleEditPlanta = async (req, res, next) => {
         const { id } = req.params;
         const cambios = req.body;
 
-        // Validar que el ID sea un número válido
-        if (!id || isNaN(id)) {
-            return res.status(400).json({ message: "ID no válido o no proporcionado" });
-        }
-
-        // Validar que al menos un campo ha sido modificado
         if (!cambios || Object.keys(cambios).length === 0) {
             return res.status(400).json({ message: "No se proporcionaron cambios para actualizar" });
         }
 
-        // Llamar a la función de edición en la base de datos
-        const editado = await plantas.editarPlanta(id, cambios);
+        // Verificar si la planta existe
+        const plantaExistente = await DB.query('SELECT * FROM plantas WHERE id = $1', [id]);
 
-        if (!editado) {
-            return res.status(404).json({ message: "No se encontró la planta o no se pudo actualizar" });
+        if (plantaExistente.rows.length === 0) {
+            return res.status(404).json({ message: "Planta no encontrada" });
         }
+
+        const editado = await plantas.editarPlanta(id, cambios);
 
         res.json({
             message: "Planta actualizada correctamente",
@@ -91,9 +87,12 @@ const handleEditPlanta = async (req, res, next) => {
         });
 
     } catch (error) {
-        next(error); // Pasar el error al middleware de manejo de errores
+        console.error(error);
+        next(error);
     }
 };
+
+
 
 
 

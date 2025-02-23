@@ -16,7 +16,14 @@ const verifyToken = (token) => {
     return jwt.verify(token, String(JWT_SECRET));
 };
 
+const getHeadersToken = (req) => {
+    const Authorization = req.header("Authorization")
+
+    return Authorization.split("Bearer ")[1] // "Bearer <token>" [bearer, token]
+}
+
 module.exports = { 
     signToken,
-    verifyToken 
+    verifyToken , 
+    getHeadersToken
 } 

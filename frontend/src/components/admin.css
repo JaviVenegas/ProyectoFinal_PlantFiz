@@ -1,0 +1,25 @@
+
+
+/*  button de portal Admin catalogo */
+.buttonAdmin {
+    background-color:  #a6bd75 !important;
+    border-color: #a6bd75 !important;
+  }
+  
+  .buttonAdmin:hover {
+    background-color: #7d729b!important;
+    border-color: #7d729b !important;
+    color:#000;
+  }
+
+/*  button de portal Admin editar producto */
+.buttonAdmineditar {
+    background-color:  #a6bd75 !important;
+    border-color: #a6bd75 !important;
+  }
+  
+  .buttonAdmineditar:hover {
+    background-color: #7d729b!important;
+    border-color: #7d729b !important;
+    color:#000;
+  }

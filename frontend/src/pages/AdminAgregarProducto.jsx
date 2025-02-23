@@ -5,6 +5,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import React from 'react'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const AdminAgregarProducto = () => {
     const navigate = useNavigate();
@@ -16,9 +20,12 @@ const AdminAgregarProducto = () => {
     const [idealPara, setIdealPara] = useState('');
     const [agua, setAgua] = useState('');
     const [luz, setLuz] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [imagen_url, setImagen_url] = useState('');
+    const [mensaje, setMensaje] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault(); 
         
         try {
           const response = await axios.post(ENDPOINT.agregarPlanta, {
@@ -29,8 +36,17 @@ const AdminAgregarProducto = () => {
             idealPara,
             agua,
             luz,
+            cantidad,
+            imagen_url
           });
-      
+          if ( response.status === 200 || response.status === 201) {
+            setMensaje( "🌱 Planta agregada correctamente 🎉"); 
+            toast.success("🌱 Planta agregada correctamente 🎉");
+            setTimeout (() => setMensaje (""), 10000);
+          } else {
+            setMensaje("❌ Error al agregar la planta ");
+            toast.error("❌ Error al agregar la planta");
+          }
         
         } catch (error) {
           throw error;
@@ -40,11 +56,11 @@ const AdminAgregarProducto = () => {
 
   return (
     <>
-       <h1 className='d-flex mt-3 align-items-left align-self-sm justify-content-around my-5'>Editar datos del producto</h1>
+       <h1 className=' mt-3 my-5'>Agregar Producto</h1>
       <Form onSubmit={handleSubmit}>
         <Row>
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Nombre Producto:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Nombre Producto:</Form.Label>
             <Form.Control
               type="text"
               onChange={(e) => setNombrePlanta(e.target.value)}
@@ -53,8 +69,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Precio:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Precio:</Form.Label>
             <Form.Control
               type="number"
               value={precio}
@@ -63,8 +79,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Origen:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Origen:</Form.Label>
             <Form.Control
               type="text"
               value={origen}
@@ -73,8 +89,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Descripción Hojas:</Form.Label>
             <Form.Control
               type="text"
               value={descripcionHoja}
@@ -83,8 +99,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Ideal para:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Ideal para:</Form.Label>
             <Form.Control
               type="text"
               value={idealPara}
@@ -93,8 +109,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Agua:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Agua:</Form.Label>
             <Form.Control
               type="text"
               value={agua}
@@ -103,8 +119,8 @@ const AdminAgregarProducto = () => {
             />
           </Col>
           
-          <Col xs={12} md={12} className="d-flex align-items-center">
-            <Form.Label className="mb-0" style={{ width: '150px' }}>Luz:</Form.Label>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Luz:</Form.Label>
             <Form.Control
               type="text"
               value={luz}
@@ -112,15 +128,38 @@ const AdminAgregarProducto = () => {
               placeholder="Luz"
             />
           </Col>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Cantidad:</Form.Label>
+            <Form.Control
+              type="number"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+              placeholder="Cantidad"
+            />
+          </Col>
+          <Col xs={12} md={12} className="d-flex align-items-center my-3">
+            <Form.Label className="mb-0 me-3" style={{ width: '150px' }}>Url de la imagen:</Form.Label>
+            <Form.Control
+              type="text"
+              value={imagen_url}
+              onChange={(e) => setImagen_url(e.target.value)}
+              placeholder="Imagen URL"
+            />
+          </Col>
         </Row>
 
-        <Button variant="outline-secondary" className="mt-3" style={{ borderRadius: '0' }} type="submit">
+        <Button variant="outline-secondary" 
+        className="buttonAdmineditar mt-3" 
+        style={{ borderRadius: '5px', color: 'white' }} 
+        type="submit">
           Agregar nuevo producto
         </Button>
+        {mensaje && <p className="mt-3" > {mensaje}</p>}
+
         <Button variant="outline-secondary" 
         onClick={() => navigate(`/admin`)}
-        className="mt-3 ms-3" 
-        style={{ borderRadius: '0' }} type="button">
+        className="buttonAdmineditar mt-3 ms-3" 
+        style={{ borderRadius: '5px', color: 'white' }} type="button">
           Cancelar
         </Button>
       </Form>

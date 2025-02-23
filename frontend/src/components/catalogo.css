@@ -1,0 +1,34 @@
+.card-containerproductos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 16px; 
+    padding: 20px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 300px; /* Evita que las tarjetas sean demasiado grandes */
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cardimg {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+
+
+  /*  button de filtros */
+.buttonfiltros {
+    background-color:  #fff !important;
+    border-color: #7d729b  !important;
+  }
+  
+  .buttonfiltros:hover {
+    background-color: #7d729b!important;
+    border-color: #7d729b !important;
+    color:#000;
+  }

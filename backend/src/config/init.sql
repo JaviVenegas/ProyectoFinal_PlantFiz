@@ -75,8 +75,26 @@ CREATE TABLE stock_plantas (
     CONSTRAINT fk_stock_planta FOREIGN KEY (id_planta) REFERENCES plantas (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+
+select * from stock_plantas
+
 -- ===============================
--- 6. TABLA: pedidos
+-- 6. TABLA: imagenes
+-- ===============================
+
+
+CREATE TABLE imagenes_plantas (
+    id SERIAL PRIMARY KEY,
+    id_planta INT NOT NULL,
+    imagen_url TEXT NOT NULL,  
+    CONSTRAINT fk_imagenes_plantas FOREIGN KEY (id_planta) 
+        REFERENCES plantas (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+select * from imagenes_plantas
+
+-- ===============================
+-- 7. TABLA: pedidos
 -- ===============================
 CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
@@ -93,7 +111,7 @@ CREATE TABLE pedidos (
 );
 
 -- ===============================
--- 7. TABLA: pedido_plantas
+-- 8. TABLA: pedido_plantas
 --    (Detalle de las plantas en cada pedido)
 -- ===============================
 CREATE TABLE pedido_plantas (
@@ -107,7 +125,7 @@ CREATE TABLE pedido_plantas (
 );
 
 -- ===============================
--- 8. TABLA INTERMEDIA: planta_categoria
+-- 9. TABLA INTERMEDIA: planta_categoria
 --    (Relación muchos-a-muchos entre plantas y categorías)
 -- ===============================
 CREATE TABLE planta_categoria (
@@ -221,4 +239,36 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
 
-select * from plantas 
+INSERT INTO stock_plantas (id_planta, cantidad) 
+VALUES 
+    (72, 3),
+    (73, 3),
+    (74, 4),
+    (75, 10),
+    (76, 3),
+    (77, 0),
+    (78, 0),
+    (79, 2),
+    (80, 4);
+
+INSERT INTO imagenes_plantas (id_planta, imagen_url) 
+VALUES 
+    (72, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
+    (73, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
+    (74, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg'),
+    (75, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
+    (76, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
+    (77, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
+    (78, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
+    (79, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
+    (80, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
+    (81, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg');
+    ;
+
+
+
+select * from plantas
+
+select * from imagenes_plantas
+
+select * from stock_plantas
