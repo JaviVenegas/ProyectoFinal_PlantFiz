@@ -5,7 +5,6 @@ import { EditAddressForm } from "../components/EditAddressForm";
 import { ENDPOINT } from "../config/constants";
 import { AddAddressForm } from "../components/AddAddressForm";
 import axios from "axios";
-import { AddAddress } from "./AddAddress";
 
 export const UserAddresses = () => {
   const [addAddress, setAddAddress] = useState(false);
@@ -121,6 +120,7 @@ export const UserAddresses = () => {
                   variant="dark"
                   onClick={() => {
                     setAddAddress(true);
+                    handleAddAddress();
                   }}
                 >
                   Añadir Dirección
