@@ -1,4 +1,4 @@
--- Active: 1729899505784@@127.0.0.1@5432@plantfiz@public
+
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
 -- ==================================================
@@ -44,8 +44,8 @@ CREATE TABLE plantas (
     origen VARCHAR(100),
     descripcion_hojas TEXT,
     ideal_para TEXT,
-    agua VARCHAR(50),
-    luz VARCHAR(50)
+    agua VARCHAR(250),
+    luz VARCHAR(250)
 );
 
 
@@ -230,14 +230,9 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Interiores, en lugares con luz indirecta.', 
  'Necesita riego cuando el sustrato esté seco al tacto, evitar el exceso de agua.', 
  'Requiere luz indirecta brillante, puede tolerar sombra.' 
-),
-
-('Monstera Deliciosa', 7500, 'Centroamérica', 
- 'Hojas grandes, verdes y con perforaciones características que le dan su aspecto único.', 
- 'Interior en zonas con buena iluminación.', 
- 'Regar cuando la capa superior del suelo esté seca, sin encharcar.', 
- 'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
+
+
 
 INSERT INTO stock_plantas (id_planta, cantidad) 
 VALUES 
@@ -253,7 +248,7 @@ VALUES
 
 INSERT INTO imagenes_plantas (id_planta, imagen_url) 
 VALUES 
-    (1, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
+(1, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
 (2, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
 (3, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg'),
 (4, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),

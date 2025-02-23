@@ -16,7 +16,14 @@ const app = express();
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors());  
+app.use(
+    cors({
+        origin: [ 
+            process.env.NODE_ENV == 'production'
+                ? 'https://proyectofinal-plantfiz.onrender.com/'
+                : 'http://localhost:5173/',
+        ],
+}));  
 
 // Routes
 app.use('/', APIRoutes)

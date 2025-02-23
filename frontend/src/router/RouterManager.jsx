@@ -41,7 +41,7 @@ export const RouterManager = () => {
             path="/perfil/*"
             element={
               <AuthGuard
-                isAllow={session?.user.rol === "user"}
+                isAllow={session?.user?.rol === "user"}
                 redirectTo="/login"
               >
                 <PerfilUsuario />
@@ -67,7 +67,7 @@ export const RouterManager = () => {
           path="/admin/*"
           element={
             <AuthGuard
-              isAllow={session?.user.rol === "admin"}
+              isAllow={session?.user?.rol === "admin"}
               redirectTo="/login"
             >
               <AdminLayout />
@@ -78,10 +78,7 @@ export const RouterManager = () => {
           <Route path="products" element={<AdminCatalogPage />} />
           <Route path="users" element={"<AdminUsersPage />"} />
 
-          <Route
-            path="AdminEditarInfoProducto/:id"
-            element={<AdminEditarInfoProducto />}
-          />
+          <Route path="AdminEditarInfoProducto/:id"element={<AdminEditarInfoProducto />} />
           <Route path="AdminAgregarProducto" element={<AdminAgregarProducto />} /> 
         </Route>
 
