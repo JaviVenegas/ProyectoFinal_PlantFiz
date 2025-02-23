@@ -7,7 +7,7 @@ import { ENDPOINT } from "../config/constants";
 import axios from "axios";
 
 export const LoginForm = () => {
-  const { handleSession, session } = useAuth();
+  const { session ,handleSession } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -29,13 +29,14 @@ export const LoginForm = () => {
       handleSession({
         token: data.token,
         user: data.user
-      });
-
+      }); 
+      
       if (data.user.rol === "admin") {
-        navigate("/admin/");
+        navigate("/admin");
       } else {
-        navigate("/");
-      }      
+        navigate("/perfil");
+      }
+
 
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Error al iniciar sesión';
@@ -89,7 +90,7 @@ export const LoginForm = () => {
           <p className="mt-3 text-center p-3 d-flex flex-column">
             ¿No tienes cuenta?{" "}
             <Link to="/register">Registrate</Link> <br />
-            <Nav.Link href="/">Ir a la página principal</Nav.Link>
+            <Nav.Link as={Link} to="/">Ir a la página principal</Nav.Link>
           </p>
         </Container>
       </Container>

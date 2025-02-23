@@ -1,7 +1,12 @@
 const express = require('express');
+<<<<<<< HEAD
 const userRoutes = require('./user.Routes');        //user 
 const productosRoutes = require('./productos.Routes');  //productos
 const uploadRoutes = require('./upload.Routes');    //uploads 
+=======
+const userRoutes = require('./user.Routes');
+const productosRoutes = require('./productos.Routes'); 
+>>>>>>> User_Branch
 
 const router = express.Router();
 

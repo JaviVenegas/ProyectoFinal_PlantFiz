@@ -1,9 +1,9 @@
+import "./Nav.css";
 import { Navbar, Nav, Container, Button, Form } from "react-bootstrap";
 import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import "./Nav.css";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import miImagen from '../assets/logoplantfiz.png';
 
@@ -33,14 +33,23 @@ const CustomNav = () => {
       >
         <Container>
           <Nav>
-            <Nav.Link href="/" className="nav-link-custom">
+            <Nav.Link as={Link} to="/" className="nav-link-custom">
               Home
             </Nav.Link>
-            <Nav.Link href="/catalogo" className="nav-link-custom">
+            <Nav.Link as={Link} to="/catalogo" className="nav-link-custom">
               Catálogo
             </Nav.Link>
+
+            {session && (
+              <Nav.Link 
+                onClick={() => navigate(session?.user?.rol === "admin" ? "/admin/" : "/perfil")} 
+                className="nav-link-custom"
+              >
+                Perfil
+              </Nav.Link>
+            )}
           </Nav>
-          <div className="d-flex w-25 ">
+          <div className="d-flex align-items-center gap-3">
             {session ? (
               <Button
                 className= "custom-primary  w-100 me-2"
@@ -52,7 +61,7 @@ const CustomNav = () => {
               </Button>
             ) : (
               <Button
-                className=" custom-primary w-100 me-2"
+                className="custom-primary w-100 me-2"
                 style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
                 onClick={handleClickLogin}
               >
@@ -64,7 +73,7 @@ const CustomNav = () => {
             <Button
               className=" custom-primary w-100"
               style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
-              href="/cart"
+              as={Link} to="/cart"
             >
               <div className="d-flex align-items-center justify-content-around">
                 <FaShoppingCart /> Cart: ${total.toLocaleString()}
@@ -87,9 +96,7 @@ const CustomNav = () => {
         />
           </div>
         </div>
-
         <div></div>
-
         <div className="d-flex w-50 text-center">
           {/* Sección derecha */}
           <div className="flex-grow-1 w-100">
@@ -100,11 +107,7 @@ const CustomNav = () => {
               Links Despacho
             </div>
             <Form className="d-flex text-center">
-              <Form.Control
-                type="text"
-                placeholder="Buscar..."
-                className="p-2"
-              />
+              <Form.Control type="text" placeholder="Buscar..." className="p-2" />
             </Form>
           </div>
         </div>

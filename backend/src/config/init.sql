@@ -272,3 +272,8 @@ select * from plantas
 select * from imagenes_plantas
 
 select * from stock_plantas
+-- Insertar datos en la tabla "direcciones"
+INSERT INTO direcciones (id_usuario, direccion, ciudad, region, codigo_postal) VALUES
+(33, 'Av. Siempre Viva 742', 'Springfield', 'Illinois', '62704'),
+(33, 'Calle Falsa 123', 'Ciudad Gótica', 'Nueva York', '10001'),
+(33, 'Paseo del Prado 56', 'Madrid', 'Madrid', '28014');

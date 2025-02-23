@@ -18,15 +18,20 @@ const handleLogin = async (req, res, next) => {
 
         const data = { correo };
         const token = signToken(data);
+
         res.json({ 
             message: 'Inicio de sesión exitoso',
             token,
             user: {
+                rut: userExists.rut,
+                nombre: userExists.nombre,
+                apellido: userExists.apellido,
+                telefono: userExists.telefono,
                 correo: userExists.correo,
                 rol: userExists.rol
             }
          });
-
+         
     } catch (error) {
         next(error);
     }
@@ -59,8 +64,18 @@ const handleGetUser = async (req, res, next) => {
             throw new Error('USER_NOT_FOUND');
         }
 
-        res.status(200).json({ message: 'Usuario obtenido con éxito', data: user });
-
+        res.status(200).json({ 
+            message: 'Usuario obtenido con éxito',
+            user: {
+                rut: user.rut,
+                nombre: user.nombre,
+                apellido: user.apellido,
+                telefono: user.telefono,
+                correo: user.correo,
+                rol: user.rol
+            }
+        });
+        
     } catch (error) {
         next(error);
     }
