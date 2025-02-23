@@ -267,9 +267,10 @@ VALUES
 
 
 
-select * from plantas
+select * from plantas where id='14';
+select * from stock_plantas where id_planta='14';
 
-select * from imagenes_plantas
+select * from imagenes_plantas WHERE id_planta='14';
 
 select * from stock_plantas
 -- Insertar datos en la tabla "direcciones"

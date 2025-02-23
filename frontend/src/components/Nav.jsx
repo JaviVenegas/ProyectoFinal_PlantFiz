@@ -5,9 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "../context/CartContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import miImagen from '../assets/logoplantfiz.png';
-
-
+import miImagen from "../assets/logoplantfiz.png";
 
 const CustomNav = () => {
   const { session, handleLogout } = useAuth();
@@ -41,8 +39,12 @@ const CustomNav = () => {
             </Nav.Link>
 
             {session && (
-              <Nav.Link 
-                onClick={() => navigate(session?.user?.rol === "admin" ? "/admin/" : "/perfil")} 
+              <Nav.Link
+                onClick={() =>
+                  navigate(
+                    session?.user?.rol === "admin" ? "/admin/" : "/perfil"
+                  )
+                }
                 className="nav-link-custom"
               >
                 Perfil
@@ -52,32 +54,39 @@ const CustomNav = () => {
           <div className="d-flex align-items-center gap-3">
             {session ? (
               <Button
-                className= "custom-primary  w-100 me-2"
+                className="custom-primary"
                 style={{ borderRadius: "5px", borderWidth: "1px" }}
                 onClick={handleClickLogout}
               >
                 {" "}
-                Cerrar sesion{" "}
+                Cerrar Sesi&oacute;n{" "}
               </Button>
             ) : (
               <Button
-                className="custom-primary w-100 me-2"
-                style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
+                className="custom-primary"
+                style={{
+                  borderRadius: "5px",
+                  borderWidth: "1px",
+                  color: "#7d729b",
+                }}
                 onClick={handleClickLogin}
               >
                 {" "}
-                Iniciar sesion{" "}
+                Iniciar Sesi&oacute;n{" "}
               </Button>
             )}
 
             <Button
-              className=" custom-primary w-100"
-              style={{ borderRadius: "5px", borderWidth: "1px", color: "#7d729b"}}
-              as={Link} to="/cart"
+              className="custom-primary"
+              style={{
+                borderRadius: "5px",
+                borderWidth: "1px",
+                color: "#7d729b",
+              }}
+              as={Link}
+              to="/cart"
             >
-              <div className="d-flex align-items-center justify-content-around">
-                <FaShoppingCart /> Cart: ${total.toLocaleString()}
-              </div>
+              <FaShoppingCart /> Cart: ${total.toLocaleString()}
             </Button>
           </div>
         </Container>
@@ -87,13 +96,13 @@ const CustomNav = () => {
       <Container className="d-flex mt-3 align-items-center justify-content-around">
         <div className="">
           {/* Logo */}
-          <div className="me-4"
-            style={{ width: "120px", height: "120px", }}
-          >  <img 
-                src= {miImagen} 
-                alt="Imagen de ejemplo" 
-                className="img-fluid rounded mt-2"
-        />
+          <div className="me-4" style={{ width: "120px", height: "120px" }}>
+            {" "}
+            <img
+              src={miImagen}
+              alt="Imagen de ejemplo"
+              className="img-fluid rounded mt-2"
+            />
           </div>
         </div>
         <div></div>
@@ -102,12 +111,20 @@ const CustomNav = () => {
           <div className="flex-grow-1 w-100">
             <div
               className="mb-2"
-              style={{ background: "#ddd", padding: "5px", borderRadius: "5px", }}
+              style={{
+                background: "#ddd",
+                padding: "5px",
+                borderRadius: "5px",
+              }}
             >
               Links Despacho
             </div>
             <Form className="d-flex text-center">
-              <Form.Control type="text" placeholder="Buscar..." className="p-2" />
+              <Form.Control
+                type="text"
+                placeholder="Buscar..."
+                className="p-2"
+              />
             </Form>
           </div>
         </div>
