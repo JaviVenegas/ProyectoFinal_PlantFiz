@@ -39,7 +39,8 @@ const AdminAgregarProducto = () => {
             cantidad,
             imagen_url
           });
-          if ( response.status === 200 || response.status === 201) {
+          if 
+          ( response.status === 200 || response.status === 201) {
             setMensaje( "🌱 Planta agregada correctamente 🎉"); 
             toast.success("🌱 Planta agregada correctamente 🎉");
             setTimeout (() => setMensaje (""), 10000);
@@ -47,7 +48,7 @@ const AdminAgregarProducto = () => {
             setMensaje("❌ Error al agregar la planta ");
             toast.error("❌ Error al agregar la planta");
           }
-        
+          navigate("/admin");
         } catch (error) {
           throw error;
         }

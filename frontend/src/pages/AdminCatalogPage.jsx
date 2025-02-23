@@ -23,7 +23,7 @@ export const AdminCatalogPage = () => {
   }, []);
 
   return (
-    <Container className="my-4">
+    <div className="my-4">
       <h2 className="my-4">Editar catálogo</h2>
       <Container className="mt-3">
         <Button
@@ -38,11 +38,11 @@ export const AdminCatalogPage = () => {
         </Button>
       </Container>
 
-      <Container className="mt-5">
+     
         {plantas.map((planta) => (
           <AdminCatalog key={planta.id} product={planta} />
         ))}
-      </Container>
-    </Container>
+     
+    </div>
   );
 };
