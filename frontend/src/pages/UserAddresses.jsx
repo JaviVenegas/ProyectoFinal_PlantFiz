@@ -5,12 +5,15 @@ import { EditAddressForm } from "../components/EditAddressForm";
 import { ENDPOINT } from "../config/constants";
 import { AddAddressForm } from "../components/AddAddressForm";
 import axios from "axios";
+import { AddAddress } from "./AddAddress";
 
 export const UserAddresses = () => {
+  const [addAddress, setAddAddress] = useState(false);
   const [addAddress, setAddAddress] = useState(false);
   const [editAddress, setEditAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const { session } = useAuth();
   const { session } = useAuth();
 
   useEffect(() => {
@@ -30,6 +33,11 @@ export const UserAddresses = () => {
       console.error("Error al obtener direcciones:", error);
     }
   };
+      setAddresses(data.directions);
+    } catch (error) {
+      console.error("Error al obtener direcciones:", error);
+    }
+  };
 
   const handleDeleteAddress = async (id) => {
     try {
@@ -42,6 +50,14 @@ export const UserAddresses = () => {
       getAddresses();
     } catch (error) {
       console.error("Error al eliminar la direccion:", error);
+    }
+  };
+
+  const handleAddAddress = () => {
+    try {
+      setAddAddress(true);
+    } catch (error) {
+      console.error("Error al agregar la direccion:", error);
     }
   };
 
