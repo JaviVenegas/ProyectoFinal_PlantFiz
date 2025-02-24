@@ -1,5 +1,5 @@
 .nav-link-custom {
-    color: #000; 
+    color: #7d729b; 
     text-decoration: none;
     transition: color 0.3s ease;
   }
@@ -9,12 +9,12 @@
   }
   .custom-primary {
     background-color:  #c4bbdd !important;
-    border-color: #7d729b !important;
+    border-color: #7d729b!important;
   }
   
   .custom-primary:hover {
-    background-color: #ffe171!important;
-    border-color: #ffe171 !important;
+    background-color: #7d729b!important;
+    border-color: #7d729b !important;
     color:#000;
   }
   
