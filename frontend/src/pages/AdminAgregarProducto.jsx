@@ -161,7 +161,7 @@ const AdminAgregarProducto = () => {
         {mensaje && <p className="mt-3" > {mensaje}</p>}
 
         <Button variant="outline-secondary" 
-        onClick={() => navigate(`/admin`)}
+        onClick={() => navigate(`/admin/products`)}
         className="buttonAdmineditar mt-3 ms-3" 
         style={{ borderRadius: '5px', color: 'white' }} type="button">
           Cancelar
