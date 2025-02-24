@@ -31,10 +31,10 @@ const CustomNav = () => {
       >
         <Container>
           <Nav>
-            <Nav.Link as={Link} to="/" className="nav-link-custom">
+            <Nav.Link as={Link} to="/" className="nav-link-custom" style ={{color: "#7d729b"}}> 
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/catalogo" className="nav-link-custom">
+            <Nav.Link as={Link} to="/catalogo" className="nav-link-custom" style ={{color: "#7d729b"}}>
               Catálogo
             </Nav.Link>
 
@@ -46,6 +46,7 @@ const CustomNav = () => {
                   )
                 }
                 className="nav-link-custom"
+                style ={{color: "#7d729b"}}
               >
                 Perfil
               </Nav.Link>
