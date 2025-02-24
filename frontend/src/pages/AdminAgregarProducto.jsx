@@ -51,7 +51,7 @@ const AdminAgregarProducto = () => {
             setMensaje("❌ Error al agregar la planta ");
             toast.error("❌ Error al agregar la planta");
           }
-          navigate("/admin");
+          navigate("/admin/products");
         } catch (error) {
           throw error;
         }

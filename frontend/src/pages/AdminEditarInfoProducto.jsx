@@ -78,7 +78,7 @@ import "react-toastify/dist/ReactToastify.css";
         toast.success("🌱 Planta editada con éxito 🎉");
       }
 
-      navigate("/admin");
+      navigate("/admin/products");
     } catch (err) {
       console.error("Error al actualizar la planta:", err);
       setMensaje("❌ Error al editar la planta");
