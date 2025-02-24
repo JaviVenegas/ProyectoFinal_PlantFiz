@@ -82,7 +82,7 @@ const CustomNav = () => {
               style={{
                 borderRadius: "5px",
                 borderWidth: "1px",
-                color: "#7d729b",
+                color: "#ffff",
               }}
               as={Link}
               to="/cart"
