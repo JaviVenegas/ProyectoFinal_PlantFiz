@@ -77,7 +77,8 @@ const DetalleProducto = () => {
               onClick={() => addCart({ ...planta, count: 1 })}
             >
               <div 
-              className="d-flex align-items-center justify-content-evenly">  
+              className="d-flex align-items-center justify-content-evenly"
+              style={{ borderRadius: "5px" }}>  
                 Añadir al carrito
                 {currentProductCount > 0 && (
                   <Badge bg="outline-secondary" className="ms-2">
