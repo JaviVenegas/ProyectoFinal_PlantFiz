@@ -73,7 +73,7 @@ const DetalleProducto = () => {
             <Button 
               variant="outline-secondary" 
               className="w-100 me-5 my-5" 
-              style={{ borderRadius: '0' }} 
+              style={{ borderRadius: '5px' }} 
               onClick={() => addCart({ ...planta, count: 1 })}
             >
               <div 

@@ -31,6 +31,7 @@ const Cart = () => {
                                         <Col xs={3} className="text-center">
                                             <Card.Img
                                                 src={item.imagen_url}
+                                                
                                                 alt={item.nombre_planta}
                                                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
                                             />

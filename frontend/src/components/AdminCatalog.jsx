@@ -47,16 +47,15 @@ export const AdminCatalog = ({ product }) => {
     <Container fluid className="my-3 p-3">
       <Card className="d-flex flex-row align-items-center"
       style={{
-        width: "100%",  // Ocupar todo el ancho disponible
-        maxWidth: "100%",  // Evitar restricciones de Bootstrap
-        minWidth: "100%",  // Prevenir que se haga más pequeña
+        width: "100%", 
+        maxWidth: "100%",  
+        minWidth: "100%",  
     }}>
         <Card.Img
-          variant="left"
+          className="mx-3 d-flex align-items-center"   
           src={product.imagen_url}
+          style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "5px"}}
           alt={product.nombre_planta}
-          className="me-3 d-flex align-items-center"
-          style={{ width: "80px", height: "80px", objectFit: "cover" }}
         />
         <Card.Body className="d-flex justify-content-around align-items-stretch">
           <Col md={3}>
