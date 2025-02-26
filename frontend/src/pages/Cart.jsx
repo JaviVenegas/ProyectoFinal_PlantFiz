@@ -70,7 +70,7 @@ const Cart = () => {
                     {/* Total y Finalizar Compra */}
                     <div className="text-center my-4">
                         <h5>Total: ${total.toLocaleString()}</h5>
-                        <Button variant="success" className="mt-3">Finalizar Compra</Button>
+                        <Button style={{ background: "#a6bd75" }} className="mt-3">Finalizar Compra</Button>
                     </div>
                 </> 
             )}
