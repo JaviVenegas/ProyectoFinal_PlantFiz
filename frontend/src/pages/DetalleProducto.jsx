@@ -73,12 +73,11 @@ const DetalleProducto = () => {
             <Button 
               variant="outline-secondary" 
               className="w-100 me-5 my-5" 
-              style={{ borderRadius: '0' }} 
+              style={{ borderRadius: '5px' }} 
               onClick={() => addCart({ ...planta, count: 1 })}
             >
               <div 
-              className="d-flex align-items-center justify-content-evenly"
-              style={{ borderRadius: "5px" }}>  
+              className="d-flex align-items-center justify-content-evenly">  
                 Añadir al carrito
                 {currentProductCount > 0 && (
                   <Badge bg="outline-secondary" className="ms-2">

@@ -55,7 +55,7 @@ export const AdminCatalog = ({ product }) => {
           variant="left"
           src={product.imagen_url}
           alt={product.nombre_planta}
-          className="me-3 d-flex align-items-center"
+          className="my-3 d-flex align-items-center"
           style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "5px"}}
         />
         <Card.Body className="d-flex justify-content-around align-items-stretch">
