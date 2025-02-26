@@ -1,6 +1,5 @@
 
-export const URLBASE = 'https://plantfiz.onrender.com';
-
+export const URLBASE = import.meta.env.VITE_API_URL;
 
 export const ENDPOINT = {
  
