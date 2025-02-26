@@ -66,7 +66,8 @@ const DetalleProducto = () => {
           <div className="card-body">
             <h2 className="card-title text-start  mt-4 mb-4 fs-4">{planta.nombre_planta}</h2>
             <h2 className="card-title text-start mt-4 mb-4 fs-6"> <BiWorld className="fs-4" /> Origen: {planta.origen}</h2>
-            <p className="card-text"> Descripcion de la planta: <br/> {planta.descripcion_hojas}</p>
+            <p className="card-text"> <span style={{ fontWeight: "bold" }}>Descripcion de la planta:</span> <br />{planta.descripcion_hojas}</p>
+
             <h4 className="card-text text-start p-1">
               <strong className="fs-6"> Precio: ${planta.precio.toLocaleString()}</strong>
             </h4>
