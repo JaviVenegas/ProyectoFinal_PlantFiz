@@ -1,29 +1,28 @@
-/* Footer.css */
 .footer {
   background-color: #c4bbdd;
-    padding: 20px 0;
-    margin-top: 40px;
-    color: #7d729b;
-  }
-  
-  .contact-info p {
-    margin-bottom: 5px; 
-  }
-  
-  .contact-info p:last-child {
-    margin-bottom: 0; 
-  }
-  
-  .footer-links {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links a {
-    color: #7d729b;
-    text-decoration: none;
-  }
-  
-  .copyright {
-    margin: 0;
-  }
+  color: black;
+  padding: 50px 0;
+  margin-top: 3rem;
+}
+
+.contact-info p {
+  margin-bottom: 5px;
+}
+
+.contact-info p:last-child {
+  margin-bottom: 0;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links a {
+  color: black;
+  text-decoration: none;
+}
+
+.copyright {
+  margin: 0;
+}
