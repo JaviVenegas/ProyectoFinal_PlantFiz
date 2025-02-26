@@ -64,11 +64,11 @@ const DetalleProducto = () => {
         </Col>
         <Col md={5} className="d-flex justify-content-end ms-4">
           <div className="card-body">
-            <h2 className="card-title text-start text-uppercase mt-4 mb-4 fs-4">{planta.nombre_planta}</h2>
+            <h2 className="card-title text-start  mt-4 mb-4 fs-4">{planta.nombre_planta}</h2>
             <h2 className="card-title text-start mt-4 mb-4 fs-6"> <BiWorld className="fs-4" /> Origen: {planta.origen}</h2>
             <p className="card-text">{planta.descripcion_hojas}</p>
             <h4 className="card-text text-start p-1">
-              <strong className="fs-6"> ${planta.precio.toLocaleString()}</strong>
+              <strong className="fs-6"> Precio: ${planta.precio.toLocaleString()}</strong>
             </h4>
             <Button 
               variant="outline-secondary" 
