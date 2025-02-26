@@ -6,7 +6,7 @@ const Header = () => {
     <header
       className="d-flex align-items-center justify-content-center my-5"
       style={{
-        backgroundImage: "url('../../public/images/header_image.jpg')",
+        backgroundImage: "url('/images/header_image.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
