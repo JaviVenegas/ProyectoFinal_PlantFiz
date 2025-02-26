@@ -52,11 +52,10 @@ export const AdminCatalog = ({ product }) => {
         minWidth: "100%",  
     }}>
         <Card.Img
-          variant="left"
+          className="mx-3 d-flex align-items-center"   
           src={product.imagen_url}
           style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "5px"}}
           alt={product.nombre_planta}
-          className="mx-3 d-flex align-items-center"
         />
         <Card.Body className="d-flex justify-content-around align-items-stretch">
           <Col md={3}>
