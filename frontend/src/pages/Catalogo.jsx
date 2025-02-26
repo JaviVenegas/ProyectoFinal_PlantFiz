@@ -5,10 +5,6 @@ import Categorias from "../components/Categorias";
 import { ENDPOINT } from "../config/constants.js";
 import axios from "axios";
 
-
-//import "../../src/components/catalogo.css";
-
-
 const Catalogo = () => {
   const [plantas, setPlantas] = useState([]);
 
@@ -19,7 +15,7 @@ const Catalogo = () => {
       setPlantas(data.plantas || []);
 
 
-      
+
     } catch (error) {
       console.error("Error al obtener las plantas:", error);
       setPlantas([]);
