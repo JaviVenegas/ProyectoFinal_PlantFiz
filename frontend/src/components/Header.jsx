@@ -1,12 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import miImagen from "../assets/publicidad.jpg";
 
 const Header = () => {
   return (
     <header
       className="d-flex align-items-center justify-content-center my-5"
       style={{
-        backgroundImage: "url('../../public/images/header_image.jpg')",
+        backgroundImage: {miImagen},
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
