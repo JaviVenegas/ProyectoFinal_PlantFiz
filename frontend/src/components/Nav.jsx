@@ -5,7 +5,6 @@ import { FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "../context/CartContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import miImagen from "../assets/logoplantfiz.png";
 
 const CustomNav = () => {
   const { session, handleLogout } = useAuth();
@@ -75,8 +74,8 @@ const CustomNav = () => {
           {/* Logo */}
           <div className="me-4" style={{ width: "120px", height: "120px" }}>
             <img
-              src={miImagen}
-              alt="Imagen de ejemplo"
+              src={"/images/logo_plantfiz.png"}
+              alt="Logo PlantFiz"
               className="img-fluid rounded mt-2"
             />
           </div>
