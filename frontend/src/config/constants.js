@@ -11,8 +11,6 @@ export const ENDPOINT = {
     agregarPlanta: `${URLBASE}/productos/planta`,          // POST - Crear una planta
     editarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // PATCH - Editar una planta
     eliminarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // DELETE - Eliminar una planta
-  
-  
 
   // Auth
   register: `${URLBASE}/user/createUser`,    // POST
