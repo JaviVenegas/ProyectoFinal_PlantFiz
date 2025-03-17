@@ -54,7 +54,7 @@ export const UserAddresses = () => {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <Container className="d-flex">
         <h2 className="mb-4">Mis Direcciones</h2>
       </Container>
@@ -66,70 +66,70 @@ export const UserAddresses = () => {
         />
       ) : addAddress ? (
         <AddAddressForm setAddAddress={setAddAddress} />
-      ) :      
-      (
-        <Container className="d-flex mt-4">
-          <Card className="w-100 border p-2 rounded shadow-sm">
-            <Card.Body>
-              {addresses.length > 0 ? (
-                addresses.map((address, index) => (
-                  <div key={index} className="mb-4 p-4 border rounded">
-                    <p className="mb-1">
-                      <strong>Dirección:</strong> {address.direccion},
-                    </p>
-                    <p className="mb-1">
-                      <strong>Ciudad:</strong> {address.ciudad},
-                    </p>
-                    <p className="mb-1">
-                      <strong>Región:</strong> {address.region},
-                    </p>
-                    <p className="mb-1">
-                      <strong>Código Postal:</strong> {address.codigo_postal}
-                    </p>
+      ) :
+        (
+          <Container fluid className="d-flex" style={{ width: "100%" }}>
+            <Card className="border p-2 shadow-sm" style={{ minWidth: "-webkit-max-content" }}>
+              <Card.Body className="p-2">
+                {addresses.length > 0 ? (
+                  addresses.map((address, index) => (
+                    <div key={index} className="mb-4 p-4 border rounded">
+                      <p className="mb-1">
+                        <strong>Dirección:</strong> {address.direccion},
+                      </p>
+                      <p className="mb-1">
+                        <strong>Ciudad:</strong> {address.ciudad},
+                      </p>
+                      <p className="mb-1">
+                        <strong>Región:</strong> {address.region},
+                      </p>
+                      <p className="mb-1">
+                        <strong>Código Postal:</strong> {address.codigo_postal}
+                      </p>
 
-                    <div className="d-flex justify-content-end align-items-center gap-3">
-                      <Button
-                        variant="info"
-                        size="sm"
-                        onClick={() => {
-                          setSelectedAddress(address);
-                          setEditAddress(true);
-                        }}
-                      >
-                        Editar
-                      </Button>
+                      <div className="d-flex justify-content-end align-items-center gap-3 mt-4">
+                        <Button
+                          variant="info"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedAddress(address);
+                            setEditAddress(true);
+                          }}
+                        >
+                          Editar
+                        </Button>
 
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => {
-                          handleDeleteAddress(address.id);
-                        }}
-                      >
-                        Eliminar
-                      </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => {
+                            handleDeleteAddress(address.id);
+                          }}
+                        >
+                          Eliminar
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <p>No tienes direcciones registradas.</p>
-              )}
+                  ))
+                ) : (
+                  <p>No tienes direcciones registradas.</p>
+                )}
 
-              <div className="text-center mt-4">
-                <Button
-                  variant="dark"
-                  onClick={() => {
-                    setAddAddress(true);
-                    handleAddAddress();
-                  }}
-                >
-                  Añadir Dirección
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Container>
-      )}
+                <div className="text-center mt-4">
+                  <Button
+                    variant="dark"
+                    onClick={() => {
+                      setAddAddress(true);
+                      handleAddAddress();
+                    }}
+                  >
+                    Añadir Dirección
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Container>
+        )}
     </Container>
   );
 };

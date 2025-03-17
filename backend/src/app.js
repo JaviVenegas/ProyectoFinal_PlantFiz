@@ -7,23 +7,34 @@ const express = require('express');
 const morgan = require('morgan');
 const APIRoutes = require('./routes/routes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
-const cors = require('cors')  //habilita la comunicacion entre distintas app o dominios diferentes
+const cors = require('cors') 
 
 const app = express();
-
 
 
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+
+const allowedOrigins = [
+    'http://localhost:5173',  // Desarrollo
+    'https://proyectofinal-plantfiz.onrender.com'  // Producción
+];
+
 app.use(
     cors({
-        origin: [ 
-            process.env.NODE_ENV == 'production'
-                ? 'https://proyectofinal-plantfiz.onrender.com'
-                : 'http://localhost:5173/',
-            ],
-}));  
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('CORS no permitido para este origen'));
+            }
+        },
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+    })
+);
 
 // Routes
 app.use('/', APIRoutes)

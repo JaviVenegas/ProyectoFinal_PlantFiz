@@ -1,6 +1,5 @@
 
-export const URLBASE = 'https://plantfiz.onrender.com';
-
+export const URLBASE = import.meta.env.VITE_API_URL;
 
 export const ENDPOINT = {
  
@@ -12,8 +11,6 @@ export const ENDPOINT = {
     agregarPlanta: `${URLBASE}/productos/planta`,          // POST - Crear una planta
     editarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // PATCH - Editar una planta
     eliminarPlanta: (id) => `${URLBASE}/productos/planta/${id}`,          // DELETE - Eliminar una planta
-  
-  
 
   // Auth
   register: `${URLBASE}/user/createUser`,    // POST
