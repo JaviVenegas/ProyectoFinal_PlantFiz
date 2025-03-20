@@ -1,3 +1,4 @@
+-- Active: 1729978767201@@127.0.0.1@5432@plantfiz
 
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
@@ -261,6 +262,7 @@ VALUES
 
 
 
+select * from plantas;
 
 select * from plantas where id='14';
 select * from stock_plantas where id_planta='14';

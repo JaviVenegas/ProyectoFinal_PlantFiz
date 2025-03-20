@@ -7,7 +7,7 @@ const Cart = () => {
     const { cart, addCart, removeFromCart, deletePlanta, total } = useContext(CartContext);
 
     return (
-        <Container fluid className="my-5 px-4">  {/* Cambié a fluid y agregué padding */}
+        <Container fluid className="my-5 px-4">  
             <h1 className="text-center my-4">Carrito de Compras</h1>
 
             {cart.length === 0 ? (
@@ -17,17 +17,17 @@ const Cart = () => {
                     {/* Info del carrito */}
                     <Row className="justify-content-center my-3">  
                         {cart.map((item) => (
-                            <Col xs={12} key={item.id}>  {/* Ocupar todo el ancho */}
+                            <Col xs={12} key={item.id}> 
                                 <Card 
                                     className="w-100 my-3 p-3 shadow-sm" 
                                     style={{
-                                        width: "100%",  // Ocupar todo el ancho disponible
-                                        maxWidth: "100%",  // Evitar restricciones de Bootstrap
-                                        minWidth: "100%",  // Prevenir que se haga más pequeña
+                                        width: "100%",  
+                                        maxWidth: "100%",  
+                                        minWidth: "100%",  
                                     }}
 >
 
-                                    <Row className="align-items-center">  {/* Asegurar buen layout */}
+                                    <Row className="align-items-center"> 
                                         <Col xs={3} className="text-center">
                                             <Card.Img
                                                 src={item.imagen_url}
