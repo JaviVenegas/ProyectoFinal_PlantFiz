@@ -3,37 +3,44 @@ import { Form, Button, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { ENDPOINT } from "../config/constants";
+import axios from "axios";
 
 export const LoginForm = () => {
-  const { handleSession, session } = useAuth();
+  const { session ,handleSession } = useAuth();
   const navigate = useNavigate();
-
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     correo: "",
     contrasena: "",
   });
 
-  const [error, setError] = useState(false);
-
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    if (session == null) {
-      return alert("Usuario no registrado");
-    }
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
-    if (
-      session.correo === formData.correo &&
-      session.contrasena === formData.contrasena
-    ) {
-      handleSession(session);
-      navigate("/admin");
-    } else {
-      setError(true);
+    try {
+      const { data } = await axios.post(ENDPOINT.login, formData);
+
+      handleSession({
+        token: data.token,
+        user: data.user
+      }); 
+      
+      if (data.user.rol === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/perfil");
+      }
+
+
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Error al iniciar sesión';
+      setError(errorMessage);
     }
   };
 
@@ -83,7 +90,7 @@ export const LoginForm = () => {
           <p className="mt-3 text-center p-3 d-flex flex-column">
             ¿No tienes cuenta?{" "}
             <Link to="/register">Registrate</Link> <br />
-            <Nav.Link href="/">Ir a la página principal</Nav.Link>
+            <Nav.Link as={Link} to="/">Ir a la página principal</Nav.Link>
           </p>
         </Container>
       </Container>

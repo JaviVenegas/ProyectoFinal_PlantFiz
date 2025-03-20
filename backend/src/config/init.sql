@@ -1,4 +1,5 @@
 -- Active: 1729978767201@@127.0.0.1@5432@plantfiz
+
 -- ==================================================
 --  SCRIPT DE CREACION DE TABLAS EN POSTGRESQL
 -- ==================================================
@@ -44,8 +45,8 @@ CREATE TABLE plantas (
     origen VARCHAR(100),
     descripcion_hojas TEXT,
     ideal_para TEXT,
-    agua VARCHAR(50),
-    luz VARCHAR(50)
+    agua VARCHAR(250),
+    luz VARCHAR(250)
 );
 
 
@@ -230,45 +231,47 @@ INSERT INTO plantas (nombre_planta, precio, origen, descripcion_hojas, ideal_par
  'Interiores, en lugares con luz indirecta.', 
  'Necesita riego cuando el sustrato esté seco al tacto, evitar el exceso de agua.', 
  'Requiere luz indirecta brillante, puede tolerar sombra.' 
-),
-
-('Monstera Deliciosa', 7500, 'Centroamérica', 
- 'Hojas grandes, verdes y con perforaciones características que le dan su aspecto único.', 
- 'Interior en zonas con buena iluminación.', 
- 'Regar cuando la capa superior del suelo esté seca, sin encharcar.', 
- 'Luz indirecta brillante o sombra parcial, tolera poca luz.'
 );
+
+
 
 INSERT INTO stock_plantas (id_planta, cantidad) 
 VALUES 
-    (72, 3),
-    (73, 3),
-    (74, 4),
-    (75, 10),
-    (76, 3),
-    (77, 0),
-    (78, 0),
-    (79, 2),
-    (80, 4);
+    (1, 3),
+    (2, 3),
+    (3, 4),
+    (4, 10),
+    (5, 3),
+    (6, 0),
+    (7, 0),
+    (8, 2),
+    (9, 4);
 
 INSERT INTO imagenes_plantas (id_planta, imagen_url) 
 VALUES 
-    (72, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
-    (73, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
-    (74, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg'),
-    (75, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
-    (76, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
-    (77, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
-    (78, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
-    (79, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
-    (80, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
-    (81, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg');
-    ;
+(1, 'http://localhost:3000/uploads/public/1740176072437-1b_Afelandra.jpg'),
+(2, 'http://localhost:3000/uploads/public/1740176135452-2b_DolarBlanco.jpg'),
+(3, 'http://localhost:3000/uploads/public/1740184379797-3b_MusaVelutina.jpg'),
+(4, 'http://localhost:3000/uploads/public/1740174097265-4b_Cinta.jpg'),
+(5, 'http://localhost:3000/uploads/public/1740184482686-5b_HelechoPolystichum.jpg'),
+(6, 'http://localhost:3000/uploads/public/1740184530219-6b_ficusLyrata.jpg'),
+(7, 'http://localhost:3000/uploads/public/1740184690607-7b_PhilodendroParaguayo.jpg'),
+(8, 'http://localhost:3000/uploads/public/1740174262978-8b_Singonio.jpg'),
+(9, 'http://localhost:3000/uploads/public/1740174290417-9b_Singonio.jpg'),
+(10, 'http://localhost:3000/uploads/public/1740174365177-10b_ficusAli.jpg');
 
 
 
-select * from plantas
+select * from plantas;
 
-select * from imagenes_plantas
+select * from plantas where id='14';
+select * from stock_plantas where id_planta='14';
+
+select * from imagenes_plantas WHERE id_planta='14';
 
 select * from stock_plantas
+-- Insertar datos en la tabla "direcciones"
+INSERT INTO direcciones (id_usuario, direccion, ciudad, region, codigo_postal) VALUES
+(33, 'Av. Siempre Viva 742', 'Springfield', 'Illinois', '62704'),
+(33, 'Calle Falsa 123', 'Ciudad Gótica', 'Nueva York', '10001'),
+(33, 'Paseo del Prado 56', 'Madrid', 'Madrid', '28014');

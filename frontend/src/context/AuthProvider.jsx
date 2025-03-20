@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
 	const handleLogout = () => {
 		setSession(null);
-		handleRemoveStorageSession(); 
+		handleRemoveStorageSession();
 	};
 
 	useEffect(() => {

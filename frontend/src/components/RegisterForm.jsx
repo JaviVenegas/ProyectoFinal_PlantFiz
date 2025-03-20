@@ -2,34 +2,47 @@ import { useState } from "react";
 import { Form, Button, Container, Nav } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
+import { ENDPOINT } from "../config/constants";
+import axios from "axios";
+
+
 
 export const RegisterForm = () => {
   const { handleSession } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const [formData, setFormData] = useState({
-    token: "token de prueba",
     rut: "",
     nombre: "",
     apellido: "",
     correo: "",
     contrasena: "",
-    rol: "admin",
     telefono: "",
+    rol: "user"
   });
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleSession(formData);
+    setError('');
 
-    if (formData.rol === "user") {
-      navigate("/catalog");
-    } else {
-      navigate("/admin");
+    try {
+      const { data } = await axios.post(ENDPOINT.register, formData);
+
+      handleSession({
+        token: data.token,
+        user: data.user
+      });
+
+      navigate("/login");
+
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Error al registrar usuario';
+      setError(errorMessage);
     }
   };
 
@@ -110,6 +123,8 @@ export const RegisterForm = () => {
               />
             </Form.Group>
 
+            {error && <div className="alert alert-danger">{error}</div>}
+
             <Button variant="dark" type="submit" className="w-100">
               Crear Cuenta
             </Button>
@@ -117,7 +132,7 @@ export const RegisterForm = () => {
           <p className="mt-3 text-center p-3 d-flex flex-column">
             ¿Ya tienes cuenta?{" "}
             <Link to="/login">Iniciar sesión</Link> <br />
-            <Nav.Link href="/">Ir a la página principal</Nav.Link>
+            <Nav.Link as={Link} to="/">Ir a la página principal</Nav.Link>
           </p>
         </Container>
       </Container>

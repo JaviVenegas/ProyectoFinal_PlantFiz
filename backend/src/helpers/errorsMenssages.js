@@ -41,6 +41,12 @@ module.exports = {
         message: 'Datos de usuario inválidos',
         description: 'Error en el formato o campos requeridos faltantes',
     },
+    UPDATE_USER_ERROR: {
+        id: 'updateUserError',
+        statusCode: 400,
+        message: 'Error al actualizar el usuario',
+        description: 'Error inesperado en el servidor, intenta de nuevo',
+    },  
     CREDENTIALS_ERROR: {
         id: 'credentialsError',
         statusCode: 401,

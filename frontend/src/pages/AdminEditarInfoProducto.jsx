@@ -78,7 +78,7 @@ import "react-toastify/dist/ReactToastify.css";
         toast.success("🌱 Planta editada con éxito 🎉");
       }
 
-      navigate("/admin");
+      navigate("/admin/products");
     } catch (err) {
       console.error("Error al actualizar la planta:", err);
       setMensaje("❌ Error al editar la planta");
@@ -192,7 +192,7 @@ import "react-toastify/dist/ReactToastify.css";
         
         variant="outline-secondary" 
         className=" buttonAdmineditar mt-3 ms-3" 
-        onClick={() => navigate(`/admin`)}
+        onClick={() => navigate(`/admin/products`)}
         style={{ borderRadius: '5px', color: 'white' }} type="button">
           Cancelar
         </Button>

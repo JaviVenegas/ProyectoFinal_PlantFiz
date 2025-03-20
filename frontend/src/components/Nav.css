@@ -1,20 +1,26 @@
 .nav-link-custom {
-    color: #000; 
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-link-custom:hover {
-    color: #7d729b"; 
-  }
-  .custom-primary {
-    background-color:  #c4bbdd !important;
-    border-color: #7d729b !important;
-  }
-  
-  .custom-primary:hover {
-    background-color: #ffe171!important;
-    border-color: #ffe171 !important;
-    color:#000;
-  }
-  
+  color: black !important;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.nav-link-custom:hover {
+  background-color: #7d729b !important;
+  color: #ffffff !important;
+}
+
+.custom-primary {
+  background-color: #c4bbdd !important; 
+  border-color: #7d729b !important;
+  border-radius: "5px";
+  border-width: "1px";
+  color: black !important;
+}
+
+.custom-primary:hover {
+  background-color: #7d729b !important;
+  border-color: #7d729b !important;
+  color: #fff !important;
+}
