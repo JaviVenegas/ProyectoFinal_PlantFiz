@@ -10,16 +10,14 @@ import { AdminCatalogPage } from "../pages/AdminCatalogPage";
 import NotFound from "../pages/NotFound";
 import Catalogo from "../pages/Catalogo";
 import AdminEditarInfoProducto from "../pages/AdminEditarInfoProducto";
-import AdminAgregarProducto  from "../pages/AdminAgregarProducto";
-
-
-
+import AdminAgregarProducto from "../pages/AdminAgregarProducto";
 import Cart from "../pages/Cart";
 import DetalleProducto from "../pages/DetalleProducto";
 import { PerfilUsuario } from "../pages/PerfilUsuario";
 import { UserDashboard } from "../pages/UserDashboard";
 import { UserData } from "../pages/UserData";
 import { UserAddresses } from "../pages/UserAddresses";
+import { ConfirmOrder } from "../components/ConfirmOrder";
 
 export const RouterManager = () => {
   const { session } = useAuth();
@@ -36,6 +34,15 @@ export const RouterManager = () => {
           {/* Aquí va el detalle de producto del usuario(cliente) */}
           <Route path="/cart" element={<Cart />} />
 
+          {/* Ruta de Autenticación con MainLayout para el pedido*/}
+          <Route path="/cart/confirmOrder" element={
+            <AuthGuard
+              isAllow={session?.user?.rol === "user"}
+              redirectTo="/login">
+              <ConfirmOrder />
+            </AuthGuard>
+          } />
+
           {/* Seccion de usuario como ruta hija */}
           <Route
             path="/perfil/*"
@@ -49,7 +56,7 @@ export const RouterManager = () => {
             }
           >
             {/* Rutas hijas de perfil */}
-            
+
             <Route index element={<UserDashboard />} />
             <Route path="data" element={<UserData />} />
             <Route path="addresses" element={<UserAddresses />} />
@@ -78,8 +85,8 @@ export const RouterManager = () => {
           <Route path="products" element={<AdminCatalogPage />} />
           <Route path="users" element={"<AdminUsersPage />"} />
 
-          <Route path="AdminEditarInfoProducto/:id"element={<AdminEditarInfoProducto />} />
-          <Route path="AdminAgregarProducto" element={<AdminAgregarProducto />} /> 
+          <Route path="AdminEditarInfoProducto/:id" element={<AdminEditarInfoProducto />} />
+          <Route path="AdminAgregarProducto" element={<AdminAgregarProducto />} />
         </Route>
 
         {/* Ruta 404 */}

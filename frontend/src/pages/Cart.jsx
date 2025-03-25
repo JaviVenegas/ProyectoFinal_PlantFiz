@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Card, Form, Button, Col, Container, Row } from "react-bootstrap";
 import { IoTrashOutline } from "react-icons/io5";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const { cart, addCart, removeFromCart, deletePlanta, total } = useContext(CartContext);
+    const navigate = useNavigate();
+
 
     return (
         <Container fluid className="my-5 px-4">  {/* Cambié a fluid y agregué padding */}
@@ -15,23 +18,23 @@ const Cart = () => {
             ) : (
                 <>
                     {/* Info del carrito */}
-                    <Row className="justify-content-center my-3">  
+                    <Row className="justify-content-center my-3">
                         {cart.map((item) => (
                             <Col xs={12} key={item.id}>  {/* Ocupar todo el ancho */}
-                                <Card 
-                                    className="w-100 my-3 p-3 shadow-sm" 
+                                <Card
+                                    className="w-100 my-3 p-3 shadow-sm"
                                     style={{
                                         width: "100%",  // Ocupar todo el ancho disponible
                                         maxWidth: "100%",  // Evitar restricciones de Bootstrap
                                         minWidth: "100%",  // Prevenir que se haga más pequeña
                                     }}
->
+                                >
 
                                     <Row className="align-items-center">  {/* Asegurar buen layout */}
                                         <Col xs={3} className="text-center">
                                             <Card.Img
                                                 src={item.imagen_url}
-                                                
+
                                                 alt={item.nombre_planta}
                                                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
                                             />
@@ -41,8 +44,8 @@ const Cart = () => {
                                             <Card.Title>{item.nombre_planta}</Card.Title>
                                             <div className="d-flex align-items-center">
                                                 <IoTrashOutline />
-                                                <Button 
-                                                    variant="outline-danger" 
+                                                <Button
+                                                    variant="outline-danger"
                                                     className="ms-2"
                                                     onClick={() => deletePlanta(item.id)}
                                                 >
@@ -70,9 +73,9 @@ const Cart = () => {
                     {/* Total y Finalizar Compra */}
                     <div className="text-center my-4">
                         <h5>Total: ${total.toLocaleString()}</h5>
-                        <Button style={{ background: "#a6bd75", borderBlockColor: "#a6bd75" }} className="mt-3">Finalizar Compra</Button>
+                        <Button style={{ background: "#a6bd75", borderBlockColor: "#a6bd75" }} onClick={() => navigate("/cart/confirmOrder")} className="mt-3">Finalizar Compra</Button>
                     </div>
-                </> 
+                </>
             )}
         </Container>
     );
