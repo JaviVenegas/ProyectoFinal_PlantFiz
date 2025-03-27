@@ -1,4 +1,7 @@
+
 const { DB } = require("../config/db");
+const  format  = require("pg-format");
+
 
 // Crear planta para portal admin
 const agregarPlanta = async (
@@ -65,22 +68,75 @@ const agregarPlanta = async (
 };
 
 //Obtener todos las plantas con paginacion y orden para portal catalogo
-const obtenerPlantas = async (limit = 12) => {
-  try {
-    const SQLQuery = `
-            SELECT p.*, s.cantidad, i.imagen_url
-            FROM plantas p
-            LEFT JOIN stock_plantas s ON p.id = s.id_planta
-            LEFT JOIN imagenes_plantas i ON p.id = i.id_planta
-            LIMIT $1
-        `;
+const obtenerPlantas = async (limit = 12,  order_by = "id_ASC", page = 1) => {
 
-    const SQLValues = [limit];
-    const { rows } = await DB.query(SQLQuery, SQLValues);
-    return rows;
+  try {
+    const [campo, direccion] = order_by.split('_');
+    const offset = Math.abs(( page - 1) * limit);
+
+    console.log( offset );
+    
+    const SQLQuery = format(`
+              SELECT p.*, s.cantidad, i.imagen_url
+              FROM plantas p
+              LEFT JOIN stock_plantas s ON p.id = s.id_planta
+              LEFT JOIN imagenes_plantas i ON p.id = i.id_planta 
+              ORDER BY %s %s
+              LIMIT %s
+              OFFSET %s`, 
+              campo, 
+              direccion, 
+              limit, 
+              offset
+        );
+
+
+    console.log("📌 Consulta SQL:", SQLQuery)
+    
+    const {rows, rowCount} = await DB.query(SQLQuery);
+    const { rowCount: count} = await DB.query(`SELECT * FROM plantas`);
+
+    return  {
+            rows,
+            rowCount,
+            pages: Math.ceil(count / limit)
+          }
+
   } catch (error) {
     throw error;
   }
+};
+
+//Obtener plantas por filtros 
+
+const obtenerPlantasPorFiltros = async (precio_min, precio_max) => {
+
+  try {
+  let filtros = []
+  if (precio_max) filtros.push(`precio <= ${precio_max}`)
+  if (precio_min) filtros.push(`precio >= ${precio_min}`)
+let consulta = "SELECT * FROM plantas"
+if (filtros.length > 0) {
+filtros = filtros.join(" AND ")
+consulta += ` WHERE ${filtros}`
+}
+const { rows: medicamentos } = await pool.query(consulta)
+return medicamentos
+} catch (error) {
+    throw error;
+  }
+};
+
+const handleGetFilters = async (precio_min = '', precio_max = '') => {
+  
+    let filtros = [];
+    if (precio_max) filtros.push(`precio <= ${precio_max}`);
+    if (precio_min) filtros.push(`precio >= ${precio_min}`);
+    let consulta = "SELECT * FROM plantas";
+    if (filtros.length > 0) {
+      filtros = filtros.join(" AND ");
+      consulta += ` WHERE ${filtros}`;
+    }
 };
 
 //obtener planta por id para detalle de producto

@@ -5,8 +5,8 @@ const { DB } = require('../config/db');
 //Obtener todos los productos
 const handleGetAllPlantas = async (req, res, next) => {
     try {
-        const { limit } = req.query;  //destructuring de limit de query
-        const ListadoPlantas = await plantas.obtenerPlantas(limit);
+        const { limit, order_by, page} = req.query;  //destructuring de limit de query
+        const ListadoPlantas = await plantas.obtenerPlantas(limit, order_by, page);
 
         if (!ListadoPlantas) {
             throw new Error('PLANT_GET_ERROR');
