@@ -23,6 +23,26 @@ const handleGetAllPlantas = async (req, res, next) => {
         next(error);
     }
 }
+const handleGetFilters= async (req, res, next) => {
+    try {
+        const { precio_min, precio_max} = req.query;  //destructuring de limit de query
+        const response = await plantas.obtenerPlantasPorFiltros(precio_min, precio_max);
+
+        if (!response) {
+            throw new Error('PLANT_GET_ERROR');
+        }
+
+        res.json({
+            message: 'Filtro obtenido correctamente',
+            plantas: response,
+           
+        });
+
+
+    } catch (error) {
+        next(error);
+    }
+}
 
 //Obtener un producto por id con GET
 const handleGetPlanta = async (req, res, next) => {
@@ -121,5 +141,6 @@ module.exports = {
     handlePostPlanta,
     handleEditPlanta,
     handleDeletePlanta,
-    handleGetPlanta
+    handleGetPlanta,
+    handleGetFilters
 }                   

@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const router = Router();
-const {handleGetAllPlantas, handleGetPlanta, handlePostPlanta, handleDeletePlanta, handleEditPlanta} = require('../controllers/plantas.controller');
+const {handleGetAllPlantas, handleGetPlanta, handlePostPlanta, handleDeletePlanta, handleEditPlanta, handleGetFilters} = require('../controllers/plantas.controller');
 
 
 router.get('/plantas', handleGetAllPlantas); //obtener todos los productos
+router.get('/filters', handleGetFilters); //obtener productos filtrados 
 router.get('/planta/:id', handleGetPlanta); //obtener producto por id 
 router.post('/planta', handlePostPlanta); //crear producto en admin 
 router.patch('/planta/:id', handleEditPlanta); //actualizar producto admin 

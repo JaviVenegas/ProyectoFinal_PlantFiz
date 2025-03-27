@@ -112,16 +112,17 @@ const obtenerPlantas = async (limit = 12,  order_by = "id_ASC", page = 1) => {
 const obtenerPlantasPorFiltros = async (precio_min, precio_max) => {
 
   try {
-  let filtros = []
-  if (precio_max) filtros.push(`precio <= ${precio_max}`)
-  if (precio_min) filtros.push(`precio >= ${precio_min}`)
-let consulta = "SELECT * FROM plantas"
-if (filtros.length > 0) {
-filtros = filtros.join(" AND ")
-consulta += ` WHERE ${filtros}`
-}
-const { rows: medicamentos } = await pool.query(consulta)
-return medicamentos
+    const SQLQuery = await handleGetFilters(precio_min, precio_max);
+    
+
+    const {rows, rowCount} = await DB.query(SQLQuery);
+
+    return  {
+            rows, 
+            rowCount
+          }
+
+  
 } catch (error) {
     throw error;
   }
@@ -137,6 +138,8 @@ const handleGetFilters = async (precio_min = '', precio_max = '') => {
       filtros = filtros.join(" AND ");
       consulta += ` WHERE ${filtros}`;
     }
+
+  return consulta
 };
 
 //obtener planta por id para detalle de producto
@@ -256,4 +259,6 @@ module.exports = {
   eliminarPlanta,
   ObtenerPlantaPorId,
   existe,
+  handleGetFilters, 
+  obtenerPlantasPorFiltros
 };
